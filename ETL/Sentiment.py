@@ -1,4 +1,3 @@
-from polyglot.detect import Detector
 from googletrans import Translator
 
 
@@ -21,7 +20,7 @@ class Sentiment:
     def analyse_sentence(self, sentence):
         translated_text = self.__text_to_english(sentence)
         print(translated_text.text)
-        
+
 
 if __name__ == '__main__':
     texts = ['Hola me llamo Adrián']
