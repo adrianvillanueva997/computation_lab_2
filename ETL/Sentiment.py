@@ -39,7 +39,7 @@ class Sentiment:
             english_text = translated_text.text
             print(english_text)
             polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
-            sentiments['polarit1y'].append(polarity)
+            sentiments['polarity'].append(polarity)
             sentiments['subjectivity'].append(subjectivity)
             neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
             sentiments['negativity'].append(neg)
