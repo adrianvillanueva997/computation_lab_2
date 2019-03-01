@@ -1,4 +1,5 @@
 import config as cfg
+from simplecrypt import encrypt, decrypt
 
 
 class Register:
@@ -10,29 +11,49 @@ class Register:
 
     def __check_email(self):
         with self.__con.connect() as con:
-            query = f'SELECT * FROM proyecto_computacion.user where email like \"{self.__email}\" LIMIT 1'
+            query = f'SELECT * FROM proyecto_computacion.user where email = \"{self.__email}\" LIMIT 1'
             results = con.execute(query)
-            query_length = len(results.keys())
-            if len(query_length) is not 0:
-                return False
-            else:
+            result_query = []
+            for result in results:
+                result_query.append(result)
+            print(len(result_query))
+            if len(result_query) is 0:
                 return True
+            else:
+                return False
 
     def __check_username(self):
         with self.__con.connect() as con:
-            query = f'SELECT * FROM proyecto_computacion.user where user_name like \"{self.__username}\" LIMIT 1'
+            query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{self.__username}\" LIMIT 1'
             results = con.execute(query)
-            query_length = len(results.keys())
-            if len(query_length) is not 0:
-                return False
-            else:
+            result_query = []
+            for result in results:
+                result_query.append(result)
+            print(len(result_query))
+            if len(result_query) is 0:
                 return True
+            else:
+                return False
+
+    @staticmethod
+    def __encrypt_password(password):
+        encrypted_password = encrypt(cfg.encrypton_password, password)
+        return encrypted_password
 
     def upload_user(self):
-        if (self.__check_email() and self.__check_username()):
+        if self.__check_email() and self.__check_username():
             with self.__con.connect() as con:
+                password = self.__encrypt_password(self.__password)
+                password = str(password).replace('b\'', '')
+                query = f'INSERT INTO proyecto_computacion.user (user_name, email,password)' \
+                    f' VALUES (\"{self.__username}\",\"{self.__email}\",\"{password}\");'
+                con.execute(query)
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
-    re = Register(username='test', password='1234', email='lmao')
-    print(re.check_username())
+    re = Register(username='adrias', password='1234', email='adraas')
+    a = re.upload_user()
+    print(a)
