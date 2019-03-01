@@ -39,7 +39,7 @@ class Sentiment:
             english_text = translated_text.text
             print(english_text)
             polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
-            sentiments['polarity'].append(polarity)
+            sentiments['polarit1y'].append(polarity)
             sentiments['subjectivity'].append(subjectivity)
             neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
             sentiments['negativity'].append(neg)
@@ -87,6 +87,7 @@ class Sentiment:
         sent = blob.sentiment
         polarity = sent.polarity
         subjectivity = sent.subjectivity
+        print(blob.sentiment)
         return polarity, subjectivity
 
     @staticmethod
@@ -98,13 +99,5 @@ class Sentiment:
         """
         sid = SentimentIntensityAnalyzer()
         ss = sid.polarity_scores(text)
+        print(ss)
         return ss['neg'], ss['neu'], ss['pos'], ss['compound']
-
-
-if __name__ == '__main__':
-    texts = ['El camarero adrián era un puto inutil', 'Siedzę w pociągu i słucham muzyki przez słuchawki',
-             'Mida sa teed?',
-             'Хочу чашку чая']
-    sentiment = Sentiment()
-    sentiments = sentiment.analyse_texts(texts=texts)
-    print(sentiments)
