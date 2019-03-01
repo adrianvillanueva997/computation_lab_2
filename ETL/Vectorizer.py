@@ -7,7 +7,10 @@ from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
-from ETL import Text_Procesing, File_Manager
+try:
+    from ETL import Text_Procesing, File_Manager
+except Exception as e:
+    import Text_Procesing, File_Manager
 
 
 class Vectorizer:
@@ -148,9 +151,6 @@ class Vectorizer:
         else:
             self.__data_frame['labels'].value_counts().plot(kind="bar", legend=False, ax=container)
 
-
-
-
     def export_dataframe_csv(self, path, model_name):
         try:
             extension = '.csv'
@@ -169,10 +169,10 @@ class Vectorizer:
         b_reviews = self.__data_frame.loc[self.__data_frame['labels'] == 'B']
         n_reviews = self.__data_frame.loc[self.__data_frame['labels'] == 'N']
 
-        if not os.path.exists(os.path.join(path,'good')):
-            os.makedirs(os.path.join(path,'good'))
-        if not os.path.exists(os.path.join(path,'neutral')):
-            os.makedirs(os.path.join(path,'neutral'))
+        if not os.path.exists(os.path.join(path, 'good')):
+            os.makedirs(os.path.join(path, 'good'))
+        if not os.path.exists(os.path.join(path, 'neutral')):
+            os.makedirs(os.path.join(path, 'neutral'))
         if not os.path.exists(os.path.join(path, 'bad')):
             os.makedirs(os.path.join(path, 'bad'))
 

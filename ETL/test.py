@@ -1,15 +1,18 @@
-from ETL import Models, Vectorizer, File_Manager
+try:
+    from ETL import Models, Vectorizer, File_Manager
+except Exception as e:
+    import Models, Vectorizer, File_Manager
 
 if __name__ == '__main__':
     fm = File_Manager.File_Manager()
     good_reviews, g_file_names = fm.extract_data_from_files(
-        '/home/xiao/datasets/proyecto_computacion/dataset_entrenamiento/buenas/')
+        '/home/xiao/Downloads/dataset_entrenamiento/buenas/')
     bad_reviews, b_file_names = fm.extract_data_from_files(
-        '/home/xiao/datasets/proyecto_computacion/dataset_entrenamiento/malas/')
+        '/home/xiao/Downloads/dataset_entrenamiento/malas/')
     neutral_reviews, n_file_names = fm.extract_data_from_files(
-        '/home/xiao/datasets/proyecto_computacion/dataset_entrenamiento/neutras/')
+        '/home/xiao/Downloads/dataset_entrenamiento/neutras')
     unlabeled_reviews, u_file_names = fm.extract_data_from_files(
-        r'/home/xiao/datasets/proyecto_computacion/dataset_entrenamiento/unlabeled/')
+        r'/home/xiao/Downloads/dataset_entrenamiento/unlabeled')
     vectorizer = Vectorizer.Vectorizer(good_reviews, bad_reviews, neutral_reviews, unlabeled_reviews)
     x_train, x_test, y_train, y_test = vectorizer.generate_train_test_data(vectorizer='count_vect',
                                                                            test_size=0.1, random_state=None)
