@@ -1,7 +1,6 @@
 import itertools
 import os
 import pickle
-import pandas as pd
 import graphviz
 import matplotlib.pyplot as plt
 import numpy as np
