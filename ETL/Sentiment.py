@@ -1,7 +1,5 @@
 from googletrans import Translator
 from textblob import TextBlob
-import translate
-from polyglot.detect import Detector
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import pandas as pd
 import time
@@ -22,12 +20,24 @@ class Sentiment:
         :param text:
         :return:
         """
-        try:
-            time.sleep(2)
-            eng_text = Translator().translate(text)
-            return eng_text
-        except Exception as e:
-            print(e)
+        time.sleep(2)
+        eng_text = Translator().translate(text)
+        return eng_text
+
+    @staticmethod
+    def __text_to_english_backup(text):
+
+        time.sleep(2)
+        blob = TextBlob(text)
+        language_code = blob.detect_language()
+        print(language_code)
+        if language_code is 'en':
+            return text
+        else:
+            english_text = blob.translate(to='en')
+            print(language_code)
+            print(english_text)
+            return english_text
 
     def analyse_texts(self, texts):
         """
@@ -45,7 +55,11 @@ class Sentiment:
             'compound': []
         }
         for text in texts:
-            translated_text = self.__text_to_english(text)
+            translated_text = None
+            try:
+                translated_text = self.__text_to_english(text)
+            except Exception as e:
+                translated_text = self.__text_to_english_backup(text)
             if translated_text is not None:
                 english_text = translated_text.text
                 print(english_text)
@@ -74,7 +88,11 @@ class Sentiment:
             'neutrality': [],
             'compound': []
         }
-        translated_text = self.__text_to_english(sentence)
+        translated_text = None
+        try:
+            translated_text = self.__text_to_english(sentence)
+        except Exception as e:
+            translated_text = self.__text_to_english_backup(sentence)
         if translated_text is not None:
             english_text = translated_text.text
             polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
