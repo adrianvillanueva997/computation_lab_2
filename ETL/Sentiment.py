@@ -46,7 +46,7 @@ class Sentiment:
         :param texts:
         """
         sentiments = {
-            'texts': [],
+            'texts': texts,
             'polarity': [],
             'subjectivity': [],
             'positivity': [],
@@ -56,13 +56,17 @@ class Sentiment:
         }
         for text in texts:
             translated_text = None
+
             try:
                 translated_text = self.__text_to_english(text)
             except Exception as e:
                 translated_text = self.__text_to_english_backup(text)
             if translated_text is not None:
-                english_text = translated_text.text
-                print(english_text)
+                try:
+                    english_text = translated_text.text
+                except Exception as e:
+                    print(e)
+                    english_text = translated_text
                 polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
                 sentiments['polarity'].append(polarity)
                 sentiments['subjectivity'].append(subjectivity)
@@ -71,8 +75,9 @@ class Sentiment:
                 sentiments['neutrality'].append(neu)
                 sentiments['positivity'].append(pos)
                 sentiments['compound'].append(comp)
-            self.__sentiments = sentiments
-            return sentiments
+        self.__sentiments = sentiments
+        print(self.__sentiments)
+        return sentiments
 
     def analyse_sentence(self, sentence):
         """
@@ -104,6 +109,7 @@ class Sentiment:
             sentiments['positivity'].append(pos)
             sentiments['compound'].append(comp)
             self.__sentiments = sentiments
+
             return sentiments
 
     @staticmethod
