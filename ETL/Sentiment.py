@@ -56,17 +56,12 @@ class Sentiment:
         }
         for text in texts:
             translated_text = None
-
             try:
                 translated_text = self.__text_to_english(text)
             except Exception as e:
                 translated_text = self.__text_to_english_backup(text)
             if translated_text is not None:
-                try:
-                    english_text = translated_text.text
-                except Exception as e:
-                    print(e)
-                    english_text = translated_text
+                english_text = str(translated_text)
                 polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
                 sentiments['polarity'].append(polarity)
                 sentiments['subjectivity'].append(subjectivity)
