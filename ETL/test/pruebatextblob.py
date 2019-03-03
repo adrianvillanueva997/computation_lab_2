@@ -20,7 +20,7 @@ traduccion = translator.translate(fraseAT)
 
 fraseTraducida = traduccion.text
 
-blobEStoEN = TextBlob(fraseTraducida)
+blobEStoEN = blobES.translate(to="en")
 
 sid = SentimentIntensityAnalyzer()
 ss = sid.polarity_scores(fraseEN)
@@ -30,5 +30,5 @@ for k in sorted(ss):
 print("")
 
 
-print("Frase traducida:{}.Sentimiento:{}".format(fraseTraducida,blobEStoEN.sentiment))
+print("Frase traducida:{}.Sentimiento:{}".format(blobEStoEN,blobEStoEN.sentiment))
 
