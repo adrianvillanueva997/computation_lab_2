@@ -1,9 +1,7 @@
 import base64
 
-from cryptography.fernet import Fernet
-
 import config as cfg
-from simplecrypt import encrypt, decrypt
+
 
 
 class Register:

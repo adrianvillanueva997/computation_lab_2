@@ -1,6 +1,5 @@
 import base64
 
-from cryptography.fernet import Fernet
 import config as cfg
 
 
