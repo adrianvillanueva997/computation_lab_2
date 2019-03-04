@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from googletrans import Translator
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -38,7 +40,8 @@ class Sentiment:
             translated_text = self.__text_to_english(text)
             english_text = translated_text.text
             print(english_text)
-            polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
+            polarity, subjectivity = self.__blob_sentiment_analysis(
+                english_text)
             sentiments['polarity'].append(polarity)
             sentiments['subjectivity'].append(subjectivity)
             neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)

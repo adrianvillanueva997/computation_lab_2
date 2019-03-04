@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
+
 import base64
 
 import config as cfg
-
 
 
 class Register:
@@ -39,7 +40,8 @@ class Register:
 
     @staticmethod
     def __encrypt_password(password):
-        encrypted_password = (base64.b64encode(bytes(password, encoding='utf-8')))
+        encrypted_password = (base64.b64encode(
+            bytes(password, encoding='utf-8')))
         return encrypted_password
 
     def upload_user(self):

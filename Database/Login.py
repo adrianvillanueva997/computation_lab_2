@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import base64
 
 import config as cfg
@@ -9,12 +11,14 @@ class Login:
 
     @staticmethod
     def __encrypt_password(password):
-        encrypted_password = (base64.b64encode(bytes(password, encoding='utf-8')))
+        encrypted_password = (base64.b64encode(
+            bytes(password, encoding='utf-8')))
         return encrypted_password
 
     @staticmethod
     def __dencrypt_password(password):
-        password_dencrypted = base64.b64decode(bytes(password, encoding='utf-8'))
+        password_dencrypted = base64.b64decode(
+            bytes(password, encoding='utf-8'))
         return password_dencrypted
 
     def comprobacion_usuario_pass(self, usuario, password):

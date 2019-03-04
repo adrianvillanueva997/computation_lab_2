@@ -1,7 +1,11 @@
+# -*- coding: utf-8 -*-
+
 try:
     from ETL import Models, Vectorizer, File_Manager
 except Exception as e:
-    import Models, Vectorizer, File_Manager
+    import Models
+    import Vectorizer
+    import File_Manager
 
 if __name__ == '__main__':
     fm = File_Manager.File_Manager()
@@ -13,7 +17,8 @@ if __name__ == '__main__':
         '/home/xiao/Downloads/dataset_entrenamiento/neutras')
     unlabeled_reviews, u_file_names = fm.extract_data_from_files(
         r'/home/xiao/Downloads/dataset_entrenamiento/unlabeled')
-    vectorizer = Vectorizer.Vectorizer(good_reviews, bad_reviews, neutral_reviews, unlabeled_reviews)
+    vectorizer = Vectorizer.Vectorizer(
+        good_reviews, bad_reviews, neutral_reviews, unlabeled_reviews)
     x_train, x_test, y_train, y_test = vectorizer.generate_train_test_data(vectorizer='count_vect',
                                                                            test_size=0.1, random_state=None)
     vectorizer.export_vectorizer(path='', model_name='test')
@@ -25,7 +30,8 @@ if __name__ == '__main__':
     print(f'Confussion matrix: {conf_matrix}')
     print(f'Cross Validation Variance: {cross_validation_variance}')
     print(f'Classification score: \n{classification_score}')
-    plot = models.plot_sklearn_learning_curve(title="Learning Curve", X=x_train, y=y_train)
+    plot = models.plot_sklearn_learning_curve(
+        title="Learning Curve", X=x_train, y=y_train)
     plot.show()
     plot = models.plot_confusion_matrix()
     plot.show()

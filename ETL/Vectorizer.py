@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import pickle
 
@@ -10,7 +12,8 @@ from sklearn.model_selection import train_test_split
 try:
     from ETL import Text_Procesing, File_Manager
 except Exception as e:
-    import Text_Procesing, File_Manager
+    import Text_Procesing
+    import File_Manager
 
 
 class Vectorizer:
@@ -126,9 +129,11 @@ class Vectorizer:
                                                             random_state=random_state,
                                                             train_size=train_size)
         if vectorizer == "count_vect":
-            x_train, x_test = self.__count_vectorizer_train(x_train=x_train, x_test=x_test)
+            x_train, x_test = self.__count_vectorizer_train(
+                x_train=x_train, x_test=x_test)
         elif vectorizer == "tfid":
-            x_train, x_test = self.__term_frequency_vectorizer_train(x_train=x_train, x_test=x_test)
+            x_train, x_test = self.__term_frequency_vectorizer_train(
+                x_train=x_train, x_test=x_test)
 
         else:
             return None
@@ -137,7 +142,8 @@ class Vectorizer:
 
     def generate_unlabeled_data(self, file_names):
         self.__generate_unlabeled_dataframe(file_names)
-        unlabeled_data = self.__vectorizer.transform(self.__data_frame['reviews']).toarray()
+        unlabeled_data = self.__vectorizer.transform(
+            self.__data_frame['reviews']).toarray()
         return unlabeled_data
 
     def update_unlabeled_dataframe(self, predicted_data):
@@ -149,7 +155,8 @@ class Vectorizer:
             plt.show()
             return plot
         else:
-            self.__data_frame['labels'].value_counts().plot(kind="bar", legend=False, ax=container)
+            self.__data_frame['labels'].value_counts().plot(
+                kind="bar", legend=False, ax=container)
 
     def export_dataframe_csv(self, path, model_name):
         try:
@@ -177,16 +184,20 @@ class Vectorizer:
             os.makedirs(os.path.join(path, 'bad'))
 
         for review in g_reviews['reviews']:
-            fm.write_file(text=review, file_name=f'g_review_{str(g_file_count)}', path=os.path.join(path, 'good'))
+            fm.write_file(
+                text=review, file_name=f'g_review_{str(g_file_count)}', path=os.path.join(path, 'good'))
             g_file_count += 1
 
         for review in b_reviews['reviews']:
-            fm.write_file(text=review, file_name=f'b_review_{str(b_file_count)}', path=os.path.join(path, 'bad'))
+            fm.write_file(
+                text=review, file_name=f'b_review_{str(b_file_count)}', path=os.path.join(path, 'bad'))
             b_file_count += 1
         for review in n_reviews['reviews']:
-            fm.write_file(text=review, file_name=f'n_review_{str(n_file_count)}', path=os.path.join(path, 'neutral'))
+            fm.write_file(text=review, file_name=f'n_review_{str(n_file_count)}', path=os.path.join(
+                path, 'neutral'))
             n_file_count += 1
-        print(f'[INFO] Exported: \nGood: {str(g_file_count)} \nBad: {str(b_file_count)} \nNeutral: {str(n_file_count)}')
+        print(
+            f'[INFO] Exported: \nGood: {str(g_file_count)} \nBad: {str(b_file_count)} \nNeutral: {str(n_file_count)}')
 
     def __term_frequency_vectorizer_train(self, x_train, x_test):
         """

@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QFileDialog
 from UI.Views import View_login
-import config as cfg
 
 
 class MainWindow(QtWidgets.QMainWindow,):
@@ -17,10 +17,12 @@ class MainWindow(QtWidgets.QMainWindow,):
         username = self.line_usuario.text()
         password_usuario = self.line_password.text()
         if username == "":
-            QMessageBox.critical(self, "Error", "Hay que especificar un usuario")
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar un usuario")
             return False
         elif password_usuario == "":
-            QMessageBox.critical(self, "Error", "Hay que especificar una contraseña")
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar una contraseña")
             return False
         else:
             return True
@@ -38,9 +40,11 @@ class MainWindow(QtWidgets.QMainWindow,):
                 result_query.append(result)
             print(len(result_query))
             if len(result_query) is 0:
-                QMessageBox.critical(self, "Error", "Usuario o contraseña erronea")
+                QMessageBox.critical(
+                    self, "Error", "Usuario o contraseña erronea")
             else:
-                QMessageBox.critical(self, "Correcto", "Todo correcto")  # aquí enlaca con la pagina proncipal
+                # aquí enlaca con la pagina proncipal
+                QMessageBox.critical(self, "Correcto", "Todo correcto")
             comprobar = comprobacion_usuario_pass(username, password_usuario)
 
 

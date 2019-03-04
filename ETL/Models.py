@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import itertools
 import os
 import pickle
@@ -354,7 +356,8 @@ class Models:
         """
         prediction = self.__model.predict(self.__x_test)
         conf_matrix = confusion_matrix(self.__y_test, prediction)
-        cv_score = cross_val_score(self.__model, self.__x_train, self.__y_train, cv=5)
+        cv_score = cross_val_score(
+            self.__model, self.__x_train, self.__y_train, cv=5)
         cross_validation_score = cv_score.mean()
         cross_validation_variance = cv_score.std()
         classification_score = classification_report(self.__y_test, prediction)
@@ -481,12 +484,14 @@ class Models:
         """
         cm = self.__confussion_matrix
         if normalize:
-            cm = self.__confussion_matrix.astype('float') / self.__confussion_matrix.sum(axis=1)[:, np.newaxis]
+            cm = self.__confussion_matrix.astype(
+                'float') / self.__confussion_matrix.sum(axis=1)[:, np.newaxis]
             print("Normalized confusion matrix")
         else:
             print('Confusion matrix, without normalization')
 
-        plt.imshow(self.__confussion_matrix, interpolation='nearest', cmap=cmap)
+        plt.imshow(self.__confussion_matrix,
+                   interpolation='nearest', cmap=cmap)
         plt.title(title)
         plt.colorbar()
         tick_marks = np.arange(len(classes))
