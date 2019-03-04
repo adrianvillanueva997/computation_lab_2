@@ -1,3 +1,7 @@
+import base64
+
+from cryptography.fernet import Fernet
+
 import config as cfg
 from simplecrypt import encrypt, decrypt
 
@@ -37,14 +41,13 @@ class Register:
 
     @staticmethod
     def __encrypt_password(password):
-        encrypted_password = encrypt(cfg.encrypton_password, password)
+        encrypted_password = (base64.b64encode(bytes(password, encoding='utf-8')))
         return encrypted_password
 
     def upload_user(self):
         if self.__check_email() and self.__check_username():
             with self.__con.connect() as con:
                 password = self.__encrypt_password(self.__password)
-                password = str(password).replace('b\'', '')
                 query = f'INSERT INTO proyecto_computacion.user (user_name, email,password)' \
                     f' VALUES (\"{self.__username}\",\"{self.__email}\",\"{password}\");'
                 con.execute(query)
