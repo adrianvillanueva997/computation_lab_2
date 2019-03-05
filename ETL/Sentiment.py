@@ -20,8 +20,9 @@ class Sentiment:
         :param text:
         :return:
         """
-        time.sleep(2)
+        #time.sleep(2)
         eng_text = Translator().translate(text)
+        print(eng_text)
         return eng_text
 
     @staticmethod
@@ -139,4 +140,4 @@ class Sentiment:
         :return:
         """
         df = pd.DataFrame(data=self.__sentiments)
-        df.to_csv(f'{path}{file_name}.csv', index=None)
+        df.to_csv(f'{path}{file_name}.csv')
