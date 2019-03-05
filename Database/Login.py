@@ -2,7 +2,7 @@
 
 import base64
 
-import config as cfg
+from Database import config as cfg
 
 
 class Login:
@@ -39,7 +39,4 @@ class Login:
                     return False
 
 
-if __name__ == '__main__':
-    lg = Login()
-    a = lg.comprobacion_usuario_pass(usuario='adrias', password='1234')
-    print(a)
+
