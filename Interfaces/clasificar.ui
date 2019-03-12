@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0" colspan="2">
+    <item row="6" column="0" colspan="2">
      <widget class="QTableWidget" name="tableWidget">
       <column>
        <property name="text">
@@ -61,7 +61,7 @@
          <widget class="QLineEdit" name="lineEdit_Nombre"/>
         </item>
         <item row="1" column="3">
-         <widget class="QPushButton" name="pushButton_Aceptar">
+         <widget class="QPushButton" name="pushButton_Aceptar_ruta">
           <property name="text">
            <string>Aceptar</string>
           </property>
@@ -71,19 +71,47 @@
       </item>
      </layout>
     </item>
-    <item row="4" column="1">
+    <item row="7" column="1">
      <widget class="QPushButton" name="pushButton_Borrar">
       <property name="text">
        <string>Borrar</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="7" column="0">
      <widget class="QPushButton" name="pushButton_clasificar">
       <property name="text">
        <string>Clasificar</string>
       </property>
      </widget>
+    </item>
+    <item row="0" column="1">
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Ruta Guardado</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_Aceptar_Guardado">
+        <property name="text">
+         <string>Aceptar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="pushButton_Buscar_Ruta_Guardado">
+        <property name="text">
+         <string>Buscar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
