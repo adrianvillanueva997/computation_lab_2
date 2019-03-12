@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
-import os
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-from UI.Views import View_login
 
 
 class MainWindow(QtWidgets.QMainWindow,):
