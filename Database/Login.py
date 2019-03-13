@@ -37,6 +37,3 @@ class Login:
                 if str(encrypted_password) == encrypted_db_password:
                     print('coinciden')
                     return False
-
-
-
