@@ -95,7 +95,7 @@ class Amazon:
             max = 2
             while num_page < max:
                 html = self.__make_request(
-                    url + 'cm_cr_arp_d_paging_btm_' + str(num_page) + '?pageNumber=' + str(num_page))
+                    url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
                 blocks = self.__get_div_blocks(html)
                 if self.__check_limit(html):
                     filtered_data = self.__filter_data(blocks)
