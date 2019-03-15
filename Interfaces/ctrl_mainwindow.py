@@ -9,7 +9,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
-        self.pushButton_Seleccionar_Proyectp.clicked.connect(self.show_project_window)
+        self.pushButton_Seleccionar_Proyecto.clicked.connect(self.show_project_window)
         self._window = None
 
     def show_project_window(self):

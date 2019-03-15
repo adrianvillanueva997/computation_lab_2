@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         username = self.line_usuario.text()
         password = self.line_password.text()
         lg = Login.Login()
-        comprobacion = lg.comprobacion_usuario_pass(username,password)
+        comprobacion = lg.check_user(username,password)
         if comprobacion == True:
             self._main_window = v_main.MainWindow()
             self._main_window.show()
