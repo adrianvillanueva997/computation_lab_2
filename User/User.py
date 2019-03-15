@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
+from Database import config as cfg
 
 
 class User:
-    def __init__(self):
-        pass
+    def __init__(self, id_user):
+        self.id_user = id_user
+
