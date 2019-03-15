@@ -1,4 +1,4 @@
-from View_login import Ui_MainWindow
+from Ui_view_login import Ui_MainWindow
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QFileDialog

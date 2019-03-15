@@ -10,7 +10,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
         self._window = None
-        self.pushButton.clicked.connect(self.show_load_files_window)
+        self.pushButton_CargarDatos.clicked.connect(self.show_load_files_window)
 
     def show_load_files_window(self):
         self._window= v_load_files.MainWindow()

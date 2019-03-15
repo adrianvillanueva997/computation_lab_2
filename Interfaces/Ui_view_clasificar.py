@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'clasificar.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_clasificar.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -91,14 +91,4 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Ruta Guardado"))
         self.pushButton_Aceptar_Guardado.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_Buscar_Ruta_Guardado.setText(_translate("MainWindow", "Buscar"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 
