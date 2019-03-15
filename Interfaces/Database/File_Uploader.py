@@ -1,5 +1,5 @@
-from Database import config as cfg
 from ETL import File_Manager
+from Interfaces.Database import config as cfg
 
 
 class File_Uploader:
@@ -43,6 +43,6 @@ class File_Uploader:
 if __name__ == '__main__':
     fm = File_Manager.File_Manager()
     good_reviews, g_file_names = fm.extract_data_from_files(
-        '/home/xiao/Downloads/dataset_entrenamiento/buenas/')
-    fp = File_Uploader(17)
+        '/home/xiao/Downloads/dataset_entrenamiento/buenas')
+    fp = File_Uploader(19)
     fp.upload_reviews_to_db(good_reviews, g_file_names)

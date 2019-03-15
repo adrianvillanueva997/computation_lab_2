@@ -6,7 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -61,4 +62,3 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Email"))
         self.pushButton.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_Cancelar.setText(_translate("MainWindow", "Cancelar"))
-

@@ -6,7 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -59,4 +60,3 @@ class Ui_MainWindow(object):
         self.pushButton_Cargar_Datos.setText(_translate("MainWindow", "Cargar Datos"))
         self.pushButton_Entrenar.setText(_translate("MainWindow", "Entrenar"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
-

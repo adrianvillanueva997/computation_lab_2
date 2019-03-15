@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -34,7 +35,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.pushButton_3)
         self.buttonBox = QtWidgets.QDialogButtonBox(self.widget)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel | QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.verticalLayout.addWidget(self.buttonBox)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -55,4 +56,3 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "Generar invitación"))
         self.pushButton_2.setText(_translate("MainWindow", "Detalles del proyecto"))
         self.pushButton_3.setText(_translate("MainWindow", "Eliminar proyecto"))
-

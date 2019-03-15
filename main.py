@@ -1,6 +1,4 @@
-import sys
 from Database.Login import Login
-
 
 if __name__ == "__main__":
     lg = Login()

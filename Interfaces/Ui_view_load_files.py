@@ -6,7 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -119,4 +120,3 @@ class Ui_MainWindow(object):
         self.URL_pushButton_clear.setText(_translate("MainWindow", "Borrar"))
         self.URL_pushButton_selectfolder.setText(_translate("MainWindow", "Seleccionar carpeta"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.URL_tab), _translate("MainWindow", "URL"))
-

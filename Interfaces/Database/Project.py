@@ -1,5 +1,6 @@
 import uuid
-from Database import config as cfg
+
+from Interfaces.Database import config as cfg
 from User.User import User
 
 
@@ -76,8 +77,10 @@ class Project:
 
 
 if __name__ == '__main__':
-    user = User(9)
+    user = User(10)
     prj = Project(user)
-    prj.create_project("Twitch project")
+    prj.create_invitation_code(18)
+    prj.create_invitation_code(19)
+    prj.create_invitation_code(20)
     data = prj.load_user_projects()
     print(data)
