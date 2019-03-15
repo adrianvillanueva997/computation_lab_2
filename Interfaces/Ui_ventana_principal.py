@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ventana_principal.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\ventana_principal.ui'
 #
-# Created by: PyQt5 UI code generator 5.9.2
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -44,9 +44,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout.addItem(spacerItem)
         self.verticalLayout_4 = QtWidgets.QVBoxLayout()
         self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.pushButton_Seleccionar_Proyectp = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_Seleccionar_Proyectp.setObjectName("pushButton_Seleccionar_Proyectp")
-        self.verticalLayout_4.addWidget(self.pushButton_Seleccionar_Proyectp)
+        self.pushButton_Seleccionar_Proyecto = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_Seleccionar_Proyecto.setObjectName("pushButton_Seleccionar_Proyecto")
+        self.verticalLayout_4.addWidget(self.pushButton_Seleccionar_Proyecto)
         self.horizontalLayout.addLayout(self.verticalLayout_4)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
@@ -67,16 +67,6 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Nombre"))
         item = self.table_proyectos.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Fecha creación"))
-        self.pushButton_Crear_proyecto.setText(_translate("MainWindow", "Crear Proycto"))
-        self.pushButton_Seleccionar_Proyectp.setText(_translate("MainWindow", "Seleccionar Proyecto"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.pushButton_Crear_proyecto.setText(_translate("MainWindow", "Crear Proyecto"))
+        self.pushButton_Seleccionar_Proyecto.setText(_translate("MainWindow", "Seleccionar Proyecto"))
 

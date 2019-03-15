@@ -26,7 +26,20 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0" rowspan="2">
+    <item row="2" column="1">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="0" rowspan="3">
      <layout class="QGridLayout" name="gridLayout_Entrenar">
       <item row="2" column="0">
        <widget class="QPushButton" name="pushButton_Cargar_Datos">
@@ -97,17 +110,11 @@
      </layout>
     </item>
     <item row="1" column="1">
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
+     <widget class="QPushButton" name="pushButton_back">
+      <property name="text">
+       <string>Atrás</string>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
+     </widget>
     </item>
    </layout>
   </widget>

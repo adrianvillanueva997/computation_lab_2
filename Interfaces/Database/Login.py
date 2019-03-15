@@ -30,13 +30,13 @@ class Login:
                 result_query.append(result)
             print(len(result_query))
             if len(result_query) is 0:
-                return True
+                return False
             else:
                 encrypted_db_password = result_query[0]['password']
                 encrypted_password = self.__encrypt_password(password)
                 if str(encrypted_password) == encrypted_db_password:
                     print('coinciden')
-                    return False
+                    return True
 
 
 
