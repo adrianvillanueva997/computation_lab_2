@@ -23,12 +23,22 @@ class Metacritic_Scrapper:
 
     @staticmethod
     def __div_blocks(html):
+        """
+        Scrapes each of the review body found in the HTML string.
+        :param html:
+        :return:
+        """
         soup = BeautifulSoup(html, 'html.parser')
         div_reviews = soup.findAll('div', {'class': 'review_body'})
         return div_reviews
 
     @staticmethod
     def __get_comments(div_blocks):
+        """
+        Receives a list with review bodies and cleans and extracts the reviews and saves them in a list.
+        :param div_blocks:
+        :return:
+        """
         reviews = []
         for block in div_blocks:
             soup = BeautifulSoup(str(block), 'html.parser')
@@ -41,6 +51,11 @@ class Metacritic_Scrapper:
         return reviews
 
     def scrape_metacritic(self, urls):
+        """
+        Public method that extracts all the reviews given a list of Metacritic URLS
+        :param urls:
+        :return:
+        """
         data = []
         for url in urls:
             start = 0
