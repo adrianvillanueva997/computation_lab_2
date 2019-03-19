@@ -51,3 +51,8 @@ class RequestManager:
                               }
         response = self.__make_request(download_user_data)
         return response
+
+
+if __name__ == '__main__':
+    rm = RequestManager()
+    print(rm.download_file(1, 1, 1))
