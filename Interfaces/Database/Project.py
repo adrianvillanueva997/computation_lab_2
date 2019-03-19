@@ -66,7 +66,7 @@ class Project:
                 query = f'SELECT * from proyecto_computacion.project prj join proyecto_computacion.project_rel on prj.ID_project = project_rel.ID_project where project_rel.ID_user = {self.__id_user} order by  prj.ID_project asc'
                 results = con.execute(query)
                 for result in results:
-                    project_data['id'].append(result['ID_project'])
+                    project_data['id'].append(str(result['ID_project']))
                     project_data['project_name'].append(result['name_project'])
                     project_data['timestamp'].append(result['Last_Update'])
                     project_data['invitation_key'].append(result['ID_invitation'])

@@ -12,7 +12,7 @@ class RequestManager:
         :param user_data:
         :return:
         """
-        response = requests.post('http://localhost:3000', user_data)
+        response = requests.post('https://adrianvillanueva.tk/proy_comp2/server.php', user_data)
         response_content = response.content
         return response_content
 
