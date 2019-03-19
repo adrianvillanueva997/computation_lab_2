@@ -190,8 +190,20 @@ class Project:
                     url = str(url).replace('\'', '\'\'')
                     url = url.replace('\"', '\"\"')
                     url = url.replace('%', '%%')
-                    #query = f''
+                    # query = f''
 
+        except Exception as e:
+            print(e)
+
+    def get_labels(self, project_id):
+        try:
+            with cfg.engine.connect() as con:
+                query = f'SELECT * FROM proyecto_computacion.Label where ID_Project like {project_id}'
+                results = con.execute(query)
+                labels = []
+                for result in results:
+                    labels.append(result['label'])
+            return labels
         except Exception as e:
             print(e)
 
