@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QFileDialog
 from Ui_view_load_files import Ui_MainWindow
 from Database.ETL import File_Manager
 from Database import File_Uploader
+import Web_Scrapping
+from Web_Scrapping import Amazon_Scrapper
 import os
 
 
@@ -16,6 +18,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_pushButton_add.clicked.connect(self.load_files_table)
         self.file_pushButton_selectfolder.clicked.connect(self.get_folder_path)
         self.file_pushButton_load.clicked.connect(self.load_files_to_db)
+        self.file_pushButton_clear.clicked.connect(self.clear_table)
+        self.URL_pushButton_add.clicked.connect(self.load_revies_from_url)
         self.parent = None
 
     def set_parent(self,MainWindow):
@@ -23,6 +27,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def load_files_table(self):
         label = str(self.comboBox_labels_file.currentText())
+        if label == "Seleccionar etiqueta":
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar una etiqueta antes de añadir un elemento")
+            return
         pathFiles = self.file_lineEditPath.text()
         folderName= os.path.basename(pathFiles)
         if pathFiles == "":
@@ -54,7 +62,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             file_data,file_names=fm.extract_data_from_files(path)
             fuploader = File_Uploader.File_Uploader(project_id)
             fuploader.upload_reviews_to_db(file_data,file_names)
-        
+    
+    def clear_table(self):
+        self.file_tableWidget.clear()
+
+    def load_revies_from_url(self):
+        am_scrap= Amazon_Scrapper.Amazon()
+        print(am_scrap)
 
     def go_back(self):
         self.close()

@@ -8,7 +8,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
         self._window = None
+        self.parent = None
+        self.pushButton_back.clicked.connect(self.go_back)
 
     
     def set_parent(self,MainWindow):
         self.parent = MainWindow
+
+
+    def go_back(self):
+        self.close()
+        self.parent.show()
