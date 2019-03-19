@@ -39,6 +39,26 @@
         <height>381</height>
        </rect>
       </property>
+      <column>
+       <property name="text">
+        <string>Nombre</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Etiqueta</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ruta</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string/>
+       </property>
+      </column>
      </widget>
      <widget class="QPushButton" name="file_pushButton_add">
       <property name="geometry">

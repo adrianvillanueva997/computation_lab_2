@@ -21,9 +21,15 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTableWidget" name="table_proyectos">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
           <column>
            <property name="text">
-            <string>Nombre</string>
+            <string>ID</string>
            </property>
           </column>
           <column>
@@ -34,6 +40,11 @@
           <column>
            <property name="text">
             <string>Fecha creación</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Clave invitacion</string>
            </property>
           </column>
          </widget>

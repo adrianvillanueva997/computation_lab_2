@@ -12,6 +12,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
         self.boton_aceptar.clicked.connect(self.make_login)
+        self.line_password.returnPressed.connect(self.make_login)
         self._main_window = None
 
     def make_login(self):
@@ -21,8 +22,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         comprobacion = lg.check_user(username,password)
         if comprobacion == True:
             self._main_window = v_main.MainWindow()
+            self._main_window.set_parent(self)
+            self._main_window.load_projects()
             self._main_window.show()
-            self.hide()
+            self.close()
             
 
 
