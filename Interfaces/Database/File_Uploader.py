@@ -1,5 +1,5 @@
-from ETL import File_Manager
-from Interfaces.Database import config as cfg
+from Database.ETL import File_Manager
+from Database import config as cfg
 
 
 class File_Uploader:

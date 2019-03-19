@@ -107,16 +107,6 @@
        <string>Seleccionar carpeta</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="file_textEdit_path">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>480</y>
-        <width>991</width>
-        <height>31</height>
-       </rect>
-      </property>
-     </widget>
      <widget class="QComboBox" name="comboBox_labels_file">
       <property name="geometry">
        <rect>
@@ -163,6 +153,16 @@
       </property>
       <property name="text">
        <string>Atrás</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="file_lineEditPath">
+      <property name="geometry">
+       <rect>
+        <x>22</x>
+        <y>469</y>
+        <width>991</width>
+        <height>31</height>
+       </rect>
       </property>
      </widget>
     </widget>

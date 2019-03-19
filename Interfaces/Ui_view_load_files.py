@@ -6,8 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -23,8 +22,14 @@ class Ui_MainWindow(object):
         self.file_tableWidget = QtWidgets.QTableWidget(self.file_tab)
         self.file_tableWidget.setGeometry(QtCore.QRect(15, 31, 1001, 381))
         self.file_tableWidget.setObjectName("file_tableWidget")
-        self.file_tableWidget.setColumnCount(0)
+        self.file_tableWidget.setColumnCount(3)
         self.file_tableWidget.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.file_tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.file_tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.file_tableWidget.setHorizontalHeaderItem(2, item)
         self.file_pushButton_add = QtWidgets.QPushButton(self.file_tab)
         self.file_pushButton_add.setGeometry(QtCore.QRect(900, 420, 114, 32))
         self.file_pushButton_add.setObjectName("file_pushButton_add")
@@ -37,12 +42,10 @@ class Ui_MainWindow(object):
         self.file_pushButton_selectfolder = QtWidgets.QPushButton(self.file_tab)
         self.file_pushButton_selectfolder.setGeometry(QtCore.QRect(783, 520, 231, 32))
         self.file_pushButton_selectfolder.setObjectName("file_pushButton_selectfolder")
-        self.file_textEdit_path = QtWidgets.QTextEdit(self.file_tab)
-        self.file_textEdit_path.setGeometry(QtCore.QRect(20, 480, 991, 31))
-        self.file_textEdit_path.setObjectName("file_textEdit_path")
         self.comboBox_labels_file = QtWidgets.QComboBox(self.file_tab)
-        self.comboBox_labels_file.setGeometry(QtCore.QRect(700, 420, 191, 32))
+        self.comboBox_labels_file.setGeometry(QtCore.QRect(680, 420, 191, 32))
         self.comboBox_labels_file.setObjectName("comboBox_labels_file")
+        self.comboBox_labels_file.addItem("")
         self.comboBox_labels_file.addItem("")
         self.comboBox_labels_file.addItem("")
         self.comboBox_labels_file.addItem("")
@@ -50,6 +53,9 @@ class Ui_MainWindow(object):
         self.pushButton_back = QtWidgets.QPushButton(self.file_tab)
         self.pushButton_back.setGeometry(QtCore.QRect(30, 560, 81, 31))
         self.pushButton_back.setObjectName("pushButton_back")
+        self.file_lineEditPath = QtWidgets.QLineEdit(self.file_tab)
+        self.file_lineEditPath.setGeometry(QtCore.QRect(22, 469, 991, 31))
+        self.file_lineEditPath.setObjectName("file_lineEditPath")
         self.tabWidget.addTab(self.file_tab, "")
         self.URL_tab = QtWidgets.QWidget()
         self.URL_tab.setObjectName("URL_tab")
@@ -99,14 +105,21 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Cargar Opiniones"))
+        item = self.file_tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Nombre"))
+        item = self.file_tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Etiqueta"))
+        item = self.file_tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Ruta"))
         self.file_pushButton_add.setText(_translate("MainWindow", "Agregar"))
         self.file_pushButton_load.setText(_translate("MainWindow", "Cargar"))
         self.file_pushButton_clear.setText(_translate("MainWindow", "Borrar"))
         self.file_pushButton_selectfolder.setText(_translate("MainWindow", "Seleccionar carpeta"))
-        self.comboBox_labels_file.setItemText(0, _translate("MainWindow", "etiquetas"))
-        self.comboBox_labels_file.setItemText(1, _translate("MainWindow", "etiqueta1"))
-        self.comboBox_labels_file.setItemText(2, _translate("MainWindow", "etiqueta2"))
-        self.comboBox_labels_file.setItemText(3, _translate("MainWindow", "mimammamemimma"))
+        self.comboBox_labels_file.setItemText(0, _translate("MainWindow", "Seleccionar etiqueta"))
+        self.comboBox_labels_file.setItemText(1, _translate("MainWindow", "Unlabeled"))
+        self.comboBox_labels_file.setItemText(2, _translate("MainWindow", "etiqueta1"))
+        self.comboBox_labels_file.setItemText(3, _translate("MainWindow", "etiqueta2"))
+        self.comboBox_labels_file.setItemText(4, _translate("MainWindow", "mimammamemimma"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.file_tab), _translate("MainWindow", "Fichero"))
         item = self.URL_tableWidget.horizontalHeaderItem(0)
@@ -120,3 +133,4 @@ class Ui_MainWindow(object):
         self.URL_pushButton_clear.setText(_translate("MainWindow", "Borrar"))
         self.URL_pushButton_selectfolder.setText(_translate("MainWindow", "Seleccionar carpeta"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.URL_tab), _translate("MainWindow", "URL"))
+
