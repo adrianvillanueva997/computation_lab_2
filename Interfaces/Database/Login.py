@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from Database import config as cfg
-from Database import Encryption
+from Database import config as cfg, Encryption
 
-import base64
 
 class Login:
     def __init__(self):
@@ -11,9 +9,9 @@ class Login:
         Default class constructor
         """
         pass
-    
 
-    def check_user(self,user, password):
+    @staticmethod
+    def check_user(user, password):
         """
         Public function that checks if the user and password are correct,
         if they are correct, the function will return True
@@ -33,9 +31,7 @@ class Login:
                 return False
             else:
                 encrypted_db_password = result_query[0]['password']
-                return True
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):
                     return True
                 else:
                     return False
-

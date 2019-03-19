@@ -1,7 +1,4 @@
-
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
 from Ui_view_load_files import Ui_MainWindow
 
 

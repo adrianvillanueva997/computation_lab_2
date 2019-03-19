@@ -1,4 +1,6 @@
-import hashlib, binascii, os
+import binascii
+import hashlib
+import os
 
 
 class Encryption:

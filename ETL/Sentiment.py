@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
-
 from googletrans import Translator
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import pandas as pd
+import time
 
 
 class Sentiment:
@@ -11,16 +11,33 @@ class Sentiment:
         Default constructor
         """
         self.__text_list = []
+        self.__sentiments = {}
 
     @staticmethod
     def __text_to_english(text):
         """
-        Function that detects a language and returns it translation in english
+        Function that detects a language and returns it translation in english using Google translate api
         :param text:
         :return:
         """
+        time.sleep(1)
         eng_text = Translator().translate(text)
+        print(eng_text)
         return eng_text
+
+    @staticmethod
+    def __text_to_english_backup(text):
+        time.sleep(1)
+        blob = TextBlob(text)
+        language_code = blob.detect_language()
+        print(language_code)
+        if language_code is 'en':
+            return text
+        else:
+            english_text = blob.translate(to='en')
+            print(language_code)
+            print(english_text)
+            return english_text
 
     def analyse_texts(self, texts):
         """
@@ -29,6 +46,7 @@ class Sentiment:
         :param texts:
         """
         sentiments = {
+            'texts': texts,
             'polarity': [],
             'subjectivity': [],
             'positivity': [],
@@ -37,19 +55,23 @@ class Sentiment:
             'compound': []
         }
         for text in texts:
-            translated_text = self.__text_to_english(text)
-            english_text = translated_text.text
-            print(english_text)
-            polarity, subjectivity = self.__blob_sentiment_analysis(
-                english_text)
-            sentiments['polarity'].append(polarity)
-            sentiments['subjectivity'].append(subjectivity)
-            neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
-            sentiments['negativity'].append(neg)
-            sentiments['neutrality'].append(neu)
-            sentiments['positivity'].append(pos)
-            sentiments['compound'].append(comp)
-
+            translated_text = None
+            try:
+                translated_text = self.__text_to_english(text)
+            except Exception as e:
+                translated_text = self.__text_to_english_backup(text)
+            if translated_text is not None:
+                english_text = str(translated_text)
+                polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
+                sentiments['polarity'].append(polarity)
+                sentiments['subjectivity'].append(subjectivity)
+                neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
+                sentiments['negativity'].append(neg)
+                sentiments['neutrality'].append(neu)
+                sentiments['positivity'].append(pos)
+                sentiments['compound'].append(comp)
+        self.__sentiments = sentiments
+        print(self.__sentiments)
         return sentiments
 
     def analyse_sentence(self, sentence):
@@ -66,18 +88,24 @@ class Sentiment:
             'neutrality': [],
             'compound': []
         }
-        translated_text = self.__text_to_english(sentence)
-        english_text = translated_text.text
-        print(english_text)
-        polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
-        sentiments['polarity'].append(polarity)
-        sentiments['subjectivity'].append(subjectivity)
-        neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
-        sentiments['negativity'].append(neg)
-        sentiments['neutrality'].append(neu)
-        sentiments['positivity'].append(pos)
-        sentiments['compound'].append(comp)
-        return sentiments
+        translated_text = None
+        try:
+            translated_text = self.__text_to_english(sentence)
+        except Exception as e:
+            translated_text = self.__text_to_english_backup(sentence)
+        if translated_text is not None:
+            english_text = translated_text.text
+            polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
+            sentiments['polarity'].append(polarity)
+            sentiments['subjectivity'].append(subjectivity)
+            neg, neu, pos, comp = self.__vader_sentiment_analysis(english_text)
+            sentiments['negativity'].append(neg)
+            sentiments['neutrality'].append(neu)
+            sentiments['positivity'].append(pos)
+            sentiments['compound'].append(comp)
+            self.__sentiments = sentiments
+
+            return sentiments
 
     @staticmethod
     def __blob_sentiment_analysis(text):
@@ -90,17 +118,25 @@ class Sentiment:
         sent = blob.sentiment
         polarity = sent.polarity
         subjectivity = sent.subjectivity
-        print(blob.sentiment)
         return polarity, subjectivity
 
     @staticmethod
     def __vader_sentiment_analysis(text):
         """
-        Text analysis using vader, returns all sentiment values 
+        Text analysis using vader, returns all sentiment values
         :param text:
         :return:
         """
         sid = SentimentIntensityAnalyzer()
         ss = sid.polarity_scores(text)
-        print(ss)
         return ss['neg'], ss['neu'], ss['pos'], ss['compound']
+
+    def export_sentiment_to_csv(self, path, file_name):
+        """
+        Exports the sentiments obtained by previous functions
+        :param path:
+        :param file_name:
+        :return:
+        """
+        df = pd.DataFrame(data=self.__sentiments)
+        df.to_csv(f'{path}{file_name}.csv')

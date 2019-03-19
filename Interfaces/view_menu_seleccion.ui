@@ -31,14 +31,17 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="pushButton_Atras">
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_Clasificacion">
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
       <property name="text">
-       <string>Atrás</string>
+       <string>Clasificación</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="3" column="0">
      <widget class="QPushButton" name="pushButton_ConfiguracionProyecto">
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -58,20 +61,10 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_Clasificacion">
-      <property name="cursor">
-       <cursorShape>PointingHandCursor</cursorShape>
-      </property>
+    <item row="4" column="0">
+     <widget class="QPushButton" name="pushButton_Atras">
       <property name="text">
-       <string>Clasificación</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_Entrenar">
-      <property name="text">
-       <string>Entrenar</string>
+       <string>Atrás</string>
       </property>
      </widget>
     </item>

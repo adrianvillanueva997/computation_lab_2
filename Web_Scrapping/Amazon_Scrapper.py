@@ -1,11 +1,25 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup
-import re
 
 
 class Amazon:
     def __init__(self):
         pass
+
+    @staticmethod
+    def change_urls(url):
+        regex = r'dp.\/*.*\/'
+        match = re.findall(regex, url)
+        split = re.split(regex, url)
+        id = match[0]
+        id = str(id).replace('dp/', '')
+        id = id.replace('/', '')
+        new_url = split[0]
+        new_url = new_url + 'product-reviews/' + id + '/'
+        print(new_url)
+        return new_url
 
     @staticmethod
     def __make_request(url):
@@ -69,11 +83,12 @@ class Amazon:
             rating = rating.replace('>', '')
             rating = int(rating)
 
-            review = soup.find('span', {'class': 'cr-original-review-content'})
-            review = str(review).replace('<span class="cr-original-review-content">', '')
+            review = soup.find('span', {'class': 'a-size-base review-text review-text-content'})
+            review = str(review).replace(
+                '<span class="a-size-base review-text review-text-content" data-hook="review-body"><span class="">', '')
             review = review.replace('<br/>', '')
             review = review.replace('</span>', '')
-
+            review = review.replace('\n', '')
             if rating == 1 or rating == 2:
                 datos['malas'].append(review)
             elif rating == 3:
@@ -84,7 +99,21 @@ class Amazon:
         print(datos)
         return datos
 
-    def scrape_amazon(self, urls_list):
+    @staticmethod
+    def __get_reviews(div_blocks):
+        reviews = []
+        for block in div_blocks:
+            soup = BeautifulSoup(str(block), 'html.parser')
+            review = soup.find('span', {'class': 'a-size-base review-text review-text-content'})
+            review = str(review).replace(
+                '<span class="a-size-base review-text review-text-content" data-hook="review-body"><span class="">', '')
+            review = review.replace('<br/>', '')
+            review = review.replace('</span>', '')
+            review = review.replace('\n', '')
+            reviews.append(review)
+        return reviews
+
+    def scrape_amazon_training(self, urls_list):
         data = {
             'malas': [],
             'neutras': [],
@@ -93,9 +122,10 @@ class Amazon:
         for url in urls_list:
             num_page = 1
             max = 2
+            new_url = self.change_urls(url)
             while num_page < max:
                 html = self.__make_request(
-                    url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
+                    new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
                 blocks = self.__get_div_blocks(html)
                 if self.__check_limit(html):
                     filtered_data = self.__filter_data(blocks)
@@ -111,9 +141,30 @@ class Amazon:
                     num_page = max
         return data
 
+    def scrape_amazon(self, urls_list):
+        data = []
+        for url in urls_list:
+            new_url = self.change_urls(url)
+            num_page = 1
+            max = 2
+            while num_page < max:
+                html = self.__make_request(
+                    new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
+                blocks = self.__get_div_blocks(html)
+                if self.__check_limit(html):
+                    filtered_data = self.__get_reviews(blocks)
+                    for review in filtered_data:
+                        data.append(review)
+                    num_page += 1
+                    max += 1
+                else:
+                    num_page = max
+        return data
+
 
 if __name__ == '__main__':
     amz = Amazon()
-    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/product-reviews/B07HD1312V/']
-    data = amz.scrape_amazon(urls)
+    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
+            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/']
+    data = amz.scrape_amazon_training(urls)
     print(data)

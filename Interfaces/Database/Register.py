@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Database import config as cfg, Encryption
+from Interfaces.Database import config as cfg, Encryption
 
 
 class Register:
@@ -67,3 +67,10 @@ class Register:
             return True
         else:
             return False
+
+
+if __name__ == '__main__':
+    re = Register(username='a', password='1234', email='a')
+    re.upload_user()
+    re2 = Register(username='b', password='1234', email='b')
+    re2.upload_user()

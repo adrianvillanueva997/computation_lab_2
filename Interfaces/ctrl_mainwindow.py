@@ -1,4 +1,5 @@
 
+
 from Ui_view_ventana_principal import Ui_MainWindow
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
@@ -6,6 +7,9 @@ from PyQt5.QtWidgets import QFileDialog
 import ctrl_project_menu as v_project_menu
 from Database import Project
 from Database import User
+from PyQt5 import QtWidgets
+
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -17,15 +21,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window = None
 
     def show_project_window(self):
-        self._window
         self._window= v_project_menu.MainWindow()
         self._window.set_parent(self)
         indexes = self.table_proyectos.selectedIndexes()
         for index in sorted(indexes):
             p_id=self.table_proyectos.item(index.row(),0).text()
             self._window.set_project_id(p_id)
-        print(self._window._project_id)
-        self._window.set_project_id
         self._window.show()
         self.close()
 
@@ -48,3 +49,5 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.table_proyectos.setItem(rowPosition,2,QtWidgets.QTableWidgetItem(str(projects['timestamp'][i])))
             self.table_proyectos.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(projects['invitation_key'][i]))
         
+
+

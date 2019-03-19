@@ -2,6 +2,7 @@
 
 try:
     from ETL import Models, Vectorizer, File_Manager
+    from Interfaces.Database import Project
 except Exception as e:
     import Models
     import Vectorizer
@@ -37,8 +38,5 @@ if __name__ == '__main__':
     plot.show()
     x_unlabeled = vectorizer.generate_unlabeled_data(u_file_names)
     prediction = models.predict(x_unlabeled)
-    print(prediction)
-    vectorizer.update_unlabeled_dataframe(predicted_data=prediction)
-    vectorizer.plot_dataframe()
-    vectorizer.export_dataframe_csv(path='', model_name='export')
-    vectorizer.export_reviews_to_files(path='')
+    print(prediction[0])
+    models.export_model(path='', model_name='php_test')

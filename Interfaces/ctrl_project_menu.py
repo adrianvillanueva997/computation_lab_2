@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QFileDialog
 import ctrl_load_files as v_load_files
 import ctrl_config_project as v_config_project
 import ctrl_train as v_train
+from PyQt5 import QtWidgets
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -39,4 +41,3 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window.set_parent(self)
         self._window.show()
         self.close()
-    

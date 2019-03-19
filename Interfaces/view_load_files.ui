@@ -54,11 +54,6 @@
         <string>Ruta</string>
        </property>
       </column>
-      <column>
-       <property name="text">
-        <string/>
-       </property>
-      </column>
      </widget>
      <widget class="QPushButton" name="file_pushButton_add">
       <property name="geometry">
@@ -125,7 +120,7 @@
      <widget class="QComboBox" name="comboBox_labels_file">
       <property name="geometry">
        <rect>
-        <x>700</x>
+        <x>680</x>
         <y>420</y>
         <width>191</width>
         <height>32</height>
@@ -133,7 +128,12 @@
       </property>
       <item>
        <property name="text">
-        <string>etiquetas</string>
+        <string>Seleccionar etiqueta</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Unlabeled</string>
        </property>
       </item>
       <item>
