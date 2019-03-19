@@ -55,4 +55,6 @@ class RequestManager:
 
 if __name__ == '__main__':
     rm = RequestManager()
-    print(rm.download_file(1, 1, 1))
+    model = (rm.download_file(1, 1, 1))
+    print(model)
+    #rm.upload_file(1, 2, 5, model)

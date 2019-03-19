@@ -165,6 +165,43 @@ class Project:
         except Exception as e:
             print(e)
 
+    @staticmethod
+    def add_reviews_to_project(labels, project_id):
+        try:
+            with cfg.engine.connect() as con:
+                for label in labels:
+                    try:
+                        label = str(label).replace('\'', '\'\'')
+                        label = label.replace('\"', '\"\"')
+                        label = label.replace('%', '%%')
+                        query = f'insert into proyecto_computacion.Label' \
+                            f' (label, ID_Project) VALUES (\"{label}\",{project_id});'
+                        print(query)
+                        con.execute(query)
+                    except Exception as e:
+                        print(e)
+        except Exception as e:
+            print(e)
+
+    def add_urls_to_project(self, project_id, urls):
+        try:
+            with cfg.engine.connect() as con:
+                for url in urls:
+                    url = str(url).replace('\'', '\'\'')
+                    url = url.replace('\"', '\"\"')
+                    url = url.replace('%', '%%')
+                    #query = f''
+
+        except Exception as e:
+            print(e)
+
+    def check_urls(self, urls):
+        not_valid_urls = []
+        for url in urls:
+            if not (not str(url).__contains__('amazon') and not str(url).__contains__('metacritic')):
+                not_valid_urls.append(url)
+        return not_valid_urls
+
 
 if __name__ == '__main__':
     user = User(10)
@@ -172,3 +209,5 @@ if __name__ == '__main__':
     data = prj.load_user_projects()
     print(data)
     data = prj.get_project_reviews(19)
+    labels = ['a', 'b', 'c', 'd']
+    prj.add_reviews_to_project(labels, 18)
