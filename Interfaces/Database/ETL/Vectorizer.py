@@ -10,7 +10,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 
 try:
-    from ETL import Text_Procesing, File_Manager
+    from Database.ETL import Text_Procesing, File_Manager
 except Exception as e:
     import Text_Procesing
     import File_Manager
