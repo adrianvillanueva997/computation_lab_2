@@ -5,7 +5,7 @@ try:
     from Database import User
     from ETL import Sentiment, Models, Vectorizer, File_Manager
 except Exception as e:
-    from Interfaces.Database import config as cfg
+    from Interfaces.Database import config as cfg, Utilities
     from Interfaces.Database import User
     from Interfaces.Database.ETL import Sentiment, Models, Vectorizer, File_Manager
 
@@ -183,7 +183,7 @@ class Project:
             with cfg.engine.connect() as con:
                 for label in labels:
                     try:
-                        ut = utilities.Utilities()
+                        ut = Utilities.Utilities()
                         label = ut.scrape_text_for_sql(label)
                         query = f'insert into proyecto_computacion.Label' \
                             f' (label, ID_Project) VALUES (\"{label}\",{project_id});'
@@ -206,7 +206,7 @@ class Project:
             with cfg.engine.connect() as con:
                 for url in urls:
                     try:
-                        ut = utilities.Utilities()
+                        ut = Utilities.Utilities()
                         url = ut.scrape_text_for_sql(url)
                         query = f'INSERT INTO proyecto_computacion.link_web_scrapper (ID_project, url, processed) ' \
                             f'values ({project_id},\"{url}\",0)'

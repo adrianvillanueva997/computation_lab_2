@@ -2,7 +2,7 @@
 try:
     from Database import config as cfg, Encryption
 except Exception as e:
-    from Interfaces.Database import config as cfg
+    from Interfaces.Database import config as cfg, Utilities
 
 
 class Login:
@@ -23,7 +23,7 @@ class Login:
         :return:
         """
         with cfg.engine.connect() as con:
-            ut = Utilities()
+            ut = Utilities.Utilities()
             user = ut.scrape_text_for_sql(user)
             password = ut.scrape_text_for_sql(password)
             query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{user}\" LIMIT 1;'
