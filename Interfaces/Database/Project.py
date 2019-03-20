@@ -1,9 +1,13 @@
 import uuid
-from Database import config as cfg
-from Database import User
-from ETL import Sentiment, Models, Vectorizer, File_Manager
 
-
+try:
+    from Database import config as cfg
+    from Database import User
+    from ETL import Sentiment, Models, Vectorizer, File_Manager
+except Exception as e:
+    from Interfaces.Database import config as cfg
+    from Interfaces.Database import User
+    from Interfaces.Database.ETL import Sentiment, Models, Vectorizer, File_Manager
 
 
 class Project:
@@ -348,7 +352,7 @@ class Project:
             print(e)
 
     def upload_scrapped_review(self, project_id, reviews, url):
-        #TODO
+        # TODO
         pass
 
 

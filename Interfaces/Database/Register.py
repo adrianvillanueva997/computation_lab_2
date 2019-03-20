@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-
-from Interfaces.Database import Encryption
-from Interfaces.Database import config as cfg
-from Interfaces.Database.utilities import Utilities
+try:
+    from Interfaces.Database import Encryption, Utilities
+    from Interfaces.Database import config as cfg
+except Exception as e:
+    from Database import Encryption, Utilities
+    from Database import config as cfg
 
 
 class Register:

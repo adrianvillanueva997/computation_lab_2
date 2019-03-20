@@ -1,5 +1,10 @@
-from Database.ETL import File_Manager
-from Database import config as cfg
+try:
+    from Database.ETL import File_Manager
+    from Database import config as cfg
+except Exception as e:
+    from Interfaces.Database.ETL import File_Manager
+    from Interfaces.Database import config as cfg
+    from Interfaces.Database import Utilities
 
 
 class File_Uploader:
@@ -24,7 +29,7 @@ class File_Uploader:
             for review in reviews:
                 # file_name | text_review
                 try:
-                    ut = utilities.Utilities()
+                    ut = Utilities.Utilities()
                     review = ut.scrape_text_for_sql(review)
                     file_name = ut.scrape_text_for_sql(file_names[index])
                     query = f'INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) ' \

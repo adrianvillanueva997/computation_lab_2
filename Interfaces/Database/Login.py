@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
-from Database import config as cfg, Encryption
+try:
+    from Database import config as cfg, Encryption
+except Exception as e:
+    from Interfaces.Database import config as cfg
 
 
 class Login:
