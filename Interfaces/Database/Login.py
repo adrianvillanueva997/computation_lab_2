@@ -36,6 +36,7 @@ class Login:
             else:
                 encrypted_db_password = result_query[0]['password']
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):
-                    return True
+                    role = result_query[0]['role']
+                    return role
                 else:
-                    return False
+                    return None
