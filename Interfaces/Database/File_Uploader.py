@@ -12,7 +12,7 @@ class File_Uploader:
         self.failed_reviews = []
         self.failed_file_names = []
 
-    def upload_reviews_to_db(self, reviews, file_names):
+    def upload_reviews_to_db(self, reviews, file_names, label):
         """
         Receives 2 lists with strings and uploads them to the database associating them to the project id given to the object
         :param reviews:
@@ -24,13 +24,11 @@ class File_Uploader:
             for review in reviews:
                 # file_name | text_review
                 try:
-                    review = str(review).replace('\'', '\'\'')
-                    review = review.replace('\"', '\"\"')
-                    review = review.replace('%', '%%')
-                    file_name = str(file_names[index]).replace('\'', '\'\'')
-                    file_name = file_name.replace('\"', '\"\"')
-
-                    query = f'INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name) values ({self.project_id}, \"{review}\" ,\"{file_name}\")'
+                    ut = utilities.Utilities()
+                    review = ut.scrape_text_for_sql(review)
+                    file_name = ut.scrape_text_for_sql(file_names[index])
+                    query = f'INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) ' \
+                        f'values ({self.project_id}, \"{review}\" ,\"{file_name}\",\"{label}\")'
                     con.execute(query)
                     print(query)
                     index += 1

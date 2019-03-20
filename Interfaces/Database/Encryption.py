@@ -10,7 +10,8 @@ class Encryption:
     @staticmethod
     def hash_password(password):
         """
-        TODO document this according to this website: https://www.vitoshacademy.com/hashing-passwords-in-python/
+        Encryption method that creates a sha256 hash and later hashes it into sha512 and applies a random salt to it.
+        Later it convers it into ascii to turn it into utf-8
         :param password:
         :return:
         """
@@ -23,7 +24,7 @@ class Encryption:
     @staticmethod
     def verify_password(stored_password, provided_password):
         """
-        TODO document this according to this website: https://www.vitoshacademy.com/hashing-passwords-in-python/
+        Decodes a password.
         :param stored_password:
         :param provided_password:
         :return:
