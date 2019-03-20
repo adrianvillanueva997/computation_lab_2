@@ -1,5 +1,5 @@
 from ETL import File_Manager
-from Interfaces.Database import config as cfg
+from Interfaces.Database import config as cfg, utilities
 
 
 class File_Uploader:
@@ -24,12 +24,9 @@ class File_Uploader:
             for review in reviews:
                 # file_name | text_review
                 try:
-                    review = str(review).replace('\'', '\'\'')
-                    review = review.replace('\"', '\"\"')
-                    review = review.replace('%', '%%')
-                    file_name = str(file_names[index]).replace('\'', '\'\'')
-                    file_name = file_name.replace('\"', '\"\"')
-
+                    ut = utilities.Utilities()
+                    review = ut.scrape_text_for_sql(review)
+                    file_name = ut.scrape_text_for_sql(file_names[index])
                     query = f'INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name) values ({self.project_id}, \"{review}\" ,\"{file_name}\")'
                     con.execute(query)
                     print(query)

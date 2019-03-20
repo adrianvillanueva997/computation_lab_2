@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Interfaces.Database import config as cfg, Encryption
+from Interfaces.Database.utilities import Utilities
 
 
 class Login:
@@ -21,6 +22,9 @@ class Login:
         :return:
         """
         with cfg.engine.connect() as con:
+            ut = Utilities()
+            user = ut.scrape_text_for_sql(user)
+            password = ut.scrape_text_for_sql(password)
             query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{user}\" LIMIT 1;'
             results = con.execute(query)
             result_query = []
