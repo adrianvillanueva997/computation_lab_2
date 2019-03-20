@@ -21,7 +21,7 @@ class Register:
         self.__scrape_user_data()
 
     def __scrape_user_data(self):
-        ut = Utilities()
+        ut = Utilities.Utilities()
         self.__username = ut.scrape_text_for_sql(self.__username)
         self.__email = ut.scrape_text_for_sql(self.__email)
         self.__password = ut.scrape_text_for_sql(self.__password)
