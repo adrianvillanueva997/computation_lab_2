@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
-from Database import config as cfg, Encryption
+try:
+    from Database import config as cfg, Encryption
+except Exception as e:
+    from Interfaces.Database import config as cfg, Utilities
 
 
 class Login:
@@ -21,6 +23,9 @@ class Login:
         :return:
         """
         with cfg.engine.connect() as con:
+            ut = Utilities.Utilities()
+            user = ut.scrape_text_for_sql(user)
+            password = ut.scrape_text_for_sql(password)
             query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{user}\" LIMIT 1;'
             results = con.execute(query)
             result_query = []
@@ -32,6 +37,7 @@ class Login:
             else:
                 encrypted_db_password = result_query[0]['password']
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):
-                    return True
+                    role = result_query[0]['role']
+                    return role
                 else:
-                    return False
+                    return None

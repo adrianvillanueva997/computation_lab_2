@@ -113,57 +113,57 @@ class Amazon:
             reviews.append(review)
         return reviews
 
-    def scrape_amazon_training(self, urls_list):
+    def scrape_amazon_training(self, url):
         data = {
             'malas': [],
             'neutras': [],
             'buenas': []
         }
-        for url in urls_list:
-            num_page = 1
-            max = 2
-            new_url = self.change_urls(url)
-            while num_page < max:
-                html = self.__make_request(
-                    new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
-                blocks = self.__get_div_blocks(html)
-                if self.__check_limit(html):
-                    filtered_data = self.__filter_data(blocks)
-                    for malas in filtered_data['malas']:
-                        data['malas'].append(malas)
-                    for neutras in filtered_data['neutras']:
-                        data['neutras'].append(neutras)
-                    for buenas in filtered_data['buenas']:
-                        data['buenas'].append(buenas)
-                    num_page += 1
-                    max += 1
-                else:
-                    num_page = max
+
+        num_page = 1
+        max = 2
+        new_url = self.change_urls(url)
+        while num_page < max:
+            html = self.__make_request(
+                new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
+            blocks = self.__get_div_blocks(html)
+            if self.__check_limit(html):
+                filtered_data = self.__filter_data(blocks)
+                for malas in filtered_data['malas']:
+                    data['malas'].append(malas)
+                for neutras in filtered_data['neutras']:
+                    data['neutras'].append(neutras)
+                for buenas in filtered_data['buenas']:
+                    data['buenas'].append(buenas)
+                num_page += 1
+                max += 1
+            else:
+                num_page = max
         return data
 
-    def scrape_amazon(self, urls_list):
+    def scrape_amazon(self, url):
         data = []
-        for url in urls_list:
-            new_url = self.change_urls(url)
-            num_page = 1
-            max = 2
-            while num_page < max:
-                html = self.__make_request(
-                    new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
-                blocks = self.__get_div_blocks(html)
-                if self.__check_limit(html):
-                    filtered_data = self.__get_reviews(blocks)
-                    for review in filtered_data:
-                        data.append(review)
-                    num_page += 1
-                    max += 1
-                else:
-                    num_page = max
+        new_url = self.change_urls(url)
+        num_page = 1
+        max = 2
+        while num_page < max:
+            html = self.__make_request(
+                new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
+            blocks = self.__get_div_blocks(html)
+            if self.__check_limit(html):
+                filtered_data = self.__get_reviews(blocks)
+                for review in filtered_data:
+                    data.append(review)
+                num_page += 1
+                max += 1
+            else:
+                num_page = max
         return data
 
 
 if __name__ == '__main__':
     amz = Amazon()
-    urls = ['https://www.amazon.es/Arctic-MX-4-Compuesto-micropart%C3%ADculas-ventilador/dp/B0045JCFLY/ref=sr_1_3?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=pasta+termica&qid=1553244498&s=gateway&sr=8-3']
-    data = amz.scrape_amazon_training(urls)
+    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
+            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/']
+    data = amz.scrape_amazon_training(urls[0])
     print(data)

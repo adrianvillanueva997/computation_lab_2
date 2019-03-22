@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-
-from Interfaces.Database import config as cfg, Encryption
+try:
+    from Interfaces.Database import Encryption, Utilities
+    from Interfaces.Database import config as cfg
+except Exception as e:
+    from Database import Encryption, Utilities
+    from Database import config as cfg
 
 
 class Register:
@@ -14,7 +18,13 @@ class Register:
         self.__username = username
         self.__password = password
         self.__email = email
-        self.__con = cfg.engine
+        self.__scrape_user_data()
+
+    def __scrape_user_data(self):
+        ut = Utilities.Utilities()
+        self.__username = ut.scrape_text_for_sql(self.__username)
+        self.__email = ut.scrape_text_for_sql(self.__email)
+        self.__password = ut.scrape_text_for_sql(self.__password)
 
     def __check_email(self):
         """
@@ -22,7 +32,7 @@ class Register:
         otherwise, it will return False
         :return:
         """
-        with self.__con.connect() as con:
+        with cfg.engine.connect() as con:
             query = f'SELECT * FROM proyecto_computacion.user where email = \"{self.__email}\" LIMIT 1'
             results = con.execute(query)
             result_query = []
@@ -40,7 +50,7 @@ class Register:
         otherwise it will return False
         :return:
         """
-        with self.__con.connect() as con:
+        with cfg.engine.connect() as con:
             query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{self.__username}\" LIMIT 1'
             results = con.execute(query)
             result_query = []
@@ -59,7 +69,7 @@ class Register:
         :return:
         """
         if self.__check_email() and self.__check_username():
-            with self.__con.connect() as con:
+            with cfg.engine.connect() as con:
                 password = Encryption.Encryption.hash_password(self.__password)
                 query = f'INSERT INTO proyecto_computacion.user (user_name, email,password)' \
                     f' VALUES (\"{self.__username}\",\"{self.__email}\",\"{password}\");'

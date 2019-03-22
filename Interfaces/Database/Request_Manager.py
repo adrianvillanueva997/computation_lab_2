@@ -12,7 +12,7 @@ class RequestManager:
         :param user_data:
         :return:
         """
-        response = requests.post('http://localhost:3000', user_data)
+        response = requests.post('https://adrianvillanueva.tk/proy_comp2/server.php', user_data)
         response_content = response.content
         return response_content
 
@@ -51,3 +51,10 @@ class RequestManager:
                               }
         response = self.__make_request(download_user_data)
         return response
+
+
+if __name__ == '__main__':
+    rm = RequestManager()
+    model = (rm.download_file(1, 1, 1))
+    print(model)
+    #rm.upload_file(1, 2, 5, model)
