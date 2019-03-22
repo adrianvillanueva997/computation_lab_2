@@ -164,7 +164,6 @@ class Amazon:
 
 if __name__ == '__main__':
     amz = Amazon()
-    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
-            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/']
+    urls = ['https://www.amazon.es/Arctic-MX-4-Compuesto-micropart%C3%ADculas-ventilador/dp/B0045JCFLY/ref=sr_1_3?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=pasta+termica&qid=1553244498&s=gateway&sr=8-3']
     data = amz.scrape_amazon_training(urls)
     print(data)
