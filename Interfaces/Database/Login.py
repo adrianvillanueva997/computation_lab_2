@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 try:
-    from Database import config as cfg, Encryption
+    from Database import config as cfg, Encryption, Utilities
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
 

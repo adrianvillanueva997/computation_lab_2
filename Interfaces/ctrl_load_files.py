@@ -1,13 +1,13 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-from Ui_view_load_files import Ui_MainWindow
-from Database.ETL import File_Manager
-from Database import File_Uploader
-
 import os
 
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from Database import File_Uploader
+from Database.ETL import File_Manager
+from Ui_view_load_files import Ui_MainWindow
+from Web_Scrapping import Amazon_Scrapper
+from Web_Scrapping import Yelp_Scrapper
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -19,6 +19,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_pushButton_load.clicked.connect(self.load_files_to_db)
         self.file_pushButton_clear.clicked.connect(self.clear_table)
         self.URL_pushButton_add.clicked.connect(self.load_urls_table)
+        self.URL_pushButton_processURLs.clicked.connect(self.load_reviews_urls)
         self.parent = None
 
     def set_parent(self,MainWindow):
@@ -58,14 +59,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         numRows = self.file_tableWidget.rowCount()
         for row in range(0,numRows):
             path = str(self.file_tableWidget.item(row,2).text())
+            label = str(self.file_tableWidget.item(row,1).text())
             print(path)
             file_data,file_names=fm.extract_data_from_files(path)
             fuploader = File_Uploader.File_Uploader(project_id)
-            fuploader.upload_reviews_to_db(file_data,file_names)
+            fuploader.upload_reviews_to_db(file_data,file_names,label)
         
     
     def clear_table(self):
-        self.file_tableWidget.clear()
+        self.file_tableWidget.setRowCount(0)
 
     def load_urls_table(self):
         urlPath = self.lineEdit_URL.text()
@@ -80,7 +82,34 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.lineEdit_URL.setText("")
         self.URL_pushButton_processURLs.setEnabled(True)
 
+    def load_reviews_urls(self):
+        numRows = self.URL_tableWidget.rowCount()
+        for row in range(0,numRows):
+            url_path = str(self.URL_tableWidget.item(row,0).text())
+            if url_path.__contains__('amazon'):
+                scrapper = Amazon_Scrapper.Amazon()
+                reviews = scrapper.scrape_amazon(url_path)
+                print(reviews)
+                for item in reviews:
+                    rowPosition_reviews=self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(item))
+            if url_path.__contains__('yelp'):
+                scrapper = Yelp_Scrapper.Yelp_Scrapper()
+                reviews = scrapper.scrapper_yelp(url_path)
+                print(reviews)
+                for item in reviews:
+                    rowPosition_reviews=self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(item))
+        self.URL_tableWidget.setRowCount(0)
+        self.URL_pushButton_processURLs.setEnabled(False)
+
+
+
+
     def go_back(self):
         self.close()
         self.parent.show()
-

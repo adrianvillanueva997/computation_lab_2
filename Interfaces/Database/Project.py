@@ -3,7 +3,7 @@ import uuid
 try:
     from Database import config as cfg
     from Database import User
-    from ETL import Sentiment, Models, Vectorizer, File_Manager
+    from .ETL import Sentiment, Models, Vectorizer, File_Manager
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
     from Interfaces.Database import User
