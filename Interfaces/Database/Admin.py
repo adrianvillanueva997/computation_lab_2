@@ -1,4 +1,7 @@
-from Interfaces.Database import config as cfg
+try:
+    from Database import config as cfg, Encryption
+except Exception as e:
+    from Interfaces.Database import config as cfg, Utilities
 
 
 class Admin:
@@ -40,22 +43,16 @@ class Admin:
                 query = 'select * from proyecto_computacion.user'
                 results = con.execute(query)
                 data = {
+                    'id': [],
                     'username': [],
                     'email': [],
                     'role': []
                 }
                 for result in results:
+                    data['id'].append(str(result['ID_user']))
                     data['username'].append(result['user_name'])
                     data['email'].append(result['email'])
-                    data['role'].append(result['role'])
+                    data['role'].append(str(result['role']))
             return data
         except Exception as e:
             print(e)
-
-
-if __name__ == '__main__':
-    admin = Admin()
-    data = admin.get_users_with_projects()
-    print(data)
-    data = admin.get_users()
-    print(data)
