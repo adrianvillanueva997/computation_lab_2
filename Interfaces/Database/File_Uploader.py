@@ -5,6 +5,7 @@ except Exception as e:
     from Interfaces.Database.ETL import File_Manager
     from Interfaces.Database import config as cfg
     from Interfaces.Database import Utilities
+from sqlalchemy.sql import text
 
 
 class File_Uploader:
@@ -42,17 +43,19 @@ class File_Uploader:
                     self.failed_reviews.append(review)
                     print(e)
 
-    def upload_single_review_to_db(self, name, label, text):
+    def upload_single_review_to_db(self, name, label, review):
         """
         Receives 2 lists with strings and uploads them to the database associating them to the project id given to the object
-        :param reviews:
-        :param file_names:
+        :param text:
+        :param label:
+        :param name:
         :return:
         """
         with cfg.engine.connect() as con:
             try:
-                query = "INSERT INTO proyecto_computacion.review (ID_project,label,file_name,text_review)"
-                con.execute(query,ID_project=int(self.project_id), label=str(label),file_name=str(name),text_review=str(text))
+                query = text("INSERT INTO proyecto_computacion.review (ID_project,label,file_name,text_review) " \
+                             "values (:a,:b,:c,:d)")
+                con.execute(query, a=self.project_id, b=label, c=name, d=review)
                 print(query)
             except Exception as e:
                 print(e)
@@ -63,4 +66,4 @@ if __name__ == '__main__':
     good_reviews, g_file_names = fm.extract_data_from_files(
         '/home/xiao/Downloads/dataset_entrenamiento/buenas')
     fp = File_Uploader(19)
-    fp.upload_reviews_to_db(good_reviews, g_file_names)
+    fp.upload_single_review_to_db(name='a', label='b', review='test')
