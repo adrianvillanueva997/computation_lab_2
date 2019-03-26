@@ -14,7 +14,6 @@ class Admin:
                     'email': [],
                     'username': [],
                     'role': [],
-                    'id_project': [],
                     'name_project': [],
                     'last_update': [],
                 }
@@ -23,7 +22,7 @@ class Admin:
                         'join proyecto_computacion.project prj on prj_rel.ID_project = prj.ID_project'
                 results = con.execute(query)
                 for result in results:
-                    data['id_user'].append(result['ID_user'])
+                    data['id_user'].append(str(result['ID_user']))
                     data['username'].append(result['user_name'])
                     data['email'].append(result['email'])
                     data['role'].append(result['role'])
@@ -55,7 +54,6 @@ class Admin:
 
 if __name__ == '__main__':
     admin = Admin()
-    data = admin.get_users_with_projects()
-    print(data)
-    data = admin.get_users()
-    print(data)
+    results = admin.get_users_with_projects()
+    a = admin.get_users()
+    print(a)

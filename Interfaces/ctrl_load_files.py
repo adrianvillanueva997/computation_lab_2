@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import QFileDialog
 from Ui_view_load_files import Ui_MainWindow
 from Database.ETL import File_Manager
 from Database import File_Uploader
-import Web_Scrapping
-from Web_Scrapping import Amazon_Scrapper
+from Interfaces.Web_Scrapping import Amazon_Scrapper
 import os
 
 

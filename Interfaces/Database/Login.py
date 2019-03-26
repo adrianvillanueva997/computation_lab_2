@@ -33,7 +33,7 @@ class Login:
                 result_query.append(result)
             print(len(result_query))
             if len(result_query) is 0:
-                return False
+                return None
             else:
                 encrypted_db_password = result_query[0]['password']
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):

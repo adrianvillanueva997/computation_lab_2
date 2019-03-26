@@ -16,18 +16,14 @@ if (isset($_POST["username"]) && isset($_POST["password"])) {
                 // 3. If directory doesn't exist, create project folder and write file
                 $file_content = $_POST["file_content"];
                 $file_name = $directory_path . "/" . $model_id . ".model";
-                if (is_dir($directory_path)) {
-                    $file_writer = fopen($file_name, "w+");
-                    fwrite($file_writer, $file_content);
-                    fclose($file_writer);
-                    echo "1";
-                } else {
+                if (!is_dir($directory_path)) {
                     mkdir($directory_path);
-                    $file_writer = fopen($file_name, "w+");
-                    fwrite($file_writer, $file_content);
-                    fclose($file_writer);
-                    echo "1";
                 }
+                $file_writer = fopen($file_name, "w+");
+                fwrite($file_writer, $file_content);
+                fclose($file_writer);
+                echo "1";
+
             } else {
                 // == Download ==
                 //1. Verify if project directory exists
