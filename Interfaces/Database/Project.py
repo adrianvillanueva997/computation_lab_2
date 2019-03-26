@@ -8,6 +8,7 @@ except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
     from Interfaces.Database import User
     from Interfaces.Database.ETL import Sentiment, Models, Vectorizer, File_Manager
+from sqlalchemy.sql import text
 
 
 class Project:
@@ -151,19 +152,23 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review ' \
-                    f'on prj.ID_project = review.ID_project where prj.ID_project like {project_id} and label is null'
-                results = con.execute(query)
-                failed_reviews = []
+                try:
+                    query = text("SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review "
+                                 "on prj.ID_project = review.ID_project where prj.ID_project"
+                                 " like :_project_id and label is null")
+                    results = con.execute(query, _project_id=project_id)
+                    failed_reviews = []
+                except Exception as e:
+                    print(e)
                 for result in results:
                     try:
                         review_id = result['ID_review']
                         text = result['text_review']
                         prediction = model.predict(text)
-                        update_query = f'update proyecto_computacion.review set ' \
-                            f'label = {prediction[0]} where ID_review = {review_id}'
+                        update_query = text('update proyecto_computacion.review set '
+                                            'label = :_predicted_label where ID_review = :_review_id')
                         print(update_query)
-                        con.execute(update_query)
+                        con.execute(update_query, _predicted_label=prediction[0], _review_id=review_id)
                     except Exception as e:
                         failed_reviews.append(text)
                         self.failed_reviews_label = failed_reviews
@@ -185,10 +190,10 @@ class Project:
                     try:
                         ut = Utilities.Utilities()
                         label = ut.scrape_text_for_sql(label)
-                        query = f'insert into proyecto_computacion.Label' \
-                            f' (label, ID_Project) VALUES (\"{label}\",{project_id});'
+                        query = text('insert into proyecto_computacion.Label'
+                                     ' (label, ID_Project) VALUES (:_label,:_project_id);')
                         print(query)
-                        con.execute(query)
+                        con.execute(query, _label=label, _project_id=project_id)
                     except Exception as e:
                         print(e)
         except Exception as e:
@@ -208,9 +213,9 @@ class Project:
                     try:
                         ut = Utilities.Utilities()
                         url = ut.scrape_text_for_sql(url)
-                        query = f'INSERT INTO proyecto_computacion.link_web_scrapper (ID_project, url, processed) ' \
-                            f'values ({project_id},\"{url}\",0)'
-                        con.execute(query)
+                        query = text('INSERT INTO proyecto_computacion.link_web_scrapper (ID_project, url, processed) '
+                                     'values (:_project_id,:_url,0)')
+                        con.execute(query, _project_id=project_id, _url=url)
                     except Exception as e:
                         print(e)
         except Exception as e:
@@ -225,8 +230,8 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.Label where ID_Project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.Label where ID_Project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 labels = []
                 for result in results:
                     labels.append(result['label'])
@@ -261,8 +266,9 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.review where label like \"{label}\" and  ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.review '
+                             'where label like :_label and  ID_project like :_project_id')
+                results = con.execute(query, _label=label, _project_id=project_id)
                 query_result = {
                     'id': [],
                     'label': [],
@@ -293,9 +299,10 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'select * from proyecto_computacion.link_web_scrapper ' \
-                    f'where processed like 0 and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text(
+                    'select * from proyecto_computacion.link_web_scrapper '
+                    'where processed like 0 and ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 urls = []
                 for result in results:
                     urls.append(result['url'])
@@ -312,9 +319,9 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'select * from proyecto_computacion.link_web_scrapper ' \
-                    f'where processed like 1 and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('select * from proyecto_computacion.link_web_scrapper '
+                             'where processed like 1 and ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 urls = []
                 for result in results:
                     urls.append(result['url'])
@@ -332,9 +339,9 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'UPDATE proyecto_computacion.link_web_scrapper set processed 1 ' \
-                    f'where url like \"{url}\" and ID_project like {project_id}'
-                con.execute(query)
+                query = text('UPDATE proyecto_computacion.link_web_scrapper set'
+                             ' processed 1 where url like :_url and ID_project like :_project_id')
+                con.execute(query, _url=url, _project_id=project_id)
         except Exception as e:
             print(e)
 
@@ -342,8 +349,9 @@ class Project:
     def __get_url_id(url, project_id):
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * from proyecto_computacion.link_web_scrapper where url like \"{url}\" and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.link_web_scrapper'
+                             ' where url like :_url and ID_project like :_project_id')
+                results = con.execute(query, _url=url, _project_id=project_id)
                 id = ''
                 for result in results:
                     id = result['ID_link']
