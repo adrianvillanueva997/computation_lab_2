@@ -14,8 +14,16 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def registrar(self):
         username = self.lineEdit_nombre.text()
         password = self.lineEdit_password.text()
-        emilio=self.lineEdit_Email.text()
+        emilio=self.lineEdit_email.text()
         rg=Register.Register(username,password,emilio)
-        rg.upload_user()
+        registrer=rg.upload_user()
+        if registrer == True:
+            ret=QMessageBox.question(self, '¡Advertencia!', "Usuario insertado", QMessageBox.Ok)
+            if ret == QMessageBox.Ok:
+                self.close()
+        else:
+            ret=QMessageBox.question(self, '¡Advertencia!', "Ha ocurrido un error inesperado", QMessageBox.Ok)
+            if ret == QMessageBox.Ok:
+                self.close()
     def cancelar(self):
         self.close()
