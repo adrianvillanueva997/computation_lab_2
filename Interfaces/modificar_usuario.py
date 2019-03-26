@@ -39,9 +39,9 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setObjectName("label_4")
         self.gridLayout.addWidget(self.label_4, 3, 0, 1, 1)
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setObjectName("lineEdit")
-        self.gridLayout.addWidget(self.lineEdit, 3, 1, 1, 1)
+        self.lineEdit_Rol= QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_Rol.setObjectName("lineEdit_Rol")
+        self.gridLayout.addWidget(self.lineEdit_Rol, 3, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -65,10 +65,6 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Nombre Usuario"))
         self.label_3.setText(_translate("MainWindow", "Password"))
         self.label_2.setText(_translate("MainWindow", "Email"))
-        self.label_4.setText(_translate("MainWindow", "Proyectos asociados"))
+        self.label_4.setText(_translate("MainWindow", "Rol"))
         self.pushButton_Aceptar.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_Cancelar.setText(_translate("MainWindow", "Cancelar"))
-
-
-
-

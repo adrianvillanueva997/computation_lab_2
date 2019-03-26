@@ -56,3 +56,22 @@ class Admin:
             return data
         except Exception as e:
             print(e)
+    @staticmethod
+    def modificar_usuario(self, id, username, email, role):
+        try:
+            user={
+                'id': [],
+                'username':[],
+                'email' : [],
+                'role' : [],
+            }
+            self.user['id'][0]=self.id
+            self.user['username'][0]=self.username
+            self.user['email'][0]=self.email
+            self.user['role'][0]=self.role
+            query="UPGRADE proyecto_computacion.user SET user_name='"+ user['username'][0] +"', email='"+user['email'][0]+"', role='"+user['role'][0]+"' WHERE  ID_user='"+user['id'][0]+"'"
+            with cfg.engine.connect() as con:
+                results = con.execute(query)
+                print (results)
+        except Exception as e:
+            print(e)
