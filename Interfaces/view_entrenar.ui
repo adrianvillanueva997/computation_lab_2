@@ -16,10 +16,10 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="6">
-     <widget class="QTableWidget" name="tableWidget_reviews_to_train"/>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTableWidget" name="tableWidget_reviews">
+     <widget class="QTableWidget" name="tableWidget_reviews_to_train">
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
       <column>
        <property name="text">
         <string>Etiqueta</string>
@@ -27,7 +27,29 @@
       </column>
       <column>
        <property name="text">
-        <string>Ruta</string>
+        <string>Nombre Fichero</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTableWidget" name="tableWidget_reviews">
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <column>
+       <property name="text">
+        <string>Etiqueta</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nombre Fichero</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Texto</string>
        </property>
       </column>
      </widget>

@@ -5,6 +5,8 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Database import File_Uploader
 from Database.ETL import File_Manager
+from Database import Project
+from Database import User
 from Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper
 from Web_Scrapping import Yelp_Scrapper
@@ -17,9 +19,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_pushButton_add.clicked.connect(self.load_files_table)
         self.file_pushButton_selectfolder.clicked.connect(self.get_folder_path)
         self.file_pushButton_load.clicked.connect(self.load_files_to_db)
-        self.file_pushButton_clear.clicked.connect(self.clear_table)
+        self.file_pushButton_clear.clicked.connect(self.file_clear_table)
         self.URL_pushButton_add.clicked.connect(self.load_urls_table)
         self.URL_pushButton_processURLs.clicked.connect(self.load_reviews_urls)
+        self.URL_pushButton_clear.clicked.connect(self.url_clear_table_reviews)
+        self.URL_pushButton_back.clicked.connect(self.go_back)
+        self.URL_pushButton_load.clicked.connect(self.load_reviews_URL_to_db)
+        self._project_ID=None
         self.parent = None
 
     def set_parent(self,MainWindow):
@@ -54,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_lineEditPath.setText(file_path)
 
     def load_files_to_db(self):
-        project_id=self.parent._project_id
+        project_id=self._project_ID
         fm = File_Manager.File_Manager()
         numRows = self.file_tableWidget.rowCount()
         for row in range(0,numRows):
@@ -66,8 +72,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             fuploader.upload_reviews_to_db(file_data,file_names,label)
         
     
-    def clear_table(self):
+    def file_clear_table(self):
         self.file_tableWidget.setRowCount(0)
+        self.file_pushButton_load.setEnabled(False)
 
     def load_urls_table(self):
         urlPath = self.lineEdit_URL.text()
@@ -83,6 +90,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.URL_pushButton_processURLs.setEnabled(True)
 
     def load_reviews_urls(self):
+        label = str(self.URL_comboBox_labels.currentText())
+        if label == "Seleccionar etiqueta":
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar una etiqueta antes de añadir un elemento")
+            return
         numRows = self.URL_tableWidget.rowCount()
         for row in range(0,numRows):
             url_path = str(self.URL_tableWidget.item(row,0).text())
@@ -94,7 +106,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     rowPosition_reviews=self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(item))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
@@ -103,12 +116,43 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     rowPosition_reviews=self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(item))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
         self.URL_tableWidget.setRowCount(0)
+        self.URL_pushButton_load.setEnabled(True)
         self.URL_pushButton_processURLs.setEnabled(False)
 
+    def url_clear_table_reviews(self):
+        self.URL_review_tableWidget.setRowCount(0)
+        self.URL_pushButton_load.setEnabled(False)
+        
+
+    def load_labels(self):
+        user = User.User(10)
+        pr = Project.Project(user)
+        labels=pr.get_labels(self._project_ID)
+        self.comboBox_labels_file.clear()
+        self.comboBox_labels_file.addItem("Seleccionar etiqueta")
+        self.comboBox_labels_file.addItem("Unlabeled")
+        self.comboBox_labels_file.addItems(labels)
+        self.URL_comboBox_labels.clear()
+        self.URL_comboBox_labels.addItem("Seleccionar etiqueta")
+        self.URL_comboBox_labels.addItem("Unlabeled")
+        self.URL_comboBox_labels.addItems(labels)
+
+    def load_reviews_URL_to_db(self):
+        project_id=self._project_ID
+        numRows = self.URL_review_tableWidget.rowCount()
+        fuploader = File_Uploader.File_Uploader(project_id)
+        for row in range(0,numRows):
+            name=str(self.URL_review_tableWidget.item(row,0).text())
+            label = str(self.URL_review_tableWidget.item(row,1).text())
+            text=self.URL_review_tableWidget.item(row,2).text()
+            fuploader.upload_single_review_to_db(name,label,text)
 
 
+    def set_project_id(self,project_id):
+        self._project_ID=project_id
 
     def go_back(self):
         self.close()

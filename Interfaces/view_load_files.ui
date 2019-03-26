@@ -143,6 +143,11 @@
           </column>
           <column>
            <property name="text">
+            <string>Etiqueta</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
             <string>Opinion</string>
            </property>
           </column>
@@ -217,6 +222,20 @@
           <property name="text">
            <string>Procesar URLs</string>
           </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QComboBox" name="URL_comboBox_labels">
+          <item>
+           <property name="text">
+            <string>Seleccionar etiqueta</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Unlabeled</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>

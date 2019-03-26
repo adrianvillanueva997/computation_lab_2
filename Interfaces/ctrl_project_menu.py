@@ -30,6 +30,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_load_files_window(self):
         self._window= v_load_files.MainWindow()
         self._window.set_parent(self)
+        self._window.set_project_id(self._project_id)
+        self._window.load_labels()
         self._window.show()
         self.close()
     
@@ -39,5 +41,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def show_train_window(self):
         self._window = v_train.MainWindow()
         self._window.set_parent(self)
+        self._window.set_project_id(self._project_id)
+        self._window.load_reviews()
         self._window.show()
         self.close()

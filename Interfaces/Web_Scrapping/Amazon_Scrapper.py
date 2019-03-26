@@ -43,7 +43,7 @@ class Amazon:
         :argument url: str
         """
         soup = BeautifulSoup(html, 'html.parser')
-        div_class_blocks = soup.findAll("div", class_='a-section celwidget')
+        div_class_blocks = soup.findAll("div", {"class":'a-section celwidget'})
         return div_class_blocks
 
     @staticmethod

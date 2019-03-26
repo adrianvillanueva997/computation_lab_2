@@ -94,7 +94,7 @@ class Project:
         try:
             with cfg.engine.connect() as con:
 
-                query = f'SELECT * from proyecto_computacion.project prj join proyecto_computacion.review on prj.ID_project = review.ID_project where prj.ID_project like {project_id}'
+                query = f'SELECT * from proyecto_computacion.review WHERE ID_project LIKE {project_id}'
                 results = con.execute(query)
                 for result in results:
                     data['id'].append(result['ID_review'])
@@ -104,7 +104,6 @@ class Project:
                     data['sentiment_pol'].append(result['sentiment_pol'])
                     data['sentiment_sub'].append(result['sentiment_sub'])
                     data['sentiment_comp'].append(result['sentiment_comp'])
-
             return data
         except Exception as e:
             print(e)

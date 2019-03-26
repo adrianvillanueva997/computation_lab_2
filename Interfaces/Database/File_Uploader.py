@@ -42,6 +42,21 @@ class File_Uploader:
                     self.failed_reviews.append(review)
                     print(e)
 
+    def upload_single_review_to_db(self, name, label, text):
+        """
+        Receives 2 lists with strings and uploads them to the database associating them to the project id given to the object
+        :param reviews:
+        :param file_names:
+        :return:
+        """
+        with cfg.engine.connect() as con:
+            try:
+                query = "INSERT INTO proyecto_computacion.review (ID_project,label,file_name,text_review)"
+                con.execute(query,ID_project=int(self.project_id), label=str(label),file_name=str(name),text_review=str(text))
+                print(query)
+            except Exception as e:
+                print(e)
+
 
 if __name__ == '__main__':
     fm = File_Manager.File_Manager()
