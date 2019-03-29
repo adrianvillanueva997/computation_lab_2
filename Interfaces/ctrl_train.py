@@ -17,6 +17,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_add.clicked.connect(self.add_review_to_train)
         self.pushButton_applyfilter.clicked.connect(self.filter_table)
         self.pushButton_remove.clicked.connect(self.remove_from_training_table)
+        self.pushButton_Entrenar.clicked.connect(self.train_with_reviews)
         self._project_id = None
 
     
@@ -69,8 +70,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         for item in reversed(rows):
             self.tableWidget_reviews_to_train.removeRow(item.row())
+    ##ADRI AQUI TIENES LA FUNCION QUE GENERA EL DICCIONARIO DE REVIEWS CON SUS LABELS
+    def train_with_reviews(self):
+        reviews_dictionary = {"labels":[], "reviews":[]}
+        rowCount = self.tableWidget_reviews_to_train.rowCount()
+        for i in range(0,rowCount):  
+            reviews_dictionary["labels"].append(self.tableWidget_reviews_to_train.item(i,0).text())
+            reviews_dictionary["reviews"].append(self.tableWidget_reviews_to_train.item(i,1).text())
+        print (reviews_dictionary)
 
-    
+
     def go_back(self):
         self.close()
         self.parent.show()
