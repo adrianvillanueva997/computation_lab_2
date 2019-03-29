@@ -2,6 +2,7 @@ import os
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt5 import QtCore
 
 from Database import File_Uploader
 from Database.ETL import File_Manager
@@ -10,6 +11,7 @@ from Database import User
 from Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper
 from Web_Scrapping import Yelp_Scrapper
+import re
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -82,10 +84,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QMessageBox.critical(
                 self, "Error", "Hay que especificar una URL")
             return
+        if urlPath.__contains__("yelp"):
+            print("Contiene")
+            print(re.findall(r"https:\/\/www.yelp.es\/biz\/",urlPath))
+            if not re.findall(r"https:\/\/www.yelp.es\/biz\/",urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return    
+        elif urlPath.__contains__("amazon"):
+            if not re.findall(r"https:\/\/www.amazon.es\/.*\/",urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return
+        else:
+            QMessageBox.critical(
+                self, "Error", "URL no soportada")
+            return
         rowPosition = self.URL_tableWidget.rowCount()
         self.URL_tableWidget.insertRow(rowPosition)
-        self.URL_tableWidget.setItem(
-            rowPosition, 0, QtWidgets.QTableWidgetItem(urlPath))
+        self.URL_tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(urlPath))
         self.lineEdit_URL.setText("")
         self.URL_pushButton_processURLs.setEnabled(True)
 
@@ -111,13 +126,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
-                print(reviews)
+                
                 for item in reviews:
                     rowPosition_reviews=self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
+                   
         self.URL_tableWidget.setRowCount(0)
         self.URL_pushButton_load.setEnabled(True)
         self.URL_pushButton_processURLs.setEnabled(False)
