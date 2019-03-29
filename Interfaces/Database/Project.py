@@ -28,16 +28,20 @@ class Project:
         :return:
         """
         with cfg.engine.connect() as con:
-            insert_project_query = f'INSERT INTO proyecto_computacion.project (name_project) value (\"{project_name}\")'
-            select_project_id_query = f'select * from proyecto_computacion.project where name_project = \"{project_name}\"'
+            insert_project_query = text(
+                'INSERT INTO proyecto_computacion.project (name_project) value (:_project_name)')
+            select_project_id_query = text('select * from proyecto_computacion.project prj'
+                                           ' where prj.name_project = :_project_name'
+                                           ' order by prj.Last_Update ASC limit 1')
             try:
-                con.execute(insert_project_query)
-                results = con.execute(select_project_id_query)
+                con.execute(insert_project_query, _project_name=project_name)
+                results = con.execute(select_project_id_query, _project_name=project_name)
                 id_project = None
                 for result in results:
                     id_project = result['ID_project']
-                insert_user_relation_query = f'insert into proyecto_computacion.project_rel (id_project, id_user) VALUES ({id_project},{self.__id_user})'
-                con.execute(insert_user_relation_query)
+                insert_user_relation_query = text('insert into proyecto_computacion.project_rel '
+                                                  '(id_project, id_user) VALUES (:_id_project,:_id_user)')
+                con.execute(insert_user_relation_query, _id_project=id_project, _id_user=self.__id_user)
             except Exception as e:
                 print(e)
 
@@ -51,8 +55,9 @@ class Project:
         code = str(code)
         with cfg.engine.connect() as con:
             try:
-                insert_invitation_code_query = f'update proyecto_computacion.project set ID_invitation = \"{code}\" where ID_project = {id_project}'
-                con.execute(insert_invitation_code_query)
+                insert_invitation_code_query = text('update proyecto_computacion.project '
+                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id'
+                con.execute(insert_invitation_code_query, _invitation_code=code, _project_id=id_project)
             except Exception as e:
                 print(e)
         return code
@@ -70,8 +75,10 @@ class Project:
                 'timestamp': [],
             }
             try:
-                query = f'SELECT * from proyecto_computacion.project prj join proyecto_computacion.project_rel on prj.ID_project = project_rel.ID_project where project_rel.ID_user = {self.__id_user} order by  prj.ID_project asc'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.project prj join'
+                             ' proyecto_computacion.project_rel on prj.ID_project = project_rel.ID_project '
+                             'where project_rel.ID_user = :_user_id order by  prj.ID_project asc')
+                results = con.execute(query, _user_id=self.__id_user)
                 for result in results:
                     project_data['id'].append(str(result['ID_project']))
                     project_data['project_name'].append(result['name_project'])
@@ -95,8 +102,9 @@ class Project:
         try:
             with cfg.engine.connect() as con:
 
-                query = f'SELECT * from proyecto_computacion.project prj join proyecto_computacion.review on prj.ID_project = review.ID_project where prj.ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.project prj join proyecto_computacion.review '
+                             'on prj.ID_project = review.ID_project where prj.ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 for result in results:
                     data['id'].append(result['ID_review'])
                     data['label'].append(result['label'])
@@ -121,20 +129,23 @@ class Project:
             failed_reviews = []
             with cfg.engine.connect() as con:
                 sentiment = Sentiment.Sentiment()
-                query = f'SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review ' \
-                    f'on prj.ID_project = review.ID_project where prj.ID_project like {project_id} and sentiment_pol is null'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review '
+                             'on prj.ID_project = review.ID_project '
+                             'where prj.ID_project like :_project_id and sentiment_pol is null')
+                results = con.execute(query, _project_id=project_id)
                 for result in results:
                     try:
                         review_id = result['ID_review']
                         text = result['text_review']
                         sentiments = sentiment.analyse_sentence(text)
-                        update_query = f"update proyecto_computacion.review set " \
-                            f"sentiment_pol = {sentiments['polarity'][0]}," \
-                            f"sentiment_sub = {sentiments['subjectivity'][0]}," \
-                            f"sentiment_comp = {sentiments['compound'][0]} " \
-                            f"where ID_review like {review_id}"
-                        con.execute(update_query)
+                        update_query = text("update proyecto_computacion.review set "
+                                            "sentiment_pol = :_polarity,"  # sentiments['polarity'][0]v
+                                            "sentiment_sub = :_subjectivity,"
+                                            "sentiment_comp = :_compound "
+                                            "where ID_review like :_id_review")
+                        con.execute(update_query, _polarity=sentiments['polarity'][0],
+                                    _subjectivity=sentiments['subjectivity'][0],
+                                    _compound=sentiments['compound'][0], _id_review=review_id)
                     except Exception as e:
                         print(e)
                         failed_reviews.append(text)
@@ -143,38 +154,8 @@ class Project:
             print(e)
 
     def classify_reviews(self, model, project_id):
-        """
-        Given a trained sklearn model, execute the model to classify the reviews that haven't been classified yet.
-        TODO re-do the logic and think an alternative version to this.
-        :param model:
-        :param project_id:
-        :return:
-        """
-        try:
-            with cfg.engine.connect() as con:
-                try:
-                    query = text("SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review "
-                                 "on prj.ID_project = review.ID_project where prj.ID_project"
-                                 " like :_project_id and label is null")
-                    results = con.execute(query, _project_id=project_id)
-                    failed_reviews = []
-                except Exception as e:
-                    print(e)
-                for result in results:
-                    try:
-                        review_id = result['ID_review']
-                        text = result['text_review']
-                        prediction = model.predict(text)
-                        update_query = text('update proyecto_computacion.review set '
-                                            'label = :_predicted_label where ID_review = :_review_id')
-                        print(update_query)
-                        con.execute(update_query, _predicted_label=prediction[0], _review_id=review_id)
-                    except Exception as e:
-                        failed_reviews.append(text)
-                        self.failed_reviews_label = failed_reviews
-                        print(e)
-        except Exception as e:
-            print(e)
+        # TODO
+        pass
 
     @staticmethod
     def add_labels_to_project(labels, project_id):
