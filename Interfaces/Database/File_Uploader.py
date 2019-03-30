@@ -33,9 +33,9 @@ class File_Uploader:
                     ut = Utilities.Utilities()
                     review = ut.scrape_text_for_sql(review)
                     file_name = ut.scrape_text_for_sql(file_names[index])
-                    query = f'INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) ' \
-                        f'values ({self.project_id}, \"{review}\" ,\"{file_name}\",\"{label}\")'
-                    con.execute(query)
+                    query = text('INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) '
+                                 f'values (:_project_id, :_review ,:_file_name,:_label)')
+                    con.execute(query, _project_id=self.project_id, _review=review, _file_name=file_name, _label=label)
                     print(query)
                     index += 1
                 except Exception as e:

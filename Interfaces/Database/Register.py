@@ -6,6 +6,8 @@ except Exception as e:
     from Database import Encryption, Utilities
     from Database import config as cfg
 
+from sqlalchemy.sql import text
+
 
 class Register:
     def __init__(self, username, password, email):
@@ -33,8 +35,8 @@ class Register:
         :return:
         """
         with cfg.engine.connect() as con:
-            query = f'SELECT * FROM proyecto_computacion.user where email = \"{self.__email}\" LIMIT 1'
-            results = con.execute(query)
+            query = text('SELECT * FROM proyecto_computacion.user where email = :_email LIMIT 1')
+            results = con.execute(query, _email=self.__email)
             result_query = []
             for result in results:
                 result_query.append(result)
@@ -51,8 +53,8 @@ class Register:
         :return:
         """
         with cfg.engine.connect() as con:
-            query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{self.__username}\" LIMIT 1'
-            results = con.execute(query)
+            query = text('SELECT * FROM proyecto_computacion.user where user_name = :_username LIMIT 1')
+            results = con.execute(query, _username=self.__username)
             result_query = []
             for result in results:
                 result_query.append(result)
@@ -71,16 +73,16 @@ class Register:
         if self.__check_email() and self.__check_username():
             with cfg.engine.connect() as con:
                 password = Encryption.Encryption.hash_password(self.__password)
-                query = f'INSERT INTO proyecto_computacion.user (user_name, email,password)' \
-                    f' VALUES (\"{self.__username}\",\"{self.__email}\",\"{password}\");'
-                con.execute(query)
+                query = text('INSERT INTO proyecto_computacion.user (user_name, email,password)'
+                             ' VALUES (:_username,:_email,:_password);')
+                con.execute(query, _username=self.__username, _email=self.__email, _password=self.__password)
             return True
         else:
             return False
 
 
 if __name__ == '__main__':
-    re = Register(username='a', password='1234', email='a')
+    re = Register(username='aba', password='1234', email='a')
     re.upload_user()
-    re2 = Register(username='b', password='1234', email='b')
+    re2 = Register(username='bbasa', password='1234', email='b')
     re2.upload_user()

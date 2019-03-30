@@ -12,6 +12,10 @@ from Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper
 from Web_Scrapping import Yelp_Scrapper
 import re
+from Database.ETL import File_Manager
+from Database import File_Uploader
+from Interfaces.Web_Scrapping import Amazon_Scrapper
+import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
