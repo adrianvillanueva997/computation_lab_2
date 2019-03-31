@@ -3,11 +3,11 @@ import uuid
 try:
     from Database import config as cfg
     from Database import User
-    from .ETL import Sentiment, Models, Vectorizer, File_Manager
+    from Interfaces.Database.ETL.Modules import Models, Vectorizer, Sentiment, File_Manager
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
     from Interfaces.Database import User
-    from Interfaces.Database.ETL import Sentiment, Models, Vectorizer, File_Manager
+    from Interfaces.Database.ETL.Modules import Sentiment, Models, Vectorizer, File_Manager
 from sqlalchemy.sql import text
 
 
@@ -56,7 +56,7 @@ class Project:
         with cfg.engine.connect() as con:
             try:
                 insert_invitation_code_query = text('update proyecto_computacion.project '
-                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id'
+                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id')
                 con.execute(insert_invitation_code_query, _invitation_code=code, _project_id=id_project)
             except Exception as e:
                 print(e)
@@ -326,7 +326,13 @@ class Project:
             print(e)
 
     @staticmethod
-    def __get_url_id(url, project_id):
+    def get_url_id(url, project_id):
+        """
+        Public method that receives a project id and a url and retrieves the url ID
+        :param url:
+        :param project_id:
+        :return:
+        """
         try:
             with cfg.engine.connect() as con:
                 query = text('SELECT * from proyecto_computacion.link_web_scrapper'
@@ -342,6 +348,156 @@ class Project:
     def upload_scrapped_review(self, project_id, reviews, url):
         # TODO
         pass
+
+    @staticmethod
+    def get_project_models(project_id):
+        """
+        Public method that returns all the models related with a model given a project id
+        :param project_id:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model where ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_project_models_by_language(project_id, language):
+        """
+        Public method that returns all models by language given a project id and a language
+        :param project_id:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text(
+                    'SELECT * from proyecto_computacion.model where ID_project like :_project_id and language like :_language')
+                results = con.execute(query, _project_id=project_id, _language=language)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_project_models_by_algorithm(project_id, algorithm):
+        """
+        Public method that returns all models from a project given a project id and an algorithm
+        :param project_id:
+        :param algorithm:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model '
+                             'where ID_project like :_project_id and algorithm like :_algorithm')
+                results = con.execute(query, _project_id=project_id, _algorithm=algorithm)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_models_by_language_and_algorithm(project_id, algorithm, language):
+        """
+        Public function that returns all the models from a project given a certain algorithm and a language
+        :param project_id:
+        :param algorithm:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model '
+                             'where ID_project like :_project_id and algorithm like :_algorithm and language like :_language')
+                results = con.execute(query, _project_id=project_id, _algorithm=algorithm, _language=language)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def insert_model(id_project, model_name, algorithm, language):
+        """
+        Public method that inserts a model given a project id, model name, algorithm and language
+        :param id_project:
+        :param model_name:
+        :param algorithm:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, algorithm, language)'
+                             'values (ID_project=:_id_project,model_name=:_model_name,algorithm=:_algorithm,language=:_language)')
+                con.execute(query, _id_project=id_project, _model_name=model_name,
+                            _algorithm=algorithm, _language=language)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':

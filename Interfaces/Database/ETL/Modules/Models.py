@@ -38,7 +38,7 @@ class Models:
     Class that will have all the Machine Learning models that the application will use.
     """
 
-    def __init__(self, x_train=None, y_train=None, x_test=None, y_test=None):
+    def __init__(self, x_train=None, y_train=None, x_test=None, y_test=None, vectorizer=None):
         """
         Class Constructor.
         """
@@ -48,6 +48,7 @@ class Models:
         self.__y_train = y_train
         self.__y_test = y_test
         self.__confussion_matrix = None
+        self.__vectorizer = vectorizer
 
     def naive_bayes_multinomial(self, alpha=1.0, fit_prior=True):
         """

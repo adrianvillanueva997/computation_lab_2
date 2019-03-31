@@ -38,17 +38,19 @@ class Login:
                 return None
             else:
                 encrypted_db_password = result_query[0]['password']
+                print(encrypted_db_password)
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):
                     role = result_query[0]['role']
                     id = result_query[0]['ID_user']
                     email = result_query[0]['email']
-                    username = result_query['user_name']
+                    username = result_query[0]['user_name']
                     user_data = {
                         'id': id,
                         'email': email,
                         'username': username,
                         'role': role
                     }
+                    print(user_data)
                     return user_data
                 else:
                     return None

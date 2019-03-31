@@ -1,30 +1,46 @@
-from googletrans import Translator
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from textblob import TextBlob
+import string
 
-translator = Translator()
+import pandas as pd
+from nltk import word_tokenize, SnowballStemmer
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
 
-fraseEN = "The food was disgusting. The filet was very raw and the salad was hot ?? I can not believe how rude the waiter was. I will not return to this site"
-fraseES = "La comida estaba asquerosa. El filete estaba muy crudo y la ensalada estaba caliente?? No puedo creer lo grosero que era el camarero. No volveré a este sitio"
-fraseAT = "tozi restorant e mnogo losh"
+from Interfaces.Database.ETL.Modules import Models
 
-blobEN = TextBlob(fraseEN)
-blobES = TextBlob(fraseES)
+df = pd.read_csv('spamraw.csv')
 
-print("Frase en inglés: ", blobEN.sentiment)
-print("Frase en español: ", blobES.sentiment)
+x = df['text']
+y = df['type']
 
-traduccion = translator.translate(fraseAT)
+print(x, y)
 
-fraseTraducida = traduccion.text
 
-blobEStoEN = TextBlob(fraseTraducida)
+def tokenizer(reviews):
+    """
+    Tokenizing, stemming and stop words filtering process
+    :param reviews:
+    :return : list
+    """
+    stems = []
+    stop_words = set(stopwords.words('english'))
+    token = word_tokenize(text=reviews, language='english')
+    for item in token:
+        if item not in stop_words and item not in string.punctuation:
+            stems.append(SnowballStemmer(language='english').stem(item))
 
-sid = SentimentIntensityAnalyzer()
-ss = sid.polarity_scores(fraseEN)
-print("Analisis VADER")
-for k in sorted(ss):
-    print('{0}: {1}, '.format(k, ss[k]), end='')
-print("")
+    return stems
 
-print("Frase traducida:{}.Sentimiento:{}".format(fraseTraducida, blobEStoEN.sentiment))
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33, random_state=42)
+
+models = Models.Models(x_train, x_test, y_train, y_test)
+
+text_clf = Pipeline([('vect', CountVectorizer(tokenizer=tokenizer, lowercase=True, encoding='utf-8')),
+                     ('tfidf', TfidfTransformer()), ])
+# ('clf', GaussianNB()), ])
+
+a = text_clf.fit_transform(x_train, y_train)
+a = a.toarray
+print(a)
