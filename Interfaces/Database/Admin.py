@@ -56,22 +56,74 @@ class Admin:
             return data
         except Exception as e:
             print(e)
-    @staticmethod
-    def modificar_usuario(self, id, username, email, role):
-        try:
-            user={
+
+    def modificar_usuario(self, id_mo, username, email, role, password):
+        print(id_mo)
+        print(type(id_mo))
+        print(username)
+        print(email)
+        print(type(role))
+        print(password)
+        user={
                 'id': [],
                 'username':[],
                 'email' : [],
                 'role' : [],
+                'pass' : [],
             }
-            self.user['id'][0]=self.id
-            self.user['username'][0]=self.username
-            self.user['email'][0]=self.email
-            self.user['role'][0]=self.role
-            query="UPGRADE proyecto_computacion.user SET user_name='"+ user['username'][0] +"', email='"+user['email'][0]+"', role='"+user['role'][0]+"' WHERE  ID_user='"+user['id'][0]+"'"
+        user['id'].append(id_mo)
+        user['username'].append(username)
+        user['email'].append(email)
+        user['role'].append(role)
+        if password is None:
+
+            query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
+            with cfg.engine.connect() as con:
+                con.execute(query)
+            #raise NotImplementedError()
+
+        print(user)
+        if password=='':
+            query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
+            with cfg.engine.connect() as con:
+                con.execute(query)
+                    #print (results)
+        else:
+            user['pass'].append(Encryption.Encryption.hash_password(password))
+            query="UPDADE proyecto_computacion.user SET user_name="+ user['username'][0] +", email="+user['email'][0]+", role='"+user['role'][0]+"', password="+user['pass'][0]+" WHERE  ID_user='"+user['id'][0]+"'"
+            with cfg.engine.connect() as con:
+                con.execute(query)
+                    #print (results)
+
+    def eliminar_user(self, id):
+        if id is None:
+            raise NotImplementedError()
+        try:
+            id_user= str(id)
+            query='DELETE FROM proyecto_computacion.user WHERE ID_user = ' + id_user
             with cfg.engine.connect() as con:
                 results = con.execute(query)
                 print (results)
+        except Exception as e:
+            print(e)
+    def obtener_user(self, id):
+        try:
+            id_user= str(id)
+            query='SELECT * FROM proyecto_computacion.user WHERE ID_user = ' + id_user
+            with cfg.engine.connect() as con:
+                results = con.execute(query)
+                data = {
+                    'id': [],
+                    'username': [],
+                    'email': [],
+                    'role': []
+                }
+                for result in results:
+                    data['id'].append(str(result['ID_user']))
+                    data['username'].append(result['user_name'])
+                    data['email'].append(result['email'])
+                    data['role'].append(str(result['role']))
+                print (data)
+                return data
         except Exception as e:
             print(e)

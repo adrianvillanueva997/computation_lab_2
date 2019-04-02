@@ -10,6 +10,7 @@ from Database import config as cfg
 from Database import Encryption
 import base64
 from Database import Admin
+from abc import ABC
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 	def __init__(self,*args, **kwargs):
 		QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
@@ -24,9 +25,12 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		self._main_window.load_relacion()
 		self._main_window.show()
 	def modificar_usuario(self):
-		self._main_window = ctrl_modificar_usuario.MainWindow()
-		#self._main_window.datos_usuario()
-		self._main_window.show()
+		try:
+			self._main_window = ctrl_modificar_usuario.MainWindow()
+			self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+			self._main_window.show()
+		except Exception as e:
+			print(e)
 	def registrar_usuario(self):
 		self._main_window = ctrl_registrar_usuario.MainWindow()
 		self._main_window.show()
@@ -34,6 +38,11 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		ret=QMessageBox.question(self, 'Advertencia!', "¿Estas seguro de que desea eliminar este usuario?", QMessageBox.Yes | QMessageBox.No )
 		if ret == QMessageBox.Yes:
 			print('Yes clicked.')
+			admin=Admin.Admin()
+			try:
+				admin.eliminar_user(self.tableWidget.selectedItems()[0].text())
+			except Exception as e:
+				print(e)
 			pass
 		else:
 			print('No clicked.')
@@ -42,8 +51,9 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		try:
 			admin=Admin.Admin()
 			results = admin.get_users()
+			print(results)
 			try:
-				for i in range(0,len(results)-1):
+				for i in range(0,len(results['username'])):
 					rowPosition = self.tableWidget.rowCount()
 					self.tableWidget.insertRow(rowPosition)
 					self.tableWidget.setItem(rowPosition,0,QtWidgets.QTableWidgetItem(results['id'][i]))
