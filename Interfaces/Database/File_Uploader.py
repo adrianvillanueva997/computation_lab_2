@@ -1,10 +1,7 @@
-try:
-    from Database.ETL import File_Manager
-    from Database import config as cfg
-except Exception as e:
-    from Interfaces.Database.ETL.Modules import File_Manager
-    from Interfaces.Database import config as cfg
-    from Interfaces.Database import Utilities
+
+from Database.ETL import File_Manager
+from Database import config as cfg
+
 from sqlalchemy.sql import text
 
 
