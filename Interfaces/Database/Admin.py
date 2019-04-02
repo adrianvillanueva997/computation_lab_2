@@ -78,20 +78,20 @@ class Admin:
         user['role'].append(role)
         if password is None:
             #TODO
-            query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
+            query='UPDATE proyecto_computacion.user SET user_name = '+ user['username'][0] +', email = '  +user['email'][0] +" , role = '" +user['role'][0] +"' "+'WHERE  ID_user = '+user['id'][0]
             with cfg.engine.connect() as con:
                 con.execute(query)
         print(user)
         if password=='':
             #TODO
-            query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
+            query='UPDATE proyecto_computacion.user SET user_name = '+ user['username'][0] +', email = ' +user['email'][0] +", role = '" +user['role'][0] +"' "+'WHERE  ID_user = '+user['id'][0]+""
             with cfg.engine.connect() as con:
                 con.execute(query)
                     #print (results)
         else:
             user['pass'].append(Encryption.Encryption.hash_password(password))
             #TODO
-            query="UPDADE proyecto_computacion.user SET user_name="+ user['username'][0] +", email="+user['email'][0]+", role='"+user['role'][0]+"', password="+user['pass'][0]+" WHERE  ID_user='"+user['id'][0]+"'"
+            query="UPDATE proyecto_computacion.user SET user_name="+ user['username'][0] +", email = " +user['email'][0]+" , role = '"+user['role'][0]+"' , password = "+user['pass'][0]+" WHERE  ID_user = "+user['id'][0]
             with cfg.engine.connect() as con:
                 con.execute(query)
                     #print (results)

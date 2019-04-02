@@ -14,16 +14,18 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.pushButton_Cancelar.clicked.connect(self.cancelar)
         self.id_us= ""
         self._main_window = None
-    def datos_usuario(self, nombre):
-        self.__name=nombre
     def aceptar(self):
         admin=Admin.Admin()
         nombre=self.lineEdit_nombre.text()
         passw=self.lineEdit_password.text()
         role=self.lineEdit_Rol.text()
         email=self.lineEdit_email.text()
-        admin.modificar_usuario(self.id_us , nombre , email , role , passw)
-        self.close()
+        if nombre is None or nombre == '' or role is None or role == ''or email is None or email == '' :
+            QMessageBox.question(self, 'Advertencia!', "ESCRIBA TODOS LOS CAMPOS NECESARIOS EN EL FORMULARIO", QMessageBox.Ok )
+            pass
+        else:
+            admin.modificar_usuario(self.id_us , nombre , email , role , passw)
+            self.close()
     def cancelar(self):
         self.close()
     def modificar_lineas(self , id):
