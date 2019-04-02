@@ -4,6 +4,8 @@ try:
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
 
+from sqlalchemy.sql import text
+
 
 class Login:
     def __init__(self):
@@ -26,18 +28,29 @@ class Login:
             ut = Utilities.Utilities()
             user = ut.scrape_text_for_sql(user)
             password = ut.scrape_text_for_sql(password)
-            query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{user}\" LIMIT 1;'
-            results = con.execute(query)
+            query = text('SELECT * FROM proyecto_computacion.user where user_name = :_user LIMIT 1;')
+            results = con.execute(query, _user=user)
             result_query = []
             for result in results:
                 result_query.append(result)
             print(len(result_query))
             if len(result_query) is 0:
-                return False
+                return None
             else:
                 encrypted_db_password = result_query[0]['password']
+                print(encrypted_db_password)
                 if Encryption.Encryption.verify_password(encrypted_db_password, password):
                     role = result_query[0]['role']
-                    return role
+                    id = result_query[0]['ID_user']
+                    email = result_query[0]['email']
+                    username = result_query[0]['user_name']
+                    user_data = {
+                        'id': id,
+                        'email': email,
+                        'username': username,
+                        'role': role
+                    }
+                    print(user_data)
+                    return user_data
                 else:
                     return None

@@ -3,11 +3,12 @@ import uuid
 try:
     from Database import config as cfg
     from Database import User
-    from .ETL import Sentiment, Models, Vectorizer, File_Manager
+    from Interfaces.Database.ETL.Modules import Models, Vectorizer, Sentiment, File_Manager
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
     from Interfaces.Database import User
-    from Interfaces.Database.ETL import Sentiment, Models, Vectorizer, File_Manager
+    from Interfaces.Database.ETL.Modules import Sentiment, Models, Vectorizer, File_Manager
+from sqlalchemy.sql import text
 
 
 class Project:
@@ -27,16 +28,20 @@ class Project:
         :return:
         """
         with cfg.engine.connect() as con:
-            insert_project_query = f'INSERT INTO proyecto_computacion.project (name_project) value (\"{project_name}\")'
-            select_project_id_query = f'select * from proyecto_computacion.project where name_project = \"{project_name}\"'
+            insert_project_query = text(
+                'INSERT INTO proyecto_computacion.project (name_project) value (:_project_name)')
+            select_project_id_query = text('select * from proyecto_computacion.project prj'
+                                           ' where prj.name_project = :_project_name'
+                                           ' order by prj.Last_Update ASC limit 1')
             try:
-                con.execute(insert_project_query)
-                results = con.execute(select_project_id_query)
+                con.execute(insert_project_query, _project_name=project_name)
+                results = con.execute(select_project_id_query, _project_name=project_name)
                 id_project = None
                 for result in results:
                     id_project = result['ID_project']
-                insert_user_relation_query = f'insert into proyecto_computacion.project_rel (id_project, id_user) VALUES ({id_project},{self.__id_user})'
-                con.execute(insert_user_relation_query)
+                insert_user_relation_query = text('insert into proyecto_computacion.project_rel '
+                                                  '(id_project, id_user) VALUES (:_id_project,:_id_user)')
+                con.execute(insert_user_relation_query, _id_project=id_project, _id_user=self.__id_user)
             except Exception as e:
                 print(e)
 
@@ -50,8 +55,9 @@ class Project:
         code = str(code)
         with cfg.engine.connect() as con:
             try:
-                insert_invitation_code_query = f'update proyecto_computacion.project set ID_invitation = \"{code}\" where ID_project = {id_project}'
-                con.execute(insert_invitation_code_query)
+                insert_invitation_code_query = text('update proyecto_computacion.project '
+                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id')
+                con.execute(insert_invitation_code_query, _invitation_code=code, _project_id=id_project)
             except Exception as e:
                 print(e)
         return code
@@ -69,8 +75,10 @@ class Project:
                 'timestamp': [],
             }
             try:
-                query = f'SELECT * from proyecto_computacion.project prj join proyecto_computacion.project_rel on prj.ID_project = project_rel.ID_project where project_rel.ID_user = {self.__id_user} order by  prj.ID_project asc'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.project prj join'
+                             ' proyecto_computacion.project_rel on prj.ID_project = project_rel.ID_project '
+                             'where project_rel.ID_user = :_user_id order by  prj.ID_project asc')
+                results = con.execute(query, _user_id=self.__id_user)
                 for result in results:
                     project_data['id'].append(str(result['ID_project']))
                     project_data['project_name'].append(result['name_project'])
@@ -94,8 +102,9 @@ class Project:
         try:
             with cfg.engine.connect() as con:
 
-                query = f'SELECT * from proyecto_computacion.review WHERE ID_project LIKE {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.project prj join proyecto_computacion.review '
+                             'on prj.ID_project = review.ID_project where prj.ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 for result in results:
                     data['id'].append(result['ID_review'])
                     data['label'].append(result['label'])
@@ -119,20 +128,23 @@ class Project:
             failed_reviews = []
             with cfg.engine.connect() as con:
                 sentiment = Sentiment.Sentiment()
-                query = f'SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review ' \
-                    f'on prj.ID_project = review.ID_project where prj.ID_project like {project_id} and sentiment_pol is null'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review '
+                             'on prj.ID_project = review.ID_project '
+                             'where prj.ID_project like :_project_id and sentiment_pol is null')
+                results = con.execute(query, _project_id=project_id)
                 for result in results:
                     try:
                         review_id = result['ID_review']
                         text = result['text_review']
                         sentiments = sentiment.analyse_sentence(text)
-                        update_query = f"update proyecto_computacion.review set " \
-                            f"sentiment_pol = {sentiments['polarity'][0]}," \
-                            f"sentiment_sub = {sentiments['subjectivity'][0]}," \
-                            f"sentiment_comp = {sentiments['compound'][0]} " \
-                            f"where ID_review like {review_id}"
-                        con.execute(update_query)
+                        update_query = text("update proyecto_computacion.review set "
+                                            "sentiment_pol = :_polarity,"  # sentiments['polarity'][0]v
+                                            "sentiment_sub = :_subjectivity,"
+                                            "sentiment_comp = :_compound "
+                                            "where ID_review like :_id_review")
+                        con.execute(update_query, _polarity=sentiments['polarity'][0],
+                                    _subjectivity=sentiments['subjectivity'][0],
+                                    _compound=sentiments['compound'][0], _id_review=review_id)
                     except Exception as e:
                         print(e)
                         failed_reviews.append(text)
@@ -141,34 +153,8 @@ class Project:
             print(e)
 
     def classify_reviews(self, model, project_id):
-        """
-        Given a trained sklearn model, execute the model to classify the reviews that haven't been classified yet.
-        TODO re-do the logic and think an alternative version to this.
-        :param model:
-        :param project_id:
-        :return:
-        """
-        try:
-            with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.project prj join proyecto_computacion.review ' \
-                    f'on prj.ID_project = review.ID_project where prj.ID_project like {project_id} and label is null'
-                results = con.execute(query)
-                failed_reviews = []
-                for result in results:
-                    try:
-                        review_id = result['ID_review']
-                        text = result['text_review']
-                        prediction = model.predict(text)
-                        update_query = f'update proyecto_computacion.review set ' \
-                            f'label = {prediction[0]} where ID_review = {review_id}'
-                        print(update_query)
-                        con.execute(update_query)
-                    except Exception as e:
-                        failed_reviews.append(text)
-                        self.failed_reviews_label = failed_reviews
-                        print(e)
-        except Exception as e:
-            print(e)
+        # TODO
+        pass
 
     @staticmethod
     def add_labels_to_project(labels, project_id):
@@ -184,10 +170,10 @@ class Project:
                     try:
                         ut = Utilities.Utilities()
                         label = ut.scrape_text_for_sql(label)
-                        query = f'insert into proyecto_computacion.Label' \
-                            f' (label, ID_Project) VALUES (\"{label}\",{project_id});'
+                        query = text('insert into proyecto_computacion.Label'
+                                     ' (label, ID_Project) VALUES (:_label,:_project_id);')
                         print(query)
-                        con.execute(query)
+                        con.execute(query, _label=label, _project_id=project_id)
                     except Exception as e:
                         print(e)
         except Exception as e:
@@ -207,9 +193,9 @@ class Project:
                     try:
                         ut = Utilities.Utilities()
                         url = ut.scrape_text_for_sql(url)
-                        query = f'INSERT INTO proyecto_computacion.link_web_scrapper (ID_project, url, processed) ' \
-                            f'values ({project_id},\"{url}\",0)'
-                        con.execute(query)
+                        query = text('INSERT INTO proyecto_computacion.link_web_scrapper (ID_project, url, processed) '
+                                     'values (:_project_id,:_url,0)')
+                        con.execute(query, _project_id=project_id, _url=url)
                     except Exception as e:
                         print(e)
         except Exception as e:
@@ -224,8 +210,8 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.Label where ID_Project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.Label where ID_Project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 labels = []
                 for result in results:
                     labels.append(result['label'])
@@ -260,8 +246,9 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * FROM proyecto_computacion.review where label like \"{label}\" and  ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * FROM proyecto_computacion.review '
+                             'where label like :_label and  ID_project like :_project_id')
+                results = con.execute(query, _label=label, _project_id=project_id)
                 query_result = {
                     'id': [],
                     'label': [],
@@ -292,9 +279,10 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'select * from proyecto_computacion.link_web_scrapper ' \
-                    f'where processed like 0 and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text(
+                    'select * from proyecto_computacion.link_web_scrapper '
+                    'where processed like 0 and ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 urls = []
                 for result in results:
                     urls.append(result['url'])
@@ -311,9 +299,9 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'select * from proyecto_computacion.link_web_scrapper ' \
-                    f'where processed like 1 and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('select * from proyecto_computacion.link_web_scrapper '
+                             'where processed like 1 and ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
                 urls = []
                 for result in results:
                     urls.append(result['url'])
@@ -331,18 +319,25 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = f'UPDATE proyecto_computacion.link_web_scrapper set processed 1 ' \
-                    f'where url like \"{url}\" and ID_project like {project_id}'
-                con.execute(query)
+                query = text('UPDATE proyecto_computacion.link_web_scrapper set'
+                             ' processed 1 where url like :_url and ID_project like :_project_id')
+                con.execute(query, _url=url, _project_id=project_id)
         except Exception as e:
             print(e)
 
     @staticmethod
-    def __get_url_id(url, project_id):
+    def get_url_id(url, project_id):
+        """
+        Public method that receives a project id and a url and retrieves the url ID
+        :param url:
+        :param project_id:
+        :return:
+        """
         try:
             with cfg.engine.connect() as con:
-                query = f'SELECT * from proyecto_computacion.link_web_scrapper where url like \"{url}\" and ID_project like {project_id}'
-                results = con.execute(query)
+                query = text('SELECT * from proyecto_computacion.link_web_scrapper'
+                             ' where url like :_url and ID_project like :_project_id')
+                results = con.execute(query, _url=url, _project_id=project_id)
                 id = ''
                 for result in results:
                     id = result['ID_link']
@@ -353,6 +348,156 @@ class Project:
     def upload_scrapped_review(self, project_id, reviews, url):
         # TODO
         pass
+
+    @staticmethod
+    def get_project_models(project_id):
+        """
+        Public method that returns all the models related with a model given a project id
+        :param project_id:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model where ID_project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_project_models_by_language(project_id, language):
+        """
+        Public method that returns all models by language given a project id and a language
+        :param project_id:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text(
+                    'SELECT * from proyecto_computacion.model where ID_project like :_project_id and language like :_language')
+                results = con.execute(query, _project_id=project_id, _language=language)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_project_models_by_algorithm(project_id, algorithm):
+        """
+        Public method that returns all models from a project given a project id and an algorithm
+        :param project_id:
+        :param algorithm:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model '
+                             'where ID_project like :_project_id and algorithm like :_algorithm')
+                results = con.execute(query, _project_id=project_id, _algorithm=algorithm)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def get_models_by_language_and_algorithm(project_id, algorithm, language):
+        """
+        Public function that returns all the models from a project given a certain algorithm and a language
+        :param project_id:
+        :param algorithm:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('SELECT * from proyecto_computacion.model '
+                             'where ID_project like :_project_id and algorithm like :_algorithm and language like :_language')
+                results = con.execute(query, _project_id=project_id, _algorithm=algorithm, _language=language)
+                results_dict = {
+                    'id_model': [],
+                    'id_project': [],
+                    'model_name': [],
+                    'algorithm': [],
+                    'language': [],
+                    'accuracy': []
+                }
+                for result in results:
+                    results_dict['id_model'].append(str(result['ID_model']))
+                    results_dict['id_project'].append(str(result['ID_project']))
+                    results_dict['model_name'].append(result['model_name'])
+                    results_dict['algorithm'].append(result['algorithm'])
+                    results_dict['language'].append(result['language'])
+                    results_dict['accuracy'].append(str(result['accuracy']))
+
+            return results_dict
+        except Exception as exception:
+            print(exception)
+
+    @staticmethod
+    def insert_model(id_project, model_name, algorithm, language):
+        """
+        Public method that inserts a model given a project id, model name, algorithm and language
+        :param id_project:
+        :param model_name:
+        :param algorithm:
+        :param language:
+        :return:
+        """
+        try:
+            with cfg.engine.connect() as con:
+                query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, algorithm, language)'
+                             'values (ID_project=:_id_project,model_name=:_model_name,algorithm=:_algorithm,language=:_language)')
+                con.execute(query, _id_project=id_project, _model_name=model_name,
+                            _algorithm=algorithm, _language=language)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':

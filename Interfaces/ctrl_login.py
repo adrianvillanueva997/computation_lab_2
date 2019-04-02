@@ -1,7 +1,13 @@
-import ctrl_mainwindow as v_main
-from Database import Login
 from PyQt5 import QtWidgets
-from Ui_view_login import Ui_MainWindow
+
+try:
+    import ctrl_mainwindow as v_main
+    from Database import Login
+    from Ui_view_login import Ui_MainWindow
+except Exception as e:
+    from Interfaces import ctrl_mainwindow as v_main
+    from Interfaces.Database import Login
+    from Interfaces.Ui_view_login import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -16,12 +22,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         username = self.line_usuario.text()
         password = self.line_password.text()
         lg = Login.Login()
-        comprobacion = lg.check_user(username, password)
-        if comprobacion == True:
-            self._main_window = v_main.MainWindow()
-            self._main_window.set_parent(self)
-            self._main_window.load_projects()
-            self._main_window.show()
-            self.close()
-            
-
+        user_dict = lg.check_user(username, password)
+        print(user_dict)
+        # if user_dict is not None:
+        self._main_window = v_main.MainWindow()
+        self._main_window.set_parent(self)
+        self._main_window.load_projects()
+        self._main_window.show()
+        self.close()

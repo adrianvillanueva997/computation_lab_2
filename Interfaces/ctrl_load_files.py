@@ -1,8 +1,9 @@
 import os
+import re
 
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
-from PyQt5 import QtCore
+
 
 from Database import File_Uploader
 from Database.ETL import File_Manager
@@ -11,7 +12,12 @@ from Database import User
 from Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper
 from Web_Scrapping import Yelp_Scrapper
-import re
+
+from Database.ETL import File_Manager
+from Database import File_Uploader
+from Interfaces.Web_Scrapping import Amazon_Scrapper
+
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -27,10 +33,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.URL_pushButton_clear.clicked.connect(self.url_clear_table_reviews)
         self.URL_pushButton_back.clicked.connect(self.go_back)
         self.URL_pushButton_load.clicked.connect(self.load_reviews_URL_to_db)
-        self._project_ID=None
+        self._project_ID = None
         self.parent = None
 
-    def set_parent(self,MainWindow):
+    def set_parent(self, MainWindow):
         self.parent = MainWindow
 
     def load_files_table(self):
@@ -40,7 +46,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self, "Error", "Hay que especificar una etiqueta antes de añadir un elemento")
             return
         pathFiles = self.file_lineEditPath.text()
-        folderName= os.path.basename(pathFiles)
+        folderName = os.path.basename(pathFiles)
         if pathFiles == "":
             QMessageBox.critical(
                 self, "Error", "Hay que especificar una ruta antes de añadir un elemento")
@@ -62,18 +68,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.file_lineEditPath.setText(file_path)
 
     def load_files_to_db(self):
-        project_id=self._project_ID
+        project_id = self._project_ID
         fm = File_Manager.File_Manager()
         numRows = self.file_tableWidget.rowCount()
-        for row in range(0,numRows):
-            path = str(self.file_tableWidget.item(row,2).text())
-            label = str(self.file_tableWidget.item(row,1).text())
+        for row in range(0, numRows):
+            path = str(self.file_tableWidget.item(row, 2).text())
+            label = str(self.file_tableWidget.item(row, 1).text())
             print(path)
-            file_data,file_names=fm.extract_data_from_files(path)
+            file_data, file_names = fm.extract_data_from_files(path)
             fuploader = File_Uploader.File_Uploader(project_id)
-            fuploader.upload_reviews_to_db(file_data,file_names,label)
-        
-    
+            fuploader.upload_reviews_to_db(file_data, file_names, label)
+
     def file_clear_table(self):
         self.file_tableWidget.setRowCount(0)
         self.file_pushButton_load.setEnabled(False)
@@ -86,12 +91,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
         if urlPath.__contains__("yelp"):
             print("Contiene")
-            print(re.findall(r"https:\/\/www.yelp.es\/biz\/",urlPath))
-            if not re.findall(r"https:\/\/www.yelp.es\/biz\/",urlPath):
+            print(re.findall(r"https:\/\/www.yelp.es\/biz\/", urlPath))
+            if not re.findall(r"https:\/\/www.yelp.es\/biz\/", urlPath):
                 QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
-                return    
+                return
         elif urlPath.__contains__("amazon"):
-            if not re.findall(r"https:\/\/www.amazon.es\/.*\/",urlPath):
+            if not re.findall(r"https:\/\/www.amazon.es\/.*\/", urlPath):
                 QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
                 return
         else:
@@ -112,14 +117,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self, "Error", "Hay que especificar una etiqueta antes de añadir un elemento")
             return
         numRows = self.URL_tableWidget.rowCount()
-        for row in range(0,numRows):
-            url_path = str(self.URL_tableWidget.item(row,0).text())
+        for row in range(0, numRows):
+            url_path = str(self.URL_tableWidget.item(row, 0).text())
             if url_path.__contains__('amazon'):
                 scrapper = Amazon_Scrapper.Amazon()
                 reviews = scrapper.scrape_amazon(url_path)
                 print(reviews)
                 for item in reviews:
-                    rowPosition_reviews=self.URL_review_tableWidget.rowCount()
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
@@ -128,9 +133,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
-                
+
                 for item in reviews:
-                    rowPosition_reviews=self.URL_review_tableWidget.rowCount()
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
@@ -144,12 +149,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def url_clear_table_reviews(self):
         self.URL_review_tableWidget.setRowCount(0)
         self.URL_pushButton_load.setEnabled(False)
-        
 
     def load_labels(self):
         user = User.User(10)
         pr = Project.Project(user)
-        labels=pr.get_labels(self._project_ID)
+        labels = pr.get_labels(self._project_ID)
         self.comboBox_labels_file.clear()
         self.comboBox_labels_file.addItem("Seleccionar etiqueta")
         self.comboBox_labels_file.addItem("Unlabeled")
@@ -160,18 +164,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.URL_comboBox_labels.addItems(labels)
 
     def load_reviews_URL_to_db(self):
-        project_id=self._project_ID
+        project_id = self._project_ID
         numRows = self.URL_review_tableWidget.rowCount()
         fuploader = File_Uploader.File_Uploader(project_id)
-        for row in range(0,numRows):
-            name=str(self.URL_review_tableWidget.item(row,0).text())
-            label = str(self.URL_review_tableWidget.item(row,1).text())
-            text=self.URL_review_tableWidget.item(row,2).text()
-            fuploader.upload_single_review_to_db(name,label,text)
+        for row in range(0, numRows):
+            name = str(self.URL_review_tableWidget.item(row, 0).text())
+            label = str(self.URL_review_tableWidget.item(row, 1).text())
+            text = self.URL_review_tableWidget.item(row, 2).text()
+            fuploader.upload_single_review_to_db(name, label, text)
 
-
-    def set_project_id(self,project_id):
-        self._project_ID=project_id
+    def set_project_id(self, project_id):
+        self._project_ID = project_id
 
     def go_back(self):
         self.close()

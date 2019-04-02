@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QFileDialog
 import ctrl_load_files as v_load_files
 import ctrl_config_project as v_config_project
 import ctrl_train as v_train
-import ctrl_config_project as v_config_project
+
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -20,24 +20,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.parent = None
         self._project_id = None
 
-
-    def set_parent(self,MainWindow):
+    def set_parent(self, MainWindow):
         self.parent = MainWindow
-    
+
     def go_back(self):
         self.close()
         self.parent.show()
 
     def show_load_files_window(self):
-        self._window= v_load_files.MainWindow()
+        self._window = v_load_files.MainWindow()
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
         self._window.load_labels()
         self._window.show()
         self.close()
-    
-    def set_project_id(self,project_id):
-        self._project_id=project_id
+
+    def set_project_id(self, project_id):
+        self._project_id = project_id
 
     def show_train_window(self):
         self._window = v_train.MainWindow()

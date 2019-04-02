@@ -43,20 +43,8 @@ class Amazon:
         :argument url: str
         """
         soup = BeautifulSoup(html, 'html.parser')
-        div_class_blocks = soup.findAll("div", {"class":'a-section celwidget'})
+        div_class_blocks = soup.findAll("div", class_='a-section celwidget')
         return div_class_blocks
-
-    @staticmethod
-    def __check_limit(html):
-        soup = BeautifulSoup(html, 'html.parser')
-        limit = soup.find('div', {'class': 'a-section a-spacing-top-large a-text-center no-reviews-section'})
-        limit = str(limit).replace(
-            '<div class="a-section a-spacing-top-large a-text-center no-reviews-section"><span class="a-size-medium">',
-            '')
-        if len(limit) == 4:
-            return True
-        else:
-            return False
 
     @staticmethod
     def __filter_data(div_blocks):
@@ -150,8 +138,8 @@ class Amazon:
             html = self.__make_request(
                 new_url + 'ref=cm_cr_arp_d_paging_btm_next' + str(num_page) + '?pageNumber=' + str(num_page))
             blocks = self.__get_div_blocks(html)
-            if self.__check_limit(html):
-                filtered_data = self.__get_reviews(blocks)
+            filtered_data = self.__get_reviews(blocks)
+            if len(filtered_data) is not 0:
                 for review in filtered_data:
                     data.append(review)
                 num_page += 1
