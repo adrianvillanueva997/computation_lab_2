@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QFileDialog
 import ctrl_load_files as v_load_files
 import ctrl_config_project as v_config_project
 import ctrl_train as v_train
-from PyQt5 import QtWidgets
+import ctrl_config_project as v_config_project
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -16,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_CargarDatos.clicked.connect(self.show_load_files_window)
         self.pushButton_Atras.clicked.connect(self.go_back)
         self.pushButton_Entrenar.clicked.connect(self.show_train_window)
+        self.pushButton_ConfiguracionProyecto.clicked.connect(self.show_config_project_window)
         self.parent = None
         self._project_id = None
 
@@ -43,5 +44,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
         self._window.load_reviews()
+        self._window.show()
+        self.close()
+
+    def show_config_project_window(self):
+        self._window = v_config_project.MainWindow()
+        self._window.set_parent(self)
+        self._window.set_project_id(self._project_id)
         self._window.show()
         self.close()

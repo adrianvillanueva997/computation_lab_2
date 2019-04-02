@@ -6,13 +6,15 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -92,3 +94,4 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Ruta Guardado"))
         self.pushButton_Aceptar_Guardado.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_Buscar_Ruta_Guardado.setText(_translate("MainWindow", "Buscar"))
+

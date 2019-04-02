@@ -6,8 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -20,12 +19,21 @@ class Ui_MainWindow(object):
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.pushButton_Eliminar_usuario = QtWidgets.QPushButton(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.pushButton_Eliminar_usuario.setFont(font)
         self.pushButton_Eliminar_usuario.setObjectName("pushButton_Eliminar_usuario")
         self.gridLayout_2.addWidget(self.pushButton_Eliminar_usuario, 0, 2, 1, 1)
         self.pushButton_Modificar_usuario = QtWidgets.QPushButton(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.pushButton_Modificar_usuario.setFont(font)
         self.pushButton_Modificar_usuario.setObjectName("pushButton_Modificar_usuario")
         self.gridLayout_2.addWidget(self.pushButton_Modificar_usuario, 0, 1, 1, 1)
         self.pushButton_Registrar_usuario = QtWidgets.QPushButton(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.pushButton_Registrar_usuario.setFont(font)
         self.pushButton_Registrar_usuario.setObjectName("pushButton_Registrar_usuario")
         self.gridLayout_2.addWidget(self.pushButton_Registrar_usuario, 0, 0, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 1, 0, 1, 1)
@@ -34,6 +42,9 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem, 0, 1, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setRowCount(0)
@@ -70,3 +81,4 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Email"))
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Proyectos asociados"))
+

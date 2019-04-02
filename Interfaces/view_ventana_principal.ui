@@ -10,6 +10,11 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Proyectos</string>
   </property>
@@ -21,9 +26,26 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTableWidget" name="table_proyectos">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectRows</enum>
+          </property>
           <column>
            <property name="text">
-            <string>Nombre</string>
+            <string>ID</string>
            </property>
           </column>
           <column>
@@ -34,6 +56,11 @@
           <column>
            <property name="text">
             <string>Fecha creación</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Código Invitación</string>
            </property>
           </column>
          </widget>

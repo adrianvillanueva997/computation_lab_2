@@ -48,6 +48,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.table_proyectos.setItem(rowPosition,1,QtWidgets.QTableWidgetItem(projects['project_name'][i]))
             self.table_proyectos.setItem(rowPosition,2,QtWidgets.QTableWidgetItem(str(projects['timestamp'][i])))
             self.table_proyectos.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(projects['invitation_key'][i]))
+        self.table_proyectos.resizeColumnsToContents()
         
 
 

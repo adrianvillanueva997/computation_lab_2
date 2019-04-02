@@ -6,13 +6,15 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -22,6 +24,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.table_proyectos = QtWidgets.QTableWidget(self.centralwidget)
+        self.table_proyectos.setEnabled(True)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.table_proyectos.setFont(font)
+        self.table_proyectos.setAlternatingRowColors(True)
         self.table_proyectos.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table_proyectos.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.table_proyectos.setObjectName("table_proyectos")
@@ -76,7 +83,8 @@ class Ui_MainWindow(object):
         item = self.table_proyectos.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Fecha creación"))
         item = self.table_proyectos.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Clave invitacion"))
+        item.setText(_translate("MainWindow", "Código Invitación"))
         self.pushButton_Crear_proyecto.setText(_translate("MainWindow", "Crear Proyecto"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
         self.pushButton_Seleccionar_Proyecto.setText(_translate("MainWindow", "Seleccionar Proyecto"))
+

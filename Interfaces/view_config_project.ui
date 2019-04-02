@@ -1,84 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>MainWindow</class>
-    <widget class="QMainWindow" name="MainWindow">
-        <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>306</width>
-                <height>285</height>
-            </rect>
-        </property>
-        <property name="windowTitle">
-            <string>Configuración Proyecto</string>
-        </property>
-        <widget class="QWidget" name="centralwidget">
-            <widget class="QWidget" name="">
-                <property name="geometry">
-                    <rect>
-                        <x>20</x>
-                        <y>11</y>
-                        <width>261</width>
-                        <height>231</height>
-                    </rect>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout">
-                    <item>
-                        <widget class="QPushButton" name="pushButton">
-                            <property name="cursor">
-                                <cursorShape>PointingHandCursor</cursorShape>
-                            </property>
-                            <property name="text">
-                                <string>Generar invitación</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QPushButton" name="pushButton_2">
-                            <property name="cursor">
-                                <cursorShape>PointingHandCursor</cursorShape>
-                            </property>
-                            <property name="text">
-                                <string>Detalles del proyecto</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QPushButton" name="pushButton_3">
-                            <property name="cursor">
-                                <cursorShape>PointingHandCursor</cursorShape>
-                            </property>
-                            <property name="text">
-                                <string>Eliminar proyecto</string>
-                            </property>
-                        </widget>
-                    </item>
-                    <item>
-                        <widget class="QDialogButtonBox" name="buttonBox">
-                            <property name="orientation">
-                                <enum>Qt::Horizontal</enum>
-                            </property>
-                            <property name="standardButtons">
-                                <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-                            </property>
-                        </widget>
-                    </item>
-                </layout>
-            </widget>
-        </widget>
-        <widget class="QMenuBar" name="menubar">
-            <property name="geometry">
-                <rect>
-                    <x>0</x>
-                    <y>0</y>
-                    <width>306</width>
-                    <height>21</height>
-                </rect>
-            </property>
-        </widget>
-        <widget class="QStatusBar" name="statusbar"/>
-    </widget>
-    <resources/>
-    <connections/>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>306</width>
+    <height>275</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Configuración Proyecto</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>11</y>
+      <width>261</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_generarInvitacion">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Generar invitación</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_detallesProyecto">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Detalles del proyecto</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_GestionarEtiquetas">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Gestionar etiquetas</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_eliminarProyecto">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Eliminar proyecto</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_Atras">
+       <property name="font">
+        <font>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Atrás</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>306</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>

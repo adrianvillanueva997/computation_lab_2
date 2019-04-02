@@ -101,6 +101,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         rowPosition = self.URL_tableWidget.rowCount()
         self.URL_tableWidget.insertRow(rowPosition)
         self.URL_tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(urlPath))
+        self.URL_tableWidget.resizeColumnsToContents()
         self.lineEdit_URL.setText("")
         self.URL_pushButton_processURLs.setEnabled(True)
 
@@ -123,6 +124,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
@@ -133,6 +135,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
                    
         self.URL_tableWidget.setRowCount(0)
         self.URL_pushButton_load.setEnabled(True)
