@@ -40,6 +40,7 @@ class Admin:
     def get_users():
         try:
             with cfg.engine.connect() as con:
+                #TODO
                 query = 'select * from proyecto_computacion.user'
                 results = con.execute(query)
                 data = {
@@ -76,20 +77,20 @@ class Admin:
         user['email'].append(email)
         user['role'].append(role)
         if password is None:
-
+            #TODO
             query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
             with cfg.engine.connect() as con:
                 con.execute(query)
-            #raise NotImplementedError()
-
         print(user)
         if password=='':
+            #TODO
             query='UPDADE proyecto_computacion.user SET user_name='+ user['username'][0] +', email=' +user['email'][0] +", role='" +user['role'][0] +"' "+'WHERE  ID_user='+"'"+user['id'][0]+"'"
             with cfg.engine.connect() as con:
                 con.execute(query)
                     #print (results)
         else:
             user['pass'].append(Encryption.Encryption.hash_password(password))
+            #TODO
             query="UPDADE proyecto_computacion.user SET user_name="+ user['username'][0] +", email="+user['email'][0]+", role='"+user['role'][0]+"', password="+user['pass'][0]+" WHERE  ID_user='"+user['id'][0]+"'"
             with cfg.engine.connect() as con:
                 con.execute(query)
@@ -100,6 +101,7 @@ class Admin:
             raise NotImplementedError()
         try:
             id_user= str(id)
+            #TODO
             query='DELETE FROM proyecto_computacion.user WHERE ID_user = ' + id_user
             with cfg.engine.connect() as con:
                 results = con.execute(query)
@@ -109,6 +111,7 @@ class Admin:
     def obtener_user(self, id):
         try:
             id_user= str(id)
+            #TODO
             query='SELECT * FROM proyecto_computacion.user WHERE ID_user = ' + id_user
             with cfg.engine.connect() as con:
                 results = con.execute(query)

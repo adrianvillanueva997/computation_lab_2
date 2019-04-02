@@ -26,9 +26,14 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		self._main_window.show()
 	def modificar_usuario(self):
 		try:
-			self._main_window = ctrl_modificar_usuario.MainWindow()
-			self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
-			self._main_window.show()
+			if self.tableWidget.selectedItems()[0].text() is None:
+				ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
+			else:
+				self._main_window = ctrl_modificar_usuario.MainWindow()
+				self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+				self._main_window.show()
+		except IndexError:
+			ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
 		except Exception as e:
 			print(e)
 	def registrar_usuario(self):
@@ -41,6 +46,8 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 			admin=Admin.Admin()
 			try:
 				admin.eliminar_user(self.tableWidget.selectedItems()[0].text())
+			except IndexError:
+				ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
 			except Exception as e:
 				print(e)
 			pass
