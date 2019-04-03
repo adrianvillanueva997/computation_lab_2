@@ -1,6 +1,7 @@
 from sqlalchemy.sql import text
+
 try:
-    from Database import config as cfg, Encryption
+    from Interfaces.Database import config as cfg, Encryption
 except Exception as e:
     from Interfaces.Database import config as cfg, Utilities
 
@@ -65,7 +66,8 @@ class Admin:
             print(e)
 
     def modificar_usuario(self, id_mo, username, email, role, password):
-        """Public function that modifies an user params
+        """
+        Public function that modifies an user params
 
         Arguments:
             id_mo {[int]} -- [user id]
@@ -74,26 +76,28 @@ class Admin:
             role {[integer]} -- [role]
             password {[string]} -- [password]
         """
-
         user = {
-            'id': id_mo,
-            'username': username,
-            'email': email,
-            'role': role,
-            'pass': password,
+            'id': int(id_mo),
+            'username': str(username),
+            'email': str(email),
+            'role': int(role),
+            'pass': str(password),
         }
+        print(user)
         with cfg.engine.connect() as conn:
             if password is None or password is '':
-                query = text(
-                    'update proyecto_computacion.user SET (user_name=:_username, email=:_email) WHERE ID_user like :_id')
-                conn.execute(
-                    query, _username=user['username'], _email=user['email'], _id=user['id'])
+                query = text('update proyecto_computacion.user '
+                             'set user_name=:_username, email=:_email,role=:_role WHERE ID_user like :_id')
+                print(query)
+                conn.execute(query, _username=user['username'], _email=user['email'], _role=user['role'],
+                             _id=user['id'])
             else:
                 user['pass'] = Encryption.Encryption.hash_password(password)
-                query = text(
-                    "update proyecto_computacion.user SET (user_name= :_username, email=:_email, password=:_password) WHERE ID_user like :_id")
-                conn.execute(
-                    query, _username=user['username'], _email=user['email'], _password=user['password'], _id=user['id'])
+                query = text('update proyecto_computacion.user '
+                             'set user_name=:_username,email=:_email,role=:_role,password=:_password '
+                             'WHERE ID_user like :_id')
+                conn.execute(query, _username=user['username'], _email=user['email'], _role=user['role'],
+                             _password=user['pass'], _id=user['id'])
 
     def eliminar_user(self, id):
         if id is None:
@@ -130,3 +134,8 @@ class Admin:
                 return data
         except Exception as e:
             print(e)
+
+
+if __name__ == '__main__':
+    admin = Admin()
+    admin.modificar_usuario(14, 'todor', 'Miguelfeo', 1, 'hola')
