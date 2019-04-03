@@ -1,4 +1,4 @@
-from Interfaces.Database.Login import Login
+from Database import Login
 
 if __name__ == "__main__":
     lg = Login()

@@ -1,4 +1,4 @@
-from Interfaces.Database import config as cfg
+from Database import config as cfg
 
 
 class Admin:

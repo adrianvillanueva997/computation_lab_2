@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 
-from Interfaces.Ui_view_config_project import Ui_MainWindow
+from Interfaces.Views.Ui_view_config_project import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

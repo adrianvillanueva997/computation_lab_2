@@ -3,10 +3,9 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
-from Interfaces.Database import Project
-from Interfaces.Database import Train
-from Interfaces.Database import User
-from Interfaces.Ui_view_entrenar import Ui_MainWindow
+from Database import Project, User
+from ETL import Train
+from Interfaces.Views.Ui_view_entrenar import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

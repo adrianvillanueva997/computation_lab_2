@@ -1,7 +1,7 @@
 from sqlalchemy.sql import text
 
-from Interfaces.Database import File_Manager
-from Interfaces.Database import config as cfg
+from Database import config as cfg
+from ETL.Modules import File_Manager
 
 
 class File_Uploader:

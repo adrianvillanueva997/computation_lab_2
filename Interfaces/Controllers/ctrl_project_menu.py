@@ -1,9 +1,9 @@
 from PyQt5 import QtWidgets
 
-import Interfaces.ctrl_config_project as v_config_project
-import Interfaces.ctrl_load_files as v_load_files
-import Interfaces.ctrl_train as v_train
-from Interfaces.Ui_view_menu_seleccion import Ui_MainWindow
+import Interfaces.Controllers.ctrl_config_project as v_config_project
+import Interfaces.Controllers.ctrl_load_files as v_load_files
+import Interfaces.Controllers.ctrl_train as v_train
+from Interfaces.Views.Ui_view_menu_seleccion import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

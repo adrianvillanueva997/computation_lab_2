@@ -1,7 +1,6 @@
 import pandas as pd
 
-from Interfaces.Database import Models
-from Interfaces.Database import Vectorizer
+from ETL.Modules import Vectorizer, Models
 
 
 class Train:

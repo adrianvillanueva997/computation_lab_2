@@ -2,9 +2,9 @@ import uuid
 
 from sqlalchemy.sql import text
 
-from Interfaces.Database import Sentiment
-from Interfaces.Database import User
-from Interfaces.Database import config as cfg
+from Database import User
+from Database import config as cfg
+from ETL.Modules import Sentiment
 
 
 class Project:

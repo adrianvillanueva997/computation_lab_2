@@ -1,9 +1,8 @@
 from PyQt5 import QtWidgets
 
-import Interfaces.ctrl_project_menu as v_project_menu
-from Interfaces.Database import Project
-from Interfaces.Database import User
-from Interfaces.Ui_view_ventana_principal import Ui_MainWindow
+import Interfaces.Controllers.ctrl_project_menu as v_project_menu
+from Database import Project, User
+from Interfaces.Views.Ui_view_ventana_principal import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

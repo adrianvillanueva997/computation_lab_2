@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import QtWidgets
 
-from Interfaces.ctrl_login import MainWindow
+from Interfaces.Controllers.ctrl_login import MainWindow
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication([])

@@ -4,13 +4,10 @@ import re
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from Interfaces.Database import File_Manager
-from Interfaces.Database import File_Uploader
-from Interfaces.Database import Project
-from Interfaces.Database import User
-from Interfaces.Ui_view_load_files import Ui_MainWindow
-from Interfaces.Web_Scrapping import Amazon_Scrapper
-from Interfaces.Web_Scrapping import Yelp_Scrapper
+from Database import File_Uploader, User, Project
+from ETL.Modules import File_Manager
+from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
+from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
