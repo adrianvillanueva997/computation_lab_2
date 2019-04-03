@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1044</width>
-    <height>626</height>
+    <height>542</height>
    </rect>
   </property>
   <property name="font">
@@ -94,7 +94,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="comboBox_filtro">
         <item>
          <property name="text">
           <string>contiene</string>
@@ -152,7 +152,7 @@
      </widget>
     </item>
     <item row="0" column="6">
-     <widget class="QComboBox" name="comboBox_2">
+     <widget class="QComboBox" name="comboBox_algoritmo">
       <item>
        <property name="text">
         <string>Selecciona algoritmo</string>
@@ -160,20 +160,88 @@
       </item>
       <item>
        <property name="text">
-        <string>Naive Bayes</string>
+        <string>Classification Trees</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Decision Tree</string>
+        <string>Extra-Classification Trees</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>SVM</string>
+        <string>Random Forest</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Naive Bayes Multinomial</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Naive Bayes Bernoulli</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Naive Bayes Gaussian</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Ada Classification</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gradient Boosted Trees</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Stochastic Gradient Boosted</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>K-nn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Radius Neighbors Classifier</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SVM Classification</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SVM Nu-Classification</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>SVM Linear Classification</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Neural Network MLP</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gaussian Classifier</string>
        </property>
       </item>
      </widget>
+    </item>
+    <item row="1" column="7">
+     <widget class="QWidget" name="widget_resultados" native="true"/>
     </item>
    </layout>
   </widget>

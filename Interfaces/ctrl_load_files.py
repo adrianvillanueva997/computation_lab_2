@@ -6,16 +6,13 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 
 from Database import File_Uploader
-from Database.ETL import File_Manager
+from Database import File_Manager
 from Database import Project
 from Database import User
 from Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper
 from Web_Scrapping import Yelp_Scrapper
 
-from Database.ETL import File_Manager
-from Database import File_Uploader
-from Interfaces.Web_Scrapping import Amazon_Scrapper
 
 
 

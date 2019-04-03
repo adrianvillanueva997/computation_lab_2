@@ -1,11 +1,9 @@
 import pandas as pd
 
-try:
-    from Interfaces.Database.ETL.Modules import Vectorizer
-    from Interfaces.Database.ETL.Modules.Models import Models
-except Exception as e:
-    # ADRI METE AQUI TUS IMPORTS
-    pass
+
+from Database import Vectorizer
+from Database import Models
+
 
 
 class Train:
@@ -32,10 +30,8 @@ class Train:
         """
         data_frame = self.__generate_reviews_dataframe(reviews_dict)
         vect = Vectorizer.Vectorizer()
-        print(transformer)
-        print(data_frame['reviews'])
         x_train, x_test, y_train, y_test = vect.generate_train_test_data(data_frame=data_frame, vectorizer=transformer)
-        model = Models(x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test, vectorizer=vect)
+        model = Models.Models(x_train=x_train, x_test=x_test, y_train=y_train, y_test=y_test, vectorizer=vect)
         model = self.__algorithm_choser(algorithm, model)
         return model
 
@@ -47,37 +43,37 @@ class Train:
         :param model:
         :return:
         """
-        if algorithm is 'tree_classification':
+        if algorithm == 'Classification Trees':
             model.tree_decision_classifier()
-        elif algorithm is 'tree_extra_classification':
+        elif algorithm == 'Extra-Classification Trees':
             model.tree_extra_tree_classifier()
-        elif algorithm is 'tree_random_forest':
+        elif algorithm == 'Random Forest':
             model.tree_random_forest()
-        elif algorithm is 'bayes_multinomial':
+        elif algorithm == 'Naive Bayes Multinomial':
             model.naive_bayes_multinomial()
-        elif algorithm is 'bayes_bernouilli':
+        elif algorithm == 'Naive Bayes Bernoulli':
             model.naive_bayes_bernoulli()
-        elif algorithm is 'bayes_gaussian':
+        elif algorithm == 'Naive Bayes Gaussian':
             model.naive_bayes_gaussian()
-        elif algorithm is 'ada_classification':
+        elif algorithm == 'Ada Classification':
             model.ada_classifier()
-        elif algorithm is 'gradient_booster':
+        elif algorithm == 'Gradient Boosted Trees':
             model.gradient_booster()
-        elif algorithm is 'gradient_stochastic':
+        elif algorithm == 'Stochastic Gradient Boosted':
             model.gradient_stochastic_descent()
-        elif algorithm is 'neighbours_k':
+        elif algorithm == 'K-nn':
             model.k_neighbors_classifier()
-        elif algorithm is 'neighbours_radius':
+        elif algorithm == 'Radius Neighbors Classifier':
             model.r_neighbors_classifier()
-        elif algorithm is 'svm_classification':
+        elif algorithm == 'SVM Classification':
             model.svm_support_vector_classification()
-        elif algorithm is 'svm_nu_classification':
+        elif algorithm == 'SVM Nu-Classification':
             model.svm_support_vector_nu_classification()
-        elif algorithm is 'svm_linear_classification':
+        elif algorithm == 'SVM Linear Classification':
             model.svm_support_vector_linear_classification()
-        elif algorithm is 'neural_mlp':
+        elif algorithm == 'Neural Network MLP':
             model.neural_sklearn_mlp()
-        elif algorithm is 'gaussian_classifier':
+        elif algorithm == 'Gaussian Classifier':
             model.gaussian_process_classifier()
 
         return model

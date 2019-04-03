@@ -1,13 +1,10 @@
 import uuid
 
-try:
-    from Database import config as cfg
-    from Database import User
-    from Interfaces.Database.ETL.Modules import Models, Vectorizer, Sentiment, File_Manager
-except Exception as e:
-    from Interfaces.Database import config as cfg, Utilities
-    from Interfaces.Database import User
-    from Interfaces.Database.ETL.Modules import Sentiment, Models, Vectorizer, File_Manager
+
+from Database import config as cfg
+from Database import User
+from Database import Models, Vectorizer, Sentiment, File_Manager
+
 from sqlalchemy.sql import text
 
 
