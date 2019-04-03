@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 try:
     from Interfaces.Database import config as cfg, Encryption
 except Exception as e:
-    from Interfaces.Database import config as cfg, Utilities
+    from Database import config as cfg, Utilities
 
 
 class Admin:
