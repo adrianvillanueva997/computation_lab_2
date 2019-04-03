@@ -3,7 +3,10 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QFileDialog
 import sys
 from modificar_usuario import Ui_MainWindow
-from Database import Admin
+try:
+    from Interfaces.Database import config as cfg, Encryption, Admin
+except Exception as e:
+    from Database import config as cfg, Utilities, Admin
 
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 
@@ -12,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         self.pushButton_Aceptar.clicked.connect(self.aceptar)
         self.pushButton_Cancelar.clicked.connect(self.cancelar)
-        self.id_us= ""
+        self.padre=None
         self._main_window = None
     def aceptar(self):
         admin=Admin.Admin()
@@ -25,9 +28,13 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             pass
         else:
             admin.modificar_usuario(self.id_us , nombre , email , role , passw)
+            #self.padre.limpiar_tabla()
+            #self.padre.load_usuarios()
             self.close()
     def cancelar(self):
         self.close()
+    def set_parent(self,MainWindow):
+        self.padre = MainWindow
     def modificar_lineas(self , id):
         id_usuatio=str(id)
         self.id_us=id_usuatio

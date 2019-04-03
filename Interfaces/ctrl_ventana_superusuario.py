@@ -6,10 +6,11 @@ import sys
 import ctrl_modificar_usuario
 import ctrl_registrar_usuario
 import ctr_usuario_proyecto
-from Database import config as cfg
-from Database import Encryption
 import base64
-from Database import Admin
+try:
+    from Interfaces.Database import config as cfg, Encryption, Admin
+except Exception as e:
+    from Database import config as cfg, Utilities, Encryption, Admin
 from abc import ABC
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 	def __init__(self,*args, **kwargs):
@@ -31,6 +32,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 			else:
 				self._main_window = ctrl_modificar_usuario.MainWindow()
 				self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+				self._main_window.set_parent(self)
 				self._main_window.show()
 		except IndexError:
 			ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
@@ -54,6 +56,8 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		else:
 			print('No clicked.')
 			pass
+	def limpiar_tabla(self):
+		self.tableWidget.clearContents()
 	def load_usuarios(self):
 		try:
 			admin=Admin.Admin()
