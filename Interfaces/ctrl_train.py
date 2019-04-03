@@ -1,15 +1,14 @@
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QMainWindow
+from PyQt5 import QtGui
 
-try:
-    from Interfaces.Database.ETL import Train
-    from Interfaces.Database import Project
-    from Interfaces.Database import User
-    from Interfaces.Ui_view_entrenar import Ui_MainWindow
-except Exception as e:
-    from Database import Project
-    from Database import User
-    from Ui_view_entrenar import Ui_MainWindow
+from Database import Train
+from Database import Project
+from Database import User
+from Ui_view_entrenar import Ui_MainWindow
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -24,6 +23,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_remove.clicked.connect(self.remove_from_training_table)
         self.pushButton_Entrenar.clicked.connect(self.train_with_reviews)
         self._project_id = None
+        self._dialog = None
         
 
     def set_project_id(self, project_id):
@@ -90,12 +90,24 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         reviews_dictionary = {"labels": [], "reviews": []}
         rowCount = self.tableWidget_reviews_to_train.rowCount()
         for i in range(0, rowCount):
-            reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 0).text()))
-            reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
-
-        print(reviews_dictionary)
+            reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
+            reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))
+        algoritmo = self.comboBox_algoritmo.currentText()
+        print("ALGORITMOOO")
+        print(algoritmo)
+        if algoritmo == "Selecciona algoritmo":
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar un algoritmo para el entrenamiento")
+            return
         train = Train.Train()
-        model = train.trainer(reviews_dictionary, transformer='count_vec', algorithm='tree_classification')
+        model = train.trainer(reviews_dictionary, transformer='count_vect', algorithm=str(algoritmo))
+        QMessageBox.information(self,"Entrenamiento completado", "El entrenamiento se ha completado con éxito")
+        model.generate_classification_model_statistics()
+        plot=model.plot_confusion_matrix(model.get_classes_model())
+        canvas = FigureCanvas(plot.figure())
+        layout = QtWidgets.QGridLayout()
+        layout.addWidget(canvas)
+        self.widget_resultados.setLayout(layout)
 
     def go_back(self):
         self.close()

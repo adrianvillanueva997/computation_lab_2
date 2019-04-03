@@ -24,7 +24,6 @@ CHOICES_DICT = {
     'Trees': ['Classification', 'Extra-Classification', 'Random Forest'],
     'Bayes': ['Multinomial', 'Bernoulli', 'Gaussian'],
     'Ada': ['Classification'],
-    'Trees': ['Classification', 'Extra-Classification', 'Random Forest'],
     'Gradient': ['Booster', 'Stochastic'],
     'Neightbors': ['K', 'Radius'],
     'SVM': ['Classification', 'Nu-Classification', 'Linear Classification'],
@@ -351,6 +350,9 @@ class Models:
         unlabeled_prediction = self.__model.predict(unlabeled_data)
         return unlabeled_prediction
 
+    def get_classes_model(self):
+        return self.__model.classes_
+        
     def generate_classification_model_statistics(self):
         """
         Method that generates the prediction value and confussion matrix
@@ -359,7 +361,7 @@ class Models:
         prediction = self.__model.predict(self.__x_test)
         conf_matrix = confusion_matrix(self.__y_test, prediction)
         cv_score = cross_val_score(
-            self.__model, self.__x_train, self.__y_train, cv=5)
+            self.__model, self.__x_train, self.__y_train, cv=3)
         cross_validation_score = cv_score.mean()
         cross_validation_variance = cv_score.std()
         classification_score = classification_report(self.__y_test, prediction)
