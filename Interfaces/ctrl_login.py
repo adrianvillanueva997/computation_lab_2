@@ -1,8 +1,6 @@
-from PyQt5 import QtWidgets
-
-
 import ctrl_mainwindow as v_main
 from Database import Login
+from PyQt5 import QtWidgets
 from Ui_view_login import Ui_MainWindow
 
 

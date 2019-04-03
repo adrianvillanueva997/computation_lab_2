@@ -1,14 +1,12 @@
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QFileDialog, QMessageBox, QDialog, QMainWindow
-from PyQt5 import QtGui
-
-from Database import Train
-from Database import Project
-from Database import User
-from Ui_view_entrenar import Ui_MainWindow
+from PyQt5.QtWidgets import QMessageBox
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
+from Interfaces.Database import Project
+from Interfaces.Database import Train
+from Interfaces.Database import User
+from Interfaces.Ui_view_entrenar import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -24,7 +22,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Entrenar.clicked.connect(self.train_with_reviews)
         self._project_id = None
         self._dialog = None
-        
 
     def set_project_id(self, project_id):
         self._project_id = project_id
@@ -40,10 +37,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(0, len(reviews['file_name'])):
             rowPosition = self.tableWidget_reviews.rowCount()
             self.tableWidget_reviews.insertRow(rowPosition)
-            self.tableWidget_reviews.setItem(rowPosition,0,QtWidgets.QTableWidgetItem(str(reviews['id'][i])))
-            self.tableWidget_reviews.setItem(rowPosition,1,QtWidgets.QTableWidgetItem(reviews['label'][i]))
-            self.tableWidget_reviews.setItem(rowPosition,2,QtWidgets.QTableWidgetItem(reviews['file_name'][i]))
-            self.tableWidget_reviews.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(reviews['text'][i]))
+            self.tableWidget_reviews.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(str(reviews['id'][i])))
+            self.tableWidget_reviews.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(reviews['label'][i]))
+            self.tableWidget_reviews.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(reviews['file_name'][i]))
+            self.tableWidget_reviews.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(reviews['text'][i]))
         self.tableWidget_reviews.resizeColumnsToContents()
 
     def add_review_to_train(self):
@@ -51,13 +48,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for item in rows:
             rowPosition = self.tableWidget_reviews_to_train.rowCount()
             self.tableWidget_reviews_to_train.insertRow(rowPosition)
-            self.tableWidget_reviews_to_train.setItem(rowPosition,0,QtWidgets.QTableWidgetItem(self.tableWidget_reviews.item(item.row(),0).text()))
-            self.tableWidget_reviews_to_train.setItem(rowPosition,1,QtWidgets.QTableWidgetItem(self.tableWidget_reviews.item(item.row(),1).text()))
-            self.tableWidget_reviews_to_train.setItem(rowPosition,2,QtWidgets.QTableWidgetItem(self.tableWidget_reviews.item(item.row(),2).text()))
-            self.tableWidget_reviews_to_train.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(self.tableWidget_reviews.item(item.row(),3).text()))
-            self.tableWidget_reviews.setRowHidden(item.row(),True)
-        
-            
+            self.tableWidget_reviews_to_train.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(
+                self.tableWidget_reviews.item(item.row(), 0).text()))
+            self.tableWidget_reviews_to_train.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(
+                self.tableWidget_reviews.item(item.row(), 1).text()))
+            self.tableWidget_reviews_to_train.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(
+                self.tableWidget_reviews.item(item.row(), 2).text()))
+            self.tableWidget_reviews_to_train.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(
+                self.tableWidget_reviews.item(item.row(), 3).text()))
+            self.tableWidget_reviews.setRowHidden(item.row(), True)
 
     def filter_table(self):
         _filter = self.lineEdit_filtro.text()
@@ -79,12 +78,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         rows = self.tableWidget_reviews_to_train.selectionModel().selectedRows()
 
         for item in reversed(rows):
-            hidden_rows = self.tableWidget_reviews.findItems(self.tableWidget_reviews_to_train.item(item.row(),0).text(),QtCore.Qt.MatchExactly)
+            hidden_rows = self.tableWidget_reviews.findItems(
+                self.tableWidget_reviews_to_train.item(item.row(), 0).text(), QtCore.Qt.MatchExactly)
             for table_item in hidden_rows:
-                self.tableWidget_reviews.setRowHidden(table_item.row(),False)
+                self.tableWidget_reviews.setRowHidden(table_item.row(), False)
             self.tableWidget_reviews_to_train.removeRow(item.row())
 
-        
     ##ADRI AQUI TIENES LA FUNCION QUE GENERA EL DICCIONARIO DE REVIEWS CON SUS LABELS
     def train_with_reviews(self):
         reviews_dictionary = {"labels": [], "reviews": []}
@@ -101,9 +100,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             return
         train = Train.Train()
         model = train.trainer(reviews_dictionary, transformer='count_vect', algorithm=str(algoritmo))
-        QMessageBox.information(self,"Entrenamiento completado", "El entrenamiento se ha completado con éxito")
+        QMessageBox.information(self, "Entrenamiento completado", "El entrenamiento se ha completado con éxito")
         model.generate_classification_model_statistics()
-        plot=model.plot_confusion_matrix(model.get_classes_model())
+        plot = model.plot_confusion_matrix(model.get_classes_model())
         canvas = FigureCanvas(plot.figure())
         layout = QtWidgets.QGridLayout()
         layout.addWidget(canvas)

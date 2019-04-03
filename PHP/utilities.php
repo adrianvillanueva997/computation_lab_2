@@ -2,7 +2,7 @@
 /**
  * console_log
  *
- * @param  mixed $data
+ * @param mixed $data
  *
  * @return void
  */
@@ -16,7 +16,7 @@ function console_log($data)
 /**
  * phpAlert
  *
- * @param  mixed $msg
+ * @param mixed $msg
  *
  * @return void
  */

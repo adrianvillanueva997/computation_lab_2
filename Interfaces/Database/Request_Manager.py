@@ -57,4 +57,4 @@ if __name__ == '__main__':
     rm = RequestManager()
     model = (rm.download_file(1, 1, 1))
     print(model)
-    #rm.upload_file(1, 2, 5, model)
+    # rm.upload_file(1, 2, 5, model)

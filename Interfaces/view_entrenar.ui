@@ -1,251 +1,251 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1044</width>
-    <height>542</height>
-   </rect>
-  </property>
-  <property name="font">
-   <font>
-    <pointsize>14</pointsize>
-   </font>
-  </property>
-  <property name="windowTitle">
-   <string>Entrenamiento</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="6">
-     <widget class="QTableWidget" name="tableWidget_reviews_to_train">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Etiqueta</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nombre Fichero</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Texto</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QTableWidget" name="tableWidget_reviews">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Etiqueta</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nombre Fichero</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Texto</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_filtro">
-        <property name="text">
-         <string>Filtro</string>
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>1044</width>
+                <height>542</height>
+            </rect>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_filtro">
-        <item>
-         <property name="text">
-          <string>contiene</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>no contiene</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_filtro"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_applyfilter">
-        <property name="text">
-         <string>Aplicar filtro</string>
+        <property name="font">
+            <font>
+                <pointsize>14</pointsize>
+            </font>
         </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton_add">
-        <property name="text">
-         <string>Añadir</string>
+        <property name="windowTitle">
+            <string>Entrenamiento</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_remove">
-        <property name="text">
-         <string>Eliminar</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton_back">
-      <property name="text">
-       <string>Atrás</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="6">
-     <widget class="QPushButton" name="pushButton_Entrenar">
-      <property name="text">
-       <string>Entrenar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6">
-     <widget class="QComboBox" name="comboBox_algoritmo">
-      <item>
-       <property name="text">
-        <string>Selecciona algoritmo</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Classification Trees</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Extra-Classification Trees</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Random Forest</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Naive Bayes Multinomial</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Naive Bayes Bernoulli</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Naive Bayes Gaussian</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Ada Classification</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Gradient Boosted Trees</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Stochastic Gradient Boosted</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>K-nn</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Radius Neighbors Classifier</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>SVM Classification</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>SVM Nu-Classification</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>SVM Linear Classification</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Neural Network MLP</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Gaussian Classifier</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="1" column="7">
-     <widget class="QWidget" name="widget_resultados" native="true"/>
-    </item>
-   </layout>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+        <widget class="QWidget" name="centralwidget">
+            <layout class="QGridLayout" name="gridLayout">
+                <item row="1" column="6">
+                    <widget class="QTableWidget" name="tableWidget_reviews_to_train">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="selectionBehavior">
+                            <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                        <column>
+                            <property name="text">
+                                <string>ID</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Etiqueta</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Nombre Fichero</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Texto</string>
+                            </property>
+                        </column>
+                    </widget>
+                </item>
+                <item row="1" column="0">
+                    <widget class="QTableWidget" name="tableWidget_reviews">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="selectionBehavior">
+                            <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                        <column>
+                            <property name="text">
+                                <string>ID</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Etiqueta</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Nombre Fichero</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Texto</string>
+                            </property>
+                        </column>
+                    </widget>
+                </item>
+                <item row="0" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                        <item>
+                            <widget class="QLabel" name="label_filtro">
+                                <property name="text">
+                                    <string>Filtro</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QComboBox" name="comboBox_filtro">
+                                <item>
+                                    <property name="text">
+                                        <string>contiene</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>no contiene</string>
+                                    </property>
+                                </item>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QLineEdit" name="lineEdit_filtro"/>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_applyfilter">
+                                <property name="text">
+                                    <string>Aplicar filtro</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+                <item row="1" column="1">
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                        <item>
+                            <widget class="QPushButton" name="pushButton_add">
+                                <property name="text">
+                                    <string>Añadir</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_remove">
+                                <property name="text">
+                                    <string>Eliminar</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+                <item row="2" column="0">
+                    <widget class="QPushButton" name="pushButton_back">
+                        <property name="text">
+                            <string>Atrás</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="2" column="6">
+                    <widget class="QPushButton" name="pushButton_Entrenar">
+                        <property name="text">
+                            <string>Entrenar</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="0" column="6">
+                    <widget class="QComboBox" name="comboBox_algoritmo">
+                        <item>
+                            <property name="text">
+                                <string>Selecciona algoritmo</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Classification Trees</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Extra-Classification Trees</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Random Forest</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Naive Bayes Multinomial</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Naive Bayes Bernoulli</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Naive Bayes Gaussian</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Ada Classification</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Gradient Boosted Trees</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Stochastic Gradient Boosted</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>K-nn</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Radius Neighbors Classifier</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>SVM Classification</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>SVM Nu-Classification</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>SVM Linear Classification</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Neural Network MLP</string>
+                            </property>
+                        </item>
+                        <item>
+                            <property name="text">
+                                <string>Gaussian Classifier</string>
+                            </property>
+                        </item>
+                    </widget>
+                </item>
+                <item row="1" column="7">
+                    <widget class="QWidget" name="widget_resultados" native="true"/>
+                </item>
+            </layout>
+        </widget>
+    </widget>
+    <resources/>
+    <connections/>
 </ui>

@@ -4,16 +4,13 @@ import re
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-
-from Database import File_Uploader
-from Database import File_Manager
-from Database import Project
-from Database import User
-from Ui_view_load_files import Ui_MainWindow
-from Web_Scrapping import Amazon_Scrapper
-from Web_Scrapping import Yelp_Scrapper
-
-
+from Interfaces.Database import File_Manager
+from Interfaces.Database import File_Uploader
+from Interfaces.Database import Project
+from Interfaces.Database import User
+from Interfaces.Ui_view_load_files import Ui_MainWindow
+from Interfaces.Web_Scrapping import Amazon_Scrapper
+from Interfaces.Web_Scrapping import Yelp_Scrapper
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -123,9 +120,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for item in reviews:
                     rowPosition_reviews = self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
                 self.URL_review_tableWidget.resizeColumnsToContents()
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
@@ -134,11 +131,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for item in reviews:
                     rowPosition_reviews = self.URL_review_tableWidget.rowCount()
                     self.URL_review_tableWidget.insertRow(rowPosition_reviews)
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,0,QtWidgets.QTableWidgetItem(url_path))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,1,QtWidgets.QTableWidgetItem(label))
-                    self.URL_review_tableWidget.setItem(rowPosition_reviews,2,QtWidgets.QTableWidgetItem(item))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
                 self.URL_review_tableWidget.resizeColumnsToContents()
-                   
+
         self.URL_tableWidget.setRowCount(0)
         self.URL_pushButton_load.setEnabled(True)
         self.URL_pushButton_processURLs.setEnabled(False)

@@ -1,8 +1,7 @@
-
-from Database import File_Manager
-from Database import config as cfg
-
 from sqlalchemy.sql import text
+
+from Interfaces.Database import File_Manager
+from Interfaces.Database import config as cfg
 
 
 class File_Uploader:

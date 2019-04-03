@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -163,4 +164,3 @@ class Ui_MainWindow(object):
         self.comboBox_algoritmo.setItemText(14, _translate("MainWindow", "SVM Linear Classification"))
         self.comboBox_algoritmo.setItemText(15, _translate("MainWindow", "Neural Network MLP"))
         self.comboBox_algoritmo.setItemText(16, _translate("MainWindow", "Gaussian Classifier"))
-

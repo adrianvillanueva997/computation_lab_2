@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-try:
-    from Database import config as cfg, Encryption, Utilities
-except Exception as e:
-    from Interfaces.Database import config as cfg, Utilities
-
 from sqlalchemy.sql import text
+
+from Interfaces.Database import config as cfg, Encryption, Utilities
 
 
 class Login:

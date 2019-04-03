@@ -1,10 +1,9 @@
 from PyQt5 import QtWidgets
 
-
-from Ui_view_ventana_principal import Ui_MainWindow
-import ctrl_project_menu as v_project_menu
-from Database import Project
-from Database import User
+import Interfaces.ctrl_project_menu as v_project_menu
+from Interfaces.Database import Project
+from Interfaces.Database import User
+from Interfaces.Ui_view_ventana_principal import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -40,11 +39,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(0, len(projects) - 1):
             rowPosition = self.table_proyectos.rowCount()
             self.table_proyectos.insertRow(rowPosition)
-            self.table_proyectos.setItem(rowPosition,0,QtWidgets.QTableWidgetItem(projects['id'][i]))
-            self.table_proyectos.setItem(rowPosition,1,QtWidgets.QTableWidgetItem(projects['project_name'][i]))
-            self.table_proyectos.setItem(rowPosition,2,QtWidgets.QTableWidgetItem(str(projects['timestamp'][i])))
-            self.table_proyectos.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(projects['invitation_key'][i]))
+            self.table_proyectos.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(projects['id'][i]))
+            self.table_proyectos.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(projects['project_name'][i]))
+            self.table_proyectos.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(str(projects['timestamp'][i])))
+            self.table_proyectos.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(projects['invitation_key'][i]))
         self.table_proyectos.resizeColumnsToContents()
-        
-
-

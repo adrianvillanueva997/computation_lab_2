@@ -1,8 +1,9 @@
+import time
+
+import pandas as pd
 from googletrans import Translator
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import pandas as pd
-import time
 
 
 class Sentiment:

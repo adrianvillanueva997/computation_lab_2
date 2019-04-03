@@ -1,11 +1,9 @@
-from Ui_view_menu_seleccion import Ui_MainWindow
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-import ctrl_load_files as v_load_files
-import ctrl_config_project as v_config_project
-import ctrl_train as v_train
 
+import Interfaces.ctrl_config_project as v_config_project
+import Interfaces.ctrl_load_files as v_load_files
+import Interfaces.ctrl_train as v_train
+from Interfaces.Ui_view_menu_seleccion import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

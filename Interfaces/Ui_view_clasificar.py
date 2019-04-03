@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -94,4 +95,3 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Ruta Guardado"))
         self.pushButton_Aceptar_Guardado.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_Buscar_Ruta_Guardado.setText(_translate("MainWindow", "Buscar"))
-

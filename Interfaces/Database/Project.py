@@ -1,11 +1,10 @@
 import uuid
 
-
-from Database import config as cfg
-from Database import User
-from Database import Models, Vectorizer, Sentiment, File_Manager
-
 from sqlalchemy.sql import text
+
+from Interfaces.Database import Sentiment
+from Interfaces.Database import User
+from Interfaces.Database import config as cfg
 
 
 class Project:

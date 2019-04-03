@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from Database import Text_Procesing, File_Manager
 
+from Interfaces.Database import Text_Procesing, File_Manager
 
 
 class Vectorizer:
@@ -99,7 +99,7 @@ class Vectorizer:
             print("Entra en el else y devuelve None")
             return None
 
-        print(x_train,x_test,y_train,y_test)
+        print(x_train, x_test, y_train, y_test)
 
         return x_train, x_test, y_train, y_test
 

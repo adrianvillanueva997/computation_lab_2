@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -184,4 +185,3 @@ class Ui_MainWindow(object):
         self.URL_comboBox_labels.setItemText(0, _translate("MainWindow", "Seleccionar etiqueta"))
         self.URL_comboBox_labels.setItemText(1, _translate("MainWindow", "Unlabeled"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.URL_tab), _translate("MainWindow", "URL"))
-

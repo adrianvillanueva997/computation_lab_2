@@ -352,7 +352,7 @@ class Models:
 
     def get_classes_model(self):
         return self.__model.classes_
-        
+
     def generate_classification_model_statistics(self):
         """
         Method that generates the prediction value and confussion matrix
