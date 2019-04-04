@@ -43,7 +43,8 @@ class Amazon:
         :argument url: str
         """
         soup = BeautifulSoup(html, 'html.parser')
-        div_class_blocks = soup.findAll("div", class_='a-section celwidget')
+        div_class_blocks = soup.findAll("div", {"class":"a-section review aok-relative",
+                                                "data-hook":"review"})
         return div_class_blocks
 
     @staticmethod
@@ -92,13 +93,15 @@ class Amazon:
         reviews = []
         for block in div_blocks:
             soup = BeautifulSoup(str(block), 'html.parser')
-            review = soup.find('span', {'class': 'a-size-base review-text review-text-content'})
-            review = str(review).replace(
-                '<span class="a-size-base review-text review-text-content" data-hook="review-body"><span class="">', '')
-            review = review.replace('<br/>', '')
-            review = review.replace('</span>', '')
-            review = review.replace('\n', '')
+            review = soup.find('span', {"data-hook":"review-body",
+                                        'class': 'a-size-base review-text review-text-content'})
+            # review = str(review).replace(
+            #     '<span class="a-size-base review-text review-text-content" data-hook="review-body"><span class="">', '')
+            # review = review.replace('<br/>', '')
+            # review = review.replace('</span>', '')
+            # review = review.replace('\n', '')
             reviews.append(review)
+            print(review)
         return reviews
 
     def scrape_amazon_training(self, url):
@@ -151,7 +154,6 @@ class Amazon:
 
 if __name__ == '__main__':
     amz = Amazon()
-    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
-            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/']
-    data = amz.scrape_amazon_training(urls[0])
+    urls = ['https://www.amazon.es/Netgear-GS305-100PES-puertos-Ethernet-met%C3%A1lica/dp/B00RCHPKH2?pd_rd_w=GFNLk&pf_rd_p=a46ce716-da9f-46ff-babe-0e788ee814cf&pf_rd_r=P9V48JWA1Y9456P1KCXQ&pd_rd_r=0add0ae2-c8bd-453f-9c85-b995f57076d8&pd_rd_wg=HSG52&ref_=pd_gw_qpp']
+    data = amz.scrape_amazon(urls[0])
     print(data)
