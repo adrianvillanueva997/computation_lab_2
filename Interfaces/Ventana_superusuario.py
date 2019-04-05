@@ -34,7 +34,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addItem(spacerItem, 0, 1, 1, 1)
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(4)
+        self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -44,6 +44,8 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, item)
         self.gridLayout_3.addWidget(self.tableWidget, 2, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem1, 2, 0, 1, 1)
@@ -61,7 +63,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_Eliminar_usuario.setText(_translate("MainWindow", "Eliminar usuario"))
+        self.pushButton_Eliminar_usuario.setText(_translate("MainWindow", "Eliminar/Activar usuario"))
         self.pushButton_Modificar_usuario.setText(_translate("MainWindow", "Modificar usuario"))
         self.pushButton_Registrar_usuario.setText(_translate("MainWindow", "Registrar usuario"))
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -72,6 +74,8 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Email"))
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Role"))
+        item = self.tableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Actividad"))
         self.pushButton_Relacion_Proyectos.setText(_translate("MainWindow", "Relación Proyectos y usuarios"))
 
 

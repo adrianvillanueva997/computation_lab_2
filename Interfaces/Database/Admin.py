@@ -53,13 +53,15 @@ class Admin:
                     'id': [],
                     'username': [],
                     'email': [],
-                    'role': []
+                    'role': [],
+                    'Actividad': []
                 }
                 for result in results:
                     data['id'].append(str(result['ID_user']))
                     data['username'].append(result['user_name'])
                     data['email'].append(result['email'])
                     data['role'].append(str(result['role']))
+                    data['Actividad'].append(str(result['Actividad']))
             return data
         except Exception as e:
             print(e)
@@ -102,15 +104,28 @@ class Admin:
         if id is None:
             raise NotImplementedError()
         try:
-            id_user = str(id)
+            id_user = int(id)
             # TODO
-            query = 'DELETE FROM proyecto_computacion.user WHERE ID_user = ' + id_user
+            query = text('update proyecto_computacion.user '
+                         'set Actividad=0 '
+                         'WHERE ID_user like :_id')
             with cfg.engine.connect() as con:
-                results = con.execute(query)
-                print(results)
+                con.execute(query, _id=id_user)
         except Exception as e:
             print(e)
-
+    def activar_user(self, id):
+        if id is None:
+            raise NotImplementedError()
+        try:
+            id_user = int(id)
+            # TODO
+            query = text('update proyecto_computacion.user '
+                         'set Actividad=1 '
+                         'WHERE ID_user like :_id')
+            with cfg.engine.connect() as con:
+                con.execute(query, _id=id_user)
+        except Exception as e:
+            print(e)
     def obtener_user(self, id):
         try:
             id_user = str(id)

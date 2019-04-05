@@ -20,7 +20,7 @@
       <item row="0" column="2">
        <widget class="QPushButton" name="pushButton_Eliminar_usuario">
         <property name="text">
-         <string>Eliminar usuario</string>
+         <string>Eliminar/Activar usuario</string>
         </property>
        </widget>
       </item>
@@ -75,6 +75,11 @@
         <column>
          <property name="text">
           <string>Role</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Actividad</string>
          </property>
         </column>
        </widget>
