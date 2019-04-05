@@ -30,6 +30,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             admin.modificar_usuario(self.id_us , nombre , email , role , passw)
             #self.padre.limpiar_tabla()
             #self.padre.load_usuarios()
+            self.padre.modificar_fila(self.id_us,nombre, email, role)
             self.close()
     def cancelar(self):
         self.close()

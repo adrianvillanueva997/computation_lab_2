@@ -1,15 +1,14 @@
 from sqlalchemy.sql import text
 
 try:
-    from Interfaces.Database import config as cfg, Encryption
+    from Interfaces.Database import config as cfg, Encryption, Utilities
 except Exception as e:
-    from Database import config as cfg, Utilities
+    from Database import config as cfg, Utilities, Encryption
 
 
 class Admin:
     def __init__(self):
         pass
-
     @staticmethod
     def get_users_with_projects():
         try:
@@ -135,7 +134,13 @@ class Admin:
         except Exception as e:
             print(e)
 
+    def obtener_id(self, name):
+        try:
+            query = query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
+            with cfg.engine.connect() as con:
+                results = con.execute(query)
+            return results
+        except Exception as e:
+            print(e)
 
-if __name__ == '__main__':
-    admin = Admin()
-    admin.modificar_usuario(14, 'todor', 'Miguelfeo', 1, 'hola')
+
