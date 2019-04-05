@@ -47,26 +47,32 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		if ret == QMessageBox.Yes:
 			print('Yes clicked.')
 			admin=Admin.Admin()
-			if self.tableWidget.selectedItems()[4].text() == 'Inactivo':
-				try:
-					admin.activar_user(self.tableWidget.selectedItems()[0].text())
-					self.tableWidget.selectedItems()[4].setText('Actvo')
-				except IndexError:
-					ret = QMessageBox.question(self, 'Advertencia!',
-											   "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR",
-											   QMessageBox.Ok)
-				except Exception as e:
-					print(e)
-				pass
-			else:
-				try:
-					admin.eliminar_user(self.tableWidget.selectedItems()[0].text())
-					self.tableWidget.selectedItems()[4].setText('Inactivo')
-				except IndexError:
-					ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
-				except Exception as e:
-					print(e)
-				pass
+			try:
+
+				if self.tableWidget.selectedItems()[4].text() == 'Inactivo':
+					try:
+						admin.activar_user(self.tableWidget.selectedItems()[0].text())
+						self.tableWidget.selectedItems()[4].setText('Actvo')
+					except IndexError:
+						ret = QMessageBox.question(self, 'Advertencia!',
+												   "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR",
+												   QMessageBox.Ok)
+					except Exception as e:
+						print(e)
+					pass
+				else:
+					try:
+						admin.eliminar_user(self.tableWidget.selectedItems()[0].text())
+						self.tableWidget.selectedItems()[4].setText('Inactivo')
+					except IndexError:
+						ret=QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok )
+					except Exception as e:
+						print(e)
+					pass
+			except IndexError:
+				ret = QMessageBox.question(self, 'Advertencia!', "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok)
+			except Exception as e:
+				print(e)
 		else:
 			print('No clicked.')
 			pass
