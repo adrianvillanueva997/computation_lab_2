@@ -15,7 +15,8 @@ class Metacritic_Scrapper:
         :returns html: str
         :argument url: str
         """
-        headers = {'User-Agent': 'Mozilla/5.0'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0'}
         request = requests.get(url=url, headers=headers)
         print(f'[INFO] Request made to: {url} with response: {request}')
         html = request.content
@@ -61,7 +62,8 @@ class Metacritic_Scrapper:
             start = 0
             next = 1
             while start < next:
-                html = self.__make_request(url + f'user-reviews?page={str(start)}')
+                html = self.__make_request(
+                    url + f'user-reviews?page={str(start)}')
                 blocks = self.__div_blocks(html)
                 reviews = self.__get_comments(blocks)
                 if len(reviews) is 0:

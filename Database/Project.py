@@ -2,7 +2,7 @@ import uuid
 
 from sqlalchemy.sql import text
 
-from Database import User
+from Database import User, Utilities
 from Database import config as cfg
 from ETL.Modules import Sentiment
 
@@ -41,7 +41,8 @@ class Project:
             except Exception as e:
                 print(e)
 
-    def create_invitation_code(self, id_project):
+    @staticmethod
+    def create_invitation_code(id_project):
         """
         Given an id project, generates an invitation uuid64 key to allow other users to take part in 'x' project
         :param id_project:
@@ -52,7 +53,8 @@ class Project:
         with cfg.engine.connect() as con:
             try:
                 insert_invitation_code_query = text('update proyecto_computacion.project '
-                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id')
+                                                    'set ID_invitation = :_invitation_code '
+                                                    'where ID_project = :_project_id')
                 con.execute(insert_invitation_code_query, _invitation_code=code, _project_id=id_project)
             except Exception as e:
                 print(e)
@@ -141,6 +143,7 @@ class Project:
                         con.execute(update_query, _polarity=sentiments['polarity'][0],
                                     _subjectivity=sentiments['subjectivity'][0],
                                     _compound=sentiments['compound'][0], _id_review=review_id)
+
                     except Exception as e:
                         print(e)
                         failed_reviews.append(text)
