@@ -32,7 +32,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.parent.show()
 
     def load_projects(self):
-        user = User.User(10)
+        user = User.User(1)
         pj = Project.Project(user)
         projects = pj.load_user_projects()
         for i in range(0, len(projects) - 1):

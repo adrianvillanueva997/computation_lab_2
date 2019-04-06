@@ -37,3 +37,7 @@ class Encryption:
                                       100000)
         pwdhash = binascii.hexlify(pwdhash).decode('ascii')
         return pwdhash == stored_password
+if __name__ == '__main__':
+    encrypt=Encryption()
+    h_p=encrypt.hash_password("1234")
+    print(h_p)
