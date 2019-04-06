@@ -319,7 +319,7 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('UPDATE proyecto_computacion.link_web_scrapper set'
-                             ' processed 1 where url like :_url and ID_project like :_project_id')
+                             ' processed= 1 where url like :_url and ID_project like :_project_id')
                 con.execute(query, _url=url, _project_id=project_id)
         except Exception as e:
             print(e)
