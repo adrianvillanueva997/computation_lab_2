@@ -38,4 +38,4 @@ class Model_Exporter:
 if __name__ == '__main__':
     model = Models()
     ml = Model_Exporter()
-    ml.export_model(model, 2, 5)
+    ml.export_model(model, 3, 7)

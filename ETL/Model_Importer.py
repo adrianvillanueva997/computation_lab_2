@@ -30,6 +30,7 @@ class Model_Importer:
     def load_model(self, project_id, model_id):
         request_manager = RequestManager()
         response = request_manager.download_file(project_id, model_id)
+        print(response)
         self.__export_to_temp_file(response)
         model = self.__read_temp_file_content()
         print(model)
@@ -39,4 +40,4 @@ class Model_Importer:
 if __name__ == '__main__':
     model = Models()
     ml = Model_Importer()
-    ml.load_model(2, 4)
+    ml.load_model(2, 5)
