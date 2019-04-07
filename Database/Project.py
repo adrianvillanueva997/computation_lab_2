@@ -390,7 +390,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text(
-                    'SELECT * from proyecto_computacion.model where ID_project like :_project_id and language like :_language')
+                    'SELECT * from proyecto_computacion.model '
+                    'where ID_project like :_project_id and language like :_language')
                 results = con.execute(query, _project_id=project_id, _language=language)
                 results_dict = {
                     'id_model': [],
@@ -457,7 +458,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('SELECT * from proyecto_computacion.model '
-                             'where ID_project like :_project_id and algorithm like :_algorithm and language like :_language')
+                             'where ID_project like :_project_id and algorithm '
+                             'like :_algorithm and language like :_language')
                 results = con.execute(query, _project_id=project_id, _algorithm=algorithm, _language=language)
                 results_dict = {
                     'id_model': [],
@@ -492,7 +494,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, algorithm, language)'
-                             'values (ID_project=:_id_project,model_name=:_model_name,algorithm=:_algorithm,language=:_language)')
+                             'values (ID_project=:_id_project,model_name=:_'
+                             'model_name,algorithm=:_algorithm,language=:_language)')
                 con.execute(query, _id_project=id_project, _model_name=model_name,
                             _algorithm=algorithm, _language=language)
         except Exception as e:
