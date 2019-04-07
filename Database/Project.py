@@ -210,7 +210,7 @@ class Project:
                 results = con.execute(query, _project_id=project_id)
                 labels = []
                 for result in results:
-                    labels.append(result['label'])
+                    labels.append(result['label_text'])
             return labels
         except Exception as e:
             print(e)

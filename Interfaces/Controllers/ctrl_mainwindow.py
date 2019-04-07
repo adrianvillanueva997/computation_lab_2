@@ -35,7 +35,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         user = User.User(1)
         pj = Project.Project(user)
         projects = pj.load_user_projects()
-        for i in range(0, len(projects) - 1):
+        for i in range(0, len(projects['id'])):
             rowPosition = self.table_proyectos.rowCount()
             self.table_proyectos.insertRow(rowPosition)
             self.table_proyectos.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(projects['id'][i]))
