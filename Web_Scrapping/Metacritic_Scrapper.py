@@ -15,67 +15,60 @@ class Metacritic_Scrapper:
         :returns html: str
         :argument url: str
         """
-        headers = {'User-Agent': 'Mozilla/5.0'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0'}
         request = requests.get(url=url, headers=headers)
         print(f'[INFO] Request made to: {url} with response: {request}')
         html = request.content
         return html
 
     @staticmethod
-    def __div_blocks(html):
-        """
-        Scrapes each of the review body found in the HTML string.
-        :param html:
-        :return:
-        """
+    def __get_divs(html):
         soup = BeautifulSoup(html, 'html.parser')
-        div_reviews = soup.findAll('div', {'class': 'review_body'})
-        return div_reviews
+        divs = soup.findAll('div', {'class': 'review_section'})
+        return divs
 
     @staticmethod
-    def __get_comments(div_blocks):
-        """
-        Receives a list with review bodies and cleans and extracts the reviews and saves them in a list.
-        :param div_blocks:
-        :return:
-        """
+    def __get_reviews(divs):
         reviews = []
-        for block in div_blocks:
-            soup = BeautifulSoup(str(block), 'html.parser')
-            review = soup.find('span', {'class': 'blurb blurb_expanded'})
-            if review is not None:
-                regex = r'<[^>]*>'
-                review = re.sub(regex, '', str(review))
-                reviews.append(review)
+        for div in divs:
+            soup = BeautifulSoup(str(div), 'html.parser')
+            review = soup.find('div', {'class': 'review_body'})
+            regex = r'<[^>]*>'
+            review_scraped = re.sub(regex, '', str(review))
+            review_scraped = review_scraped.replace('None', '')
+            review_scraped = (review_scraped.strip())
+            reviews.append(review_scraped)
 
         return reviews
 
-    def scrape_metacritic(self, urls):
-        """
-        Public method that extracts all the reviews given a list of Metacritic URLS
-        :param urls:
-        :return:
-        """
-        data = []
-        for url in urls:
-            start = 0
-            next = 1
-            while start < next:
-                html = self.__make_request(url + f'user-reviews?page={str(start)}')
-                blocks = self.__div_blocks(html)
-                reviews = self.__get_comments(blocks)
-                if len(reviews) is 0:
-                    start = next
-                else:
-                    for review in reviews:
-                        data.append(review)
-                    start += 1
-                    next += 1
-        return data
+    def metacritic(self, url):
+        html = self.__make_request(url + '/user-reviews')
+        divs = self.__get_divs(html)
+        review_list = []
+        reviews = self.__get_reviews(divs)
+        num_page = 1
+        max_page = 2
+        for review in reviews:
+            review_list.append(review)
+        while num_page < max_page:
+            new_url = url + '/user-reviews' + f'?page={str(num_page)}'
+            html = self.__make_request(new_url)
+            divs = self.__get_divs(html)
+            reviews = self.__get_reviews(divs)
+            print(len(reviews))
+            if len(reviews) == 5:
+                num_page = max_page
+            else:
+                for review in reviews:
+                    review_list.append(review)
+                print(len(review_list))
+                num_page += 1
+                max_page += 1
+        return review_list
 
 
 if __name__ == '__main__':
-    yt = Metacritic_Scrapper()
-    urls = ['https://www.metacritic.com/game/pc/dota-2/']
-    a = yt.scrape_metacritic(urls)
-    print(len(a))
+    ms = Metacritic_Scrapper()
+    # ms.metacritic(url=r'https://www.metacritic.com/game/pc/dota-2')
+    ms.metacritic(url=r'https://www.metacritic.com/game/pc/team-fortress-2')

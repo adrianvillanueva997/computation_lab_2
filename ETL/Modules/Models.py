@@ -47,7 +47,7 @@ class Models:
         self.__y_train = y_train
         self.__y_test = y_test
         self.__confussion_matrix = None
-        self.__vectorizer = vectorizer
+        self.vectorizer = vectorizer
 
     def naive_bayes_multinomial(self, alpha=1.0, fit_prior=True):
         """

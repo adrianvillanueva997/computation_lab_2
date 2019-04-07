@@ -83,7 +83,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.tableWidget_reviews.setRowHidden(table_item.row(), False)
             self.tableWidget_reviews_to_train.removeRow(item.row())
 
-    ##ADRI AQUI TIENES LA FUNCION QUE GENERA EL DICCIONARIO DE REVIEWS CON SUS LABELS
     def train_with_reviews(self):
         reviews_dictionary = {"labels": [], "reviews": []}
         rowCount = self.tableWidget_reviews_to_train.rowCount()
@@ -91,8 +90,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
             reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))
         algoritmo = self.comboBox_algoritmo.currentText()
-        print("ALGORITMOOO")
-        print(algoritmo)
         if algoritmo == "Selecciona algoritmo":
             QMessageBox.critical(
                 self, "Error", "Hay que especificar un algoritmo para el entrenamiento")

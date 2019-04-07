@@ -2,7 +2,7 @@ import uuid
 
 from sqlalchemy.sql import text
 
-from Database import User
+from Database import User, Utilities
 from Database import config as cfg
 from ETL.Modules import Sentiment
 
@@ -41,7 +41,8 @@ class Project:
             except Exception as e:
                 print(e)
 
-    def create_invitation_code(self, id_project):
+    @staticmethod
+    def create_invitation_code(id_project):
         """
         Given an id project, generates an invitation uuid64 key to allow other users to take part in 'x' project
         :param id_project:
@@ -52,7 +53,8 @@ class Project:
         with cfg.engine.connect() as con:
             try:
                 insert_invitation_code_query = text('update proyecto_computacion.project '
-                                                    'set ID_invitation = :_invitation_code where ID_project = :_project_id')
+                                                    'set ID_invitation = :_invitation_code '
+                                                    'where ID_project = :_project_id')
                 con.execute(insert_invitation_code_query, _invitation_code=code, _project_id=id_project)
             except Exception as e:
                 print(e)
@@ -141,6 +143,7 @@ class Project:
                         con.execute(update_query, _polarity=sentiments['polarity'][0],
                                     _subjectivity=sentiments['subjectivity'][0],
                                     _compound=sentiments['compound'][0], _id_review=review_id)
+
                     except Exception as e:
                         print(e)
                         failed_reviews.append(text)
@@ -316,7 +319,7 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('UPDATE proyecto_computacion.link_web_scrapper set'
-                             ' processed 1 where url like :_url and ID_project like :_project_id')
+                             ' processed= 1 where url like :_url and ID_project like :_project_id')
                 con.execute(query, _url=url, _project_id=project_id)
         except Exception as e:
             print(e)
@@ -387,7 +390,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text(
-                    'SELECT * from proyecto_computacion.model where ID_project like :_project_id and language like :_language')
+                    'SELECT * from proyecto_computacion.model '
+                    'where ID_project like :_project_id and language like :_language')
                 results = con.execute(query, _project_id=project_id, _language=language)
                 results_dict = {
                     'id_model': [],
@@ -454,7 +458,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('SELECT * from proyecto_computacion.model '
-                             'where ID_project like :_project_id and algorithm like :_algorithm and language like :_language')
+                             'where ID_project like :_project_id and algorithm '
+                             'like :_algorithm and language like :_language')
                 results = con.execute(query, _project_id=project_id, _algorithm=algorithm, _language=language)
                 results_dict = {
                     'id_model': [],
@@ -489,7 +494,8 @@ class Project:
         try:
             with cfg.engine.connect() as con:
                 query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, algorithm, language)'
-                             'values (ID_project=:_id_project,model_name=:_model_name,algorithm=:_algorithm,language=:_language)')
+                             'values (ID_project=:_id_project,model_name=:_'
+                             'model_name,algorithm=:_algorithm,language=:_language)')
                 con.execute(query, _id_project=id_project, _model_name=model_name,
                             _algorithm=algorithm, _language=language)
         except Exception as e:
