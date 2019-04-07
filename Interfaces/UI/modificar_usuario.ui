@@ -10,11 +10,6 @@
     <height>600</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <pointsize>14</pointsize>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -26,7 +21,7 @@
        <widget class="QLineEdit" name="lineEdit_nombre"/>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label_NombreUsuario">
+       <widget class="QLabel" name="label">
         <property name="text">
          <string>Nombre Usuario</string>
         </property>
@@ -39,35 +34,35 @@
        <widget class="QLineEdit" name="lineEdit_email"/>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_Password">
+       <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Password</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_Email">
+       <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Email</string>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="label_Rol">
+       <widget class="QLabel" name="label_4">
         <property name="text">
          <string>Rol</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="lineEdit_Rol"/>
+       <widget class="QLineEdit" name="lineEdit"/>
       </item>
      </layout>
     </item>
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_Aceptar">
+       <widget class="QPushButton" name="pushButton">
         <property name="text">
          <string>Aceptar</string>
         </property>
