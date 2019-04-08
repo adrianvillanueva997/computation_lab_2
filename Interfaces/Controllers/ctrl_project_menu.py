@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 import Interfaces.Controllers.ctrl_config_project as v_config_project
 import Interfaces.Controllers.ctrl_load_files as v_load_files
 import Interfaces.Controllers.ctrl_train as v_train
+import Interfaces.Controllers.ctrl_clasificar as v_classify
 from Interfaces.Views.Ui_view_menu_seleccion import Ui_MainWindow
 
 
@@ -15,6 +16,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Atras.clicked.connect(self.go_back)
         self.pushButton_Entrenar.clicked.connect(self.show_train_window)
         self.pushButton_ConfiguracionProyecto.clicked.connect(self.show_config_project_window)
+        self.pushButton_Clasificacion.clicked.connect(self.show_classify_window)
         self.parent = None
         self._project_id = None
         self._user = None
@@ -55,5 +57,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
         self._window.set_user(self._user)
+        self._window.show()
+        self.close()
+
+    def show_classify_window(self):
+        self._window = v_classify.MainWindow()
+        self._window.set_parent(self)
+        self._window.set_project_id(self._project_id)
+        self._window.set_user(self._user)
+        self._window.load_reviews()
         self._window.show()
         self.close()
