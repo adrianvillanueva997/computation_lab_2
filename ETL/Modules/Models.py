@@ -525,5 +525,9 @@ class Models:
 
     def get_x_train(self):
         return self.__x_train
+
     def get_y_train(self):
         return self.__y_train
+
+    def get_model(self):
+        return self.__model

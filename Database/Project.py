@@ -25,7 +25,8 @@ class Project:
         """
         with cfg.engine.connect() as con:
             insert_project_query = text(
-                'INSERT INTO proyecto_computacion.project (name_project) value (:_project_name)')
+                'INSERT INTO proyecto_computacion.project (name_project,Last_Update) '
+                'value (:_project_name, CURRENT_TIMESTAMP)')
             select_project_id_query = text('select * from proyecto_computacion.project prj'
                                            ' where prj.name_project = :_project_name'
                                            ' order by prj.Last_Update ASC limit 1')
@@ -375,7 +376,6 @@ class Project:
                     results_dict['model_name'].append(result['model_name'])
                     results_dict['algorithm'].append(result['algorithm'])
                     results_dict['language'].append(result['language'])
-                    results_dict['accuracy'].append(str(result['accuracy']))
 
             return results_dict
         except Exception as exception:
@@ -409,7 +409,6 @@ class Project:
                     results_dict['model_name'].append(result['model_name'])
                     results_dict['algorithm'].append(result['algorithm'])
                     results_dict['language'].append(result['language'])
-                    results_dict['accuracy'].append(str(result['accuracy']))
 
             return results_dict
         except Exception as exception:
@@ -442,7 +441,6 @@ class Project:
                     results_dict['model_name'].append(result['model_name'])
                     results_dict['algorithm'].append(result['algorithm'])
                     results_dict['language'].append(result['language'])
-                    results_dict['accuracy'].append(str(result['accuracy']))
 
             return results_dict
         except Exception as exception:
@@ -477,7 +475,6 @@ class Project:
                     results_dict['model_name'].append(result['model_name'])
                     results_dict['algorithm'].append(result['algorithm'])
                     results_dict['language'].append(result['language'])
-                    results_dict['accuracy'].append(str(result['accuracy']))
 
             return results_dict
         except Exception as exception:
@@ -505,7 +502,7 @@ class Project:
 
 
 if __name__ == '__main__':
-    user = User(10)
+    user = User.User(10)
     prj = Project(user)
     labels = ['a', 'b', 'c', 'd']
     urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
@@ -519,3 +516,5 @@ if __name__ == '__main__':
     print(data)
     urls = prj.get_urls_not_processed(18)
     print(urls)
+    a = prj.get_project_models(5)
+    print(a)

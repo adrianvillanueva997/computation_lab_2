@@ -40,5 +40,7 @@ class Model_Importer:
 if __name__ == '__main__':
     model = Models()
     ml = Model_Importer()
-    ml.load_model(1, 32)
-    print(ml.__class__)
+    model = ml.load_model(5, 86)
+    a = model.get_model()
+    print(a)
+    print(a.classes_)

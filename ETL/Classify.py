@@ -24,7 +24,10 @@ class Classify:
         self.model = self.__generate_model_object(project_id, model_id)
         self.dataframe = self.__generate_unlabeled_dataframe(unlabeled_dict)
         vectorizer = self.model.vectorizer.get_vectorizer()
-        vectorized_dataframe = vectorizer.transform(self.dataframe)
+        vectorized_dataframe = vectorizer.transform(self.dataframe['reviews'])
         prediction = self.model.predict(vectorized_dataframe)
-        self.dataframe['label'] = prediction
+        print(prediction)
+        print(len(prediction))
+        print(self.dataframe)
+        self.dataframe['labels'] = prediction
         return self.dataframe
