@@ -10,6 +10,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self._window = None
         self._project_id = None
+        self._user = None
+
+    def set_user(self,user):
+        self._user = user
 
     def set_parent(self, MainWindow):
         self.parent = MainWindow

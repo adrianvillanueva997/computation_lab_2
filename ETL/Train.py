@@ -20,6 +20,7 @@ class Train:
     def trainer(self, reviews_dict, transformer, algorithm):
         """
 
+        :rtype:
         :param reviews_dict:
         :param transformer:
         :param algorithm:

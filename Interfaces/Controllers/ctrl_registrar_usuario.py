@@ -1,9 +1,8 @@
-from Interfaces.Views.Ui_view_registrar_usuario import Ui_MainWindow
-from Database import Register, Admin
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-import sys
+
+from Database import Register, Admin
+from Interfaces.Views.Ui_view_registrar_usuario import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):

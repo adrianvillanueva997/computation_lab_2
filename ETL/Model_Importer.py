@@ -1,8 +1,8 @@
 import pickle
 import tempfile
 
-from ETL.Modules.Models import Models
 from Database.Request_Manager import RequestManager
+from ETL.Modules.Models import Models
 
 
 class Model_Importer:
@@ -40,4 +40,5 @@ class Model_Importer:
 if __name__ == '__main__':
     model = Models()
     ml = Model_Importer()
-    ml.load_model(2, 5)
+    ml.load_model(1, 32)
+    print(ml.__class__)

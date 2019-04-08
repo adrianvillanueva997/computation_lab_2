@@ -519,3 +519,11 @@ class Models:
 
     def get_confusion_matrix(self):
         return self.__confussion_matrix
+
+    def get_labels(self):
+        return self.__model.classes_
+
+    def get_x_train(self):
+        return self.__x_train
+    def get_y_train(self):
+        return self.__y_train

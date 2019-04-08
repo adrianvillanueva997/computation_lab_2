@@ -1,9 +1,9 @@
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-import sys
-from Interfaces.Views.Ui_view_usuario_proyecto import Ui_MainWindow
+from PyQt5 import QtWidgets
+
 from Database import Admin
+from Interfaces.Views.Ui_view_usuario_proyecto import Ui_MainWindow
+
+
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def __init__(self,*args, **kwargs):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)

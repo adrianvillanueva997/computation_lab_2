@@ -30,7 +30,8 @@ class Project:
                                            ' where prj.name_project = :_project_name'
                                            ' order by prj.Last_Update ASC limit 1')
             try:
-                con.execute(insert_project_query, _project_name=project_name)
+                insert=con.execute(insert_project_query, _project_name=project_name)
+                pr_id=insert.lastrowid
                 results = con.execute(select_project_id_query, _project_name=project_name)
                 id_project = None
                 for result in results:
@@ -38,6 +39,7 @@ class Project:
                 insert_user_relation_query = text('insert into proyecto_computacion.project_rel '
                                                   '(id_project, id_user) VALUES (:_id_project,:_id_user)')
                 con.execute(insert_user_relation_query, _id_project=id_project, _id_user=self.__id_user)
+                return pr_id
             except Exception as e:
                 print(e)
 
@@ -170,9 +172,9 @@ class Project:
                         ut = Utilities.Utilities()
                         label = ut.scrape_text_for_sql(label)
                         query = text('insert into proyecto_computacion.Label'
-                                     ' (label, ID_Project) VALUES (:_label,:_project_id);')
+                                     ' (label_text, ID_Project) VALUES (:_label_text,:_project_id);')
                         print(query)
-                        con.execute(query, _label=label, _project_id=project_id)
+                        con.execute(query, _label_text=label, _project_id=project_id)
                     except Exception as e:
                         print(e)
         except Exception as e:
@@ -493,11 +495,11 @@ class Project:
         """
         try:
             with cfg.engine.connect() as con:
-                query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, algorithm, language)'
-                             'values (ID_project=:_id_project,model_name=:_'
-                             'model_name,algorithm=:_algorithm,language=:_language)')
-                con.execute(query, _id_project=id_project, _model_name=model_name,
+                query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, language, algorithm)'
+                             f'VALUES (:_id_project,:_model_name,:_language,:_algorithm)')
+                results=con.execute(query, _id_project=id_project, _model_name=model_name,
                             _algorithm=algorithm, _language=language)
+                return results.lastrowid
         except Exception as e:
             print(e)
 

@@ -1,8 +1,8 @@
 import pickle
 import tempfile
 
-from ETL.Modules.Models import Models
 from Database.Request_Manager import RequestManager
+from ETL.Modules.Models import Models
 
 
 class Model_Exporter:
@@ -17,9 +17,9 @@ class Model_Exporter:
         self.__temp_file = None
 
     def __export_to_temp_file(self, model):
-        tempf = tempfile.NamedTemporaryFile()
+        tempf = tempfile.NamedTemporaryFile(mode="w+b",dir="")
         self.__temp_file = tempf
-        with open(tempf.name, 'wb') as file:
+        with open(tempf.name, 'wb+') as file:
             pickle.dump(model, file)
 
     def __read_temp_file_content(self):

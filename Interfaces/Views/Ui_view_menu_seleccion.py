@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_menu_seleccion.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_menu_seleccion.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -59,6 +58,12 @@ class Ui_MainWindow(object):
         self.pushButton_Entrenar.setFont(font)
         self.pushButton_Entrenar.setObjectName("pushButton_Entrenar")
         self.gridLayout.addWidget(self.pushButton_Entrenar, 2, 0, 1, 1)
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.gridLayout.addWidget(self.pushButton, 4, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -80,3 +85,5 @@ class Ui_MainWindow(object):
         self.pushButton_CargarDatos.setText(_translate("MainWindow", "Cargar datos"))
         self.pushButton_Clasificacion.setText(_translate("MainWindow", "Clasificación"))
         self.pushButton_Entrenar.setText(_translate("MainWindow", "Entrenar"))
+        self.pushButton.setText(_translate("MainWindow", "Análisis de sentimiento"))
+

@@ -1,15 +1,15 @@
-from Interfaces.Views.Ui_view_ventana_superusuario import Ui_MainWindow
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
 import sys
+
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
+
+from Database import Admin
+from Interfaces.Controllers import ctr_usuario_proyecto
 from Interfaces.Controllers import ctrl_modificar_usuario
 from Interfaces.Controllers import ctrl_registrar_usuario
-from Interfaces.Controllers import ctr_usuario_proyecto
-from Database import config as cfg,Encryption,Admin, Utilities
-import base64
+from Interfaces.Views.Ui_view_ventana_superusuario import Ui_MainWindow
 
-from abc import ABC
+
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 	def __init__(self,*args, **kwargs):
 		QtWidgets.QMainWindow.__init__(self, *args, **kwargs)

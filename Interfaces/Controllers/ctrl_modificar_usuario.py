@@ -1,9 +1,8 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QFileDialog
-import sys
+
+from Database import Admin
 from Interfaces.Views.Ui_view_modificar_usuario import Ui_MainWindow
-from Database import config as cfg, Encryption, Admin, Utilities
 
 
 class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):

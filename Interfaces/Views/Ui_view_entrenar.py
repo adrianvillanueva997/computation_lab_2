@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_entrenar.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_entrenar.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -8,11 +8,10 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1044, 542)
+        MainWindow.resize(1193, 714)
         font = QtGui.QFont()
         font.setPointSize(14)
         MainWindow.setFont(font)
@@ -76,14 +75,21 @@ class Ui_MainWindow(object):
         self.pushButton_add = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_add.setObjectName("pushButton_add")
         self.verticalLayout.addWidget(self.pushButton_add)
+        self.pushButton_addall = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_addall.setObjectName("pushButton_addall")
+        self.verticalLayout.addWidget(self.pushButton_addall)
         self.pushButton_remove = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_remove.setObjectName("pushButton_remove")
         self.verticalLayout.addWidget(self.pushButton_remove)
+        self.pushButton_removeall = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_removeall.setObjectName("pushButton_removeall")
+        self.verticalLayout.addWidget(self.pushButton_removeall)
         self.gridLayout.addLayout(self.verticalLayout, 1, 1, 1, 1)
         self.pushButton_back = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_back.setObjectName("pushButton_back")
         self.gridLayout.addWidget(self.pushButton_back, 2, 0, 1, 1)
         self.pushButton_Entrenar = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_Entrenar.setEnabled(False)
         self.pushButton_Entrenar.setObjectName("pushButton_Entrenar")
         self.gridLayout.addWidget(self.pushButton_Entrenar, 2, 6, 1, 1)
         self.comboBox_algoritmo = QtWidgets.QComboBox(self.centralwidget)
@@ -108,12 +114,6 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.comboBox_algoritmo, 0, 6, 1, 1)
         self.widget_resultados = QtWidgets.QWidget(self.centralwidget)
         self.widget_resultados.setObjectName("widget_resultados")
-        self.gridLayoutWidget = QtWidgets.QWidget(self.widget_resultados)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 220, 160, 80))
-        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
-        self.gridLayout_resultados = QtWidgets.QGridLayout(self.gridLayoutWidget)
-        self.gridLayout_resultados.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_resultados.setObjectName("gridLayout_resultados")
         self.gridLayout.addWidget(self.widget_resultados, 1, 7, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -144,7 +144,9 @@ class Ui_MainWindow(object):
         self.comboBox_filtro.setItemText(1, _translate("MainWindow", "no contiene"))
         self.pushButton_applyfilter.setText(_translate("MainWindow", "Aplicar filtro"))
         self.pushButton_add.setText(_translate("MainWindow", "Añadir"))
+        self.pushButton_addall.setText(_translate("MainWindow", "Añadir todas"))
         self.pushButton_remove.setText(_translate("MainWindow", "Eliminar"))
+        self.pushButton_removeall.setText(_translate("MainWindow", "Eliminar todas"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
         self.pushButton_Entrenar.setText(_translate("MainWindow", "Entrenar"))
         self.comboBox_algoritmo.setItemText(0, _translate("MainWindow", "Selecciona algoritmo"))
@@ -164,3 +166,4 @@ class Ui_MainWindow(object):
         self.comboBox_algoritmo.setItemText(14, _translate("MainWindow", "SVM Linear Classification"))
         self.comboBox_algoritmo.setItemText(15, _translate("MainWindow", "Neural Network MLP"))
         self.comboBox_algoritmo.setItemText(16, _translate("MainWindow", "Gaussian Classifier"))
+

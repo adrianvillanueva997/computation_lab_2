@@ -4,7 +4,7 @@ import re
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from Database import File_Uploader, User, Project
+from Database import File_Uploader, Project
 from ETL.Modules import File_Manager
 from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
 from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper
@@ -26,6 +26,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.URL_pushButton_load.clicked.connect(self.load_reviews_URL_to_db)
         self._project_ID = None
         self.parent = None
+        self._user = None
+
+    def set_user(self,user):
+        self._user = user
 
     def set_parent(self, MainWindow):
         self.parent = MainWindow
@@ -142,8 +146,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.URL_pushButton_load.setEnabled(False)
 
     def load_labels(self):
-        user = User.User(10)
-        pr = Project.Project(user)
+        pr = Project.Project(self._user)
         labels = pr.get_labels(self._project_ID)
         self.comboBox_labels_file.clear()
         self.comboBox_labels_file.addItem("Seleccionar etiqueta")

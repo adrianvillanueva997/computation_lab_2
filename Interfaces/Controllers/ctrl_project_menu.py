@@ -17,6 +17,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_ConfiguracionProyecto.clicked.connect(self.show_config_project_window)
         self.parent = None
         self._project_id = None
+        self._user = None
+
+    def set_user(self,user):
+        self._user = user
 
     def set_parent(self, MainWindow):
         self.parent = MainWindow
@@ -29,6 +33,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window = v_load_files.MainWindow()
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
+        self._window.set_user(self._user)
         self._window.load_labels()
         self._window.show()
         self.close()
@@ -40,6 +45,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window = v_train.MainWindow()
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
+        self._window.set_user(self._user)
         self._window.load_reviews()
         self._window.show()
         self.close()
@@ -48,5 +54,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._window = v_config_project.MainWindow()
         self._window.set_parent(self)
         self._window.set_project_id(self._project_id)
+        self._window.set_user(self._user)
         self._window.show()
         self.close()
