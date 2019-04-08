@@ -28,7 +28,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.parent = None
         self._user = None
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def set_parent(self, MainWindow):
