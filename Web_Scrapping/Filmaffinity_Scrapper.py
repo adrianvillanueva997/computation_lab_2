@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class scraper:
+class Filmaffinity:
     def __init__(self):
         pass
 
@@ -12,10 +12,10 @@ class scraper:
     def change_urls(url):
         id = "/"
         new_id = url.split(id)[4].replace('film', '')
-        print('newid ' +new_id)
-        replacement = "/reviews/1/";
-        new_url = url.replace("/film", replacement);
-        print('newURL ' +new_url)
+        print('newid ' + new_id)
+        replacement = "/reviews/1/"
+        new_url = url.replace("/film", replacement)
+        print('newURL ' + new_url)
         return new_url, new_id
 
     @staticmethod
@@ -25,7 +25,7 @@ class scraper:
         :returns html: str
         :argument url: str
         """
-        request = requests.get(url=url) #, headers=headers
+        request = requests.get(url=url)  # , headers=headers
         print(f'[INFO] Request made to: {url} with response: {request}')
         html = request.content
         return html
@@ -58,19 +58,15 @@ class scraper:
         }
         for block in div_blocks:
             soup = BeautifulSoup(str(block), 'html.parser')
-
-            rating = soup.find('div', class_='user-reviews-movie-rating') #{'class': 'user-reviews-movie-rating'}
-            rating = str(rating).replace('<div class="user-reviews-movie-rating">', '')
-            rating = rating.replace('</div>', '')
+            rating = soup.find('div', class_='user-reviews-movie-rating')  # {'class': 'user-reviews-movie-rating'}
+            regex = r'<[^>]*>'
+            rating = re.sub(regex, '', str(rating))
             rating = rating.replace(' ', '')
             rating = int(rating)
-
             review = soup.find('div', class_='review-text1')
-            review = str(review).replace('<div class="review-text1">', '')
-            review = review.replace('<br/>', '')
+            review = re.sub(regex, '', str(review))
             review = review.replace('\n', '')
             review = review.replace('\r', '')
-            review = review.replace('</div>', '')
             if rating == 1 or rating == 2 or rating == 3 or rating == 4:
                 datos['malas'].append(review)
             elif rating == 5 or rating == 6 or rating == 7:
@@ -80,7 +76,7 @@ class scraper:
             else:
                 print('no tengo rating')
 
-        #print(datos)
+        # print(datos)
         return datos
 
     def scrape(self, url):
@@ -90,14 +86,13 @@ class scraper:
             'buenas': []
         }
 
-        print('empieza el scrape '+url)
+        print('empieza el scrape ' + url)
         num_page = 1
         max = 2
         new_url, id = self.change_urls(url)
-        print('segundoURL ' +new_url)
+        print('segundoURL ' + new_url)
         while num_page < max:
             url_aux = 'https://www.filmaffinity.com/es/reviews/' + str(num_page) + '/' + id
-            #print(url_aux)
             html = self.__make_request(url_aux)
             blocks = self.__get_div_blocks(html)
             filtered_data = self.__filter_data(blocks)
@@ -115,7 +110,7 @@ class scraper:
 
 
 if __name__ == '__main__':
-    sc = scraper()
+    sc = Filmaffinity()
     url = ['https://www.filmaffinity.com/es/film206403.html']
     data = sc.scrape(url[0])
-    # print(data)
+    print(data)
