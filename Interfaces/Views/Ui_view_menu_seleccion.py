@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
+        MainWindow.resize(800, 599)
         MainWindow.setWindowOpacity(1.0)
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -58,12 +58,12 @@ class Ui_MainWindow(object):
         self.pushButton_Entrenar.setFont(font)
         self.pushButton_Entrenar.setObjectName("pushButton_Entrenar")
         self.gridLayout.addWidget(self.pushButton_Entrenar, 2, 0, 1, 1)
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_AnalisisSentimiento = QtWidgets.QPushButton(self.centralwidget)
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 4, 0, 1, 1)
+        self.pushButton_AnalisisSentimiento.setFont(font)
+        self.pushButton_AnalisisSentimiento.setObjectName("pushButton_AnalisisSentimiento")
+        self.gridLayout.addWidget(self.pushButton_AnalisisSentimiento, 4, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -85,5 +85,5 @@ class Ui_MainWindow(object):
         self.pushButton_CargarDatos.setText(_translate("MainWindow", "Cargar datos"))
         self.pushButton_Clasificacion.setText(_translate("MainWindow", "Clasificación"))
         self.pushButton_Entrenar.setText(_translate("MainWindow", "Entrenar"))
-        self.pushButton.setText(_translate("MainWindow", "Análisis de sentimiento"))
+        self.pushButton_AnalisisSentimiento.setText(_translate("MainWindow", "Análisis de sentimiento"))
 

@@ -118,6 +118,19 @@ class Project:
         except Exception as e:
             print(e)
 
+    def update_sentiments_database(self,review_id,polarity,subjectivity,compound):
+
+        try:
+            with cfg.engine.connect() as con:
+                query = text('UPDATE proyecto_computacion.review SET sentiment_pol =:_sentiment_pol, '
+                             'sentiment_sub=:_sentiment_sub,sentiment_comp=:_sentiment_comp WHERE ID_review=:_review_id')
+                con.execute(query, _sentiment_pol=float(polarity), _sentiment_sub=float(subjectivity),
+                            _sentiment_comp=float(compound), _review_id=float(review_id))
+
+        except Exception as e:
+            print(e)
+
+
     def update_sentiments(self, project_id):
         """
         Given a project id, do sentiment analysis on those reviews that haven't been analysed yet.
