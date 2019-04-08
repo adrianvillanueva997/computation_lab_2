@@ -38,5 +38,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         elif user_dict["role"] == 1:
             self._main_window = v_main_admin.MainWindow()
             self._main_window.load_usuarios()
+            self._main_window.set_parent(self)
             self._main_window.show()
             self.close()

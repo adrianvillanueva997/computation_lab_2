@@ -18,11 +18,17 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		self.pushButton_Registrar_usuario.clicked.connect(self.registrar_usuario)
 		self.pushButton_Eliminar_usuario.clicked.connect(self.btn_Eliminar_clicked)
 		self.pushButton_Relacion_Proyectos.clicked.connect(self.relacion_proyectos)
+		self.pushButton_Atras.clicked.connect(self.go_back)
 		self._main_window = None
+		self.parent = None
 	def relacion_proyectos(self):
 		self._main_window = ctr_usuario_proyecto.MainWindow()
 		self._main_window.load_relacion()
 		self._main_window.show()
+
+	def go_back(self):
+		self.close()
+		self.parent.show()
 	def modificar_usuario(self):
 		try:
 			if self.tableWidget.selectedItems()[0].text() is None:
@@ -118,6 +124,9 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 				print ('cargar datos tabla')
 		except Exception as e:
 			print(e)
+
+	def set_parent(self, MainWindow):
+		self.parent = MainWindow
 if __name__ == '__main__':
 	app = QtWidgets.QApplication([])
 	window = MainWindow()

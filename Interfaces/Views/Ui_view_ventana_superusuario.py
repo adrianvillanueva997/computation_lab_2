@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_ventana_superusuario.ui'
+# Form implementation generated from reading ui file 'view_ventana_superusuario.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -30,6 +30,9 @@ class Ui_MainWindow(object):
         self.pushButton_Registrar_usuario = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_Registrar_usuario.setObjectName("pushButton_Registrar_usuario")
         self.gridLayout_2.addWidget(self.pushButton_Registrar_usuario, 0, 0, 1, 1)
+        self.pushButton_Atras = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_Atras.setObjectName("pushButton_Atras")
+        self.gridLayout_2.addWidget(self.pushButton_Atras, 0, 3, 1, 1)
         self.gridLayout.addLayout(self.gridLayout_2, 2, 0, 1, 1)
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -71,6 +74,7 @@ class Ui_MainWindow(object):
         self.pushButton_Eliminar_usuario.setText(_translate("MainWindow", "Eliminar/Activar usuario"))
         self.pushButton_Modificar_usuario.setText(_translate("MainWindow", "Modificar usuario"))
         self.pushButton_Registrar_usuario.setText(_translate("MainWindow", "Registrar usuario"))
+        self.pushButton_Atras.setText(_translate("MainWindow", "Atras"))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -82,4 +86,14 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Actividad"))
         self.pushButton_Relacion_Proyectos.setText(_translate("MainWindow", "Relación Proyectos y usuarios"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
 
