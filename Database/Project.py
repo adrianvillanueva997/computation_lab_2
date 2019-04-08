@@ -30,8 +30,8 @@ class Project:
                                            ' where prj.name_project = :_project_name'
                                            ' order by prj.Last_Update ASC limit 1')
             try:
-                insert=con.execute(insert_project_query, _project_name=project_name)
-                pr_id=insert.lastrowid
+                insert = con.execute(insert_project_query, _project_name=project_name)
+                pr_id = insert.lastrowid
                 results = con.execute(select_project_id_query, _project_name=project_name)
                 id_project = None
                 for result in results:
@@ -497,8 +497,8 @@ class Project:
             with cfg.engine.connect() as con:
                 query = text('INSERT INTO proyecto_computacion.model (ID_project, model_name, language, algorithm)'
                              f'VALUES (:_id_project,:_model_name,:_language,:_algorithm)')
-                results=con.execute(query, _id_project=id_project, _model_name=model_name,
-                            _algorithm=algorithm, _language=language)
+                results = con.execute(query, _id_project=id_project, _model_name=model_name,
+                                      _algorithm=algorithm, _language=language)
                 return results.lastrowid
         except Exception as e:
             print(e)
