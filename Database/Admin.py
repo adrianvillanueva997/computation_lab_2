@@ -1,14 +1,12 @@
 from sqlalchemy.sql import text
 
-try:
-    from Interfaces.Database import config as cfg, Encryption, Utilities
-except Exception as e:
-    from Database import config as cfg, Utilities, Encryption
+from Database import config as cfg, Encryption, Utilities
 
 
 class Admin:
     def __init__(self):
         pass
+
     @staticmethod
     def get_users_with_projects():
         try:
@@ -113,6 +111,7 @@ class Admin:
                 con.execute(query, _id=id_user)
         except Exception as e:
             print(e)
+
     def activar_user(self, id):
         if id is None:
             raise NotImplementedError()
@@ -126,6 +125,7 @@ class Admin:
                 con.execute(query, _id=id_user)
         except Exception as e:
             print(e)
+
     def obtener_user(self, id):
         try:
             id_user = str(id)
@@ -157,5 +157,3 @@ class Admin:
             return results
         except Exception as e:
             print(e)
-
-

@@ -9,6 +9,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from Interfaces.Controllers import ctrl_resultados_entrenamiento as v_resultados
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         QtWidgets.QMainWindow.__init__(self, *args, **kwargs)
@@ -25,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._project_id = None
         self._user = None
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def set_project_id(self, project_id):
@@ -65,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def add_all_reviews(self):
         rowCount = self.tableWidget_reviews.rowCount()
-        for i in range(0,rowCount):
+        for i in range(0, rowCount):
             rowPosition = self.tableWidget_reviews_to_train.rowCount()
             self.tableWidget_reviews_to_train.insertRow(rowPosition)
             self.tableWidget_reviews_to_train.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(
@@ -104,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             for table_item in hidden_rows:
                 self.tableWidget_reviews.setRowHidden(table_item.row(), False)
             self.tableWidget_reviews_to_train.removeRow(item.row())
-        rowCount=self.tableWidget_reviews_to_train.rowCount()
+        rowCount = self.tableWidget_reviews_to_train.rowCount()
         if rowCount < 1:
             self.pushButton_Entrenar.setEnabled(False)
 
@@ -134,6 +135,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         modelo = train.trainer(reviews_dictionary, transformer='count_vect', algorithm=str(algoritmo))
         QMessageBox.information(self, "Entrenamiento completado", "El entrenamiento se ha completado con éxito")
         self._window = v_resultados.MainWindow()
+        self._window.set_project_id(self._project_id)
         self._window.set_model(modelo)
         self._window.set_project_id(self._project_id)
         self._window.set_user(self._user)
