@@ -18,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Registrar_usuario.clicked.connect(self.registrar_usuario)
         self.pushButton_Eliminar_usuario.clicked.connect(self.btn_Eliminar_clicked)
         self.pushButton_Atras.clicked.connect(self.go_back)
+
         self._main_window = None
         self.parent = None
 
@@ -138,14 +139,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     else:
                         self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
                 data2 = admin.get_users_with_projects()
-                print(data2)
+                print(data2['username'])
+                print(data2['name_project'])
                 try:
                     for i in range(0, len(data2)):
                         rowPosition2 = self.tableWidget.rowCount()
                         self.tableWidget_Poryectos.insertRow(rowPosition2)
                         self.tableWidget_Poryectos.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data2['username'][i]))
                         self.tableWidget_Poryectos.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data2['name_project'][i]))
-                except Exception as np :
+                except Exception as np:
                     print(np)
             except Exception as n:
                 print(n)
