@@ -76,8 +76,3 @@ class Register:
             return False
 
 
-if __name__ == '__main__':
-    re = Register(username='a', password='1234', email='a')
-    re.upload_user()
-    re2 = Register(username='b', password='1234', email='b')
-    re2.upload_user()

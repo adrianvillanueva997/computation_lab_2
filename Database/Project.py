@@ -548,20 +548,3 @@ class Project:
             print(e)
 
 
-if __name__ == '__main__':
-    user = User.User(10)
-    prj = Project(user)
-    labels = ['a', 'b', 'c', 'd']
-    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
-            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/',
-            'https://www.metacritic.com/game/pc/dota-2/', 'https://pornhub.com']
-
-    valid_urls, not_valid_urls = prj.check_urls(urls)
-    print(valid_urls)
-    print(not_valid_urls)
-    data = prj.get_reviews_by_label('A', 19)
-    print(data)
-    urls = prj.get_urls_not_processed(18)
-    print(urls)
-    a = prj.get_project_models(5)
-    print(a)

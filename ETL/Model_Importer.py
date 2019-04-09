@@ -2,7 +2,6 @@ import pickle
 import tempfile
 
 from Database.Request_Manager import RequestManager
-from ETL.Modules.Models import Models
 
 
 class Model_Importer:
@@ -23,7 +22,6 @@ class Model_Importer:
         with open(tempf.name, 'wb') as file:
             file.write(binary_content)
 
-
     def __read_temp_file_content(self):
         with open(self.__temp_file.name, 'rb') as file:
             model = pickle.load(file)
@@ -37,12 +35,3 @@ class Model_Importer:
         model = self.__read_temp_file_content()
         print(model)
         return model
-
-
-if __name__ == '__main__':
-    model = Models()
-    ml = Model_Importer()
-    model = ml.load_model(5, 86)
-    a = model.get_model()
-    print(a)
-    print(a.classes_)
