@@ -125,20 +125,28 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             try:
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
-                    self.tableWidget.insertRow(rowPosition)
-                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
-                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
-                    self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
+                    self.tableWidget_Usuarios.insertRow(rowPosition)
+                    self.tableWidget_Usuarios.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget_Usuarios.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
+                    self.tableWidget_Usuarios.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
+                        self.tableWidget_Usuarios.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
+                        self.tableWidget_Usuarios.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
                     # self.tableWidget.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(results['role'][i]))
                     if results['Actividad'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
+                        self.tableWidget_Usuarios.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
-
+                        self.tableWidget_Usuarios.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
+                data = admin.get_users_with_projects()
+                try:
+                    for i in range(0, len(data)):
+                        rowPosition2 = self.tableWidget.rowCount()
+                        self.tableWidget_Relacion.insertRow(rowPosition2)
+                        self.tableWidget_Relacion.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data['username'][i]))
+                        self.tableWidget_Relacion.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data['name_project'][i]))
+                except Exception as np :
+                    print(np)
             except Exception as n:
                 print(n)
                 print('cargar datos tabla')
