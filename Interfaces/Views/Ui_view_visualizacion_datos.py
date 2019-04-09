@@ -23,6 +23,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.tableWidget_reviews.setFont(font)
+        self.tableWidget_reviews.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget_reviews.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableWidget_reviews.setObjectName("tableWidget_reviews")
         self.tableWidget_reviews.setColumnCount(8)
@@ -82,7 +83,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Entrenamiento"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Visualización de datos"))
         item = self.tableWidget_reviews.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))
         item = self.tableWidget_reviews.horizontalHeaderItem(1)

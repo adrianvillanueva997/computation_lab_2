@@ -21,14 +21,12 @@ class Sentiment:
         :param text:
         :return:
         """
-        time.sleep(1)
         eng_text = Translator().translate(text)
         print(eng_text)
         return eng_text
 
     @staticmethod
     def __text_to_english_backup(text):
-        time.sleep(1)
         blob = TextBlob(text)
         language_code = blob.detect_language()
         print(language_code)

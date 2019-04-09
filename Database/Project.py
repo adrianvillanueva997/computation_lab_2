@@ -155,6 +155,17 @@ class Project:
             print(e)
 
 
+    def update_review_label(self,label,id):
+
+        try:
+            with cfg.engine.connect() as con:
+                query = text('UPDATE proyecto_computacion.review SET label=:_label WHERE ID_review=:_review_id')
+                con.execute(query, _label=str(label),_review_id=int(id))
+
+        except Exception as e:
+            print(e)
+
+
     def update_sentiments(self, project_id):
         """
         Given a project id, do sentiment analysis on those reviews that haven't been analysed yet.

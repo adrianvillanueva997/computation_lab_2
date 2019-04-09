@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_login.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_login.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -8,11 +8,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(348, 215)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setMaximumSize(QtCore.QSize(800, 556))
         self.centralwidget.setObjectName("centralwidget")
@@ -57,7 +59,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Login"))
         self.label_password.setText(_translate("MainWindow", "Password"))
         self.boton_aceptar.setText(_translate("MainWindow", "Aceptar"))
         self.label_username.setText(_translate("MainWindow", "Usuario"))
+

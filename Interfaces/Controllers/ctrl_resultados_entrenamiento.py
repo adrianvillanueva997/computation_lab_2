@@ -1,9 +1,10 @@
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QMessageBox
 
 from Interfaces.Views.Ui_view_resultados_entrenamiento import Ui_MainWindow
 from Database import Project
 from ETL import Model_Exporter
+import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -49,21 +50,45 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
 
     def guardar_modelo(self):
+        progreso = self.barra_progreso(5)
+        progreso.setValue(0)
+        QtGui.QGuiApplication.processEvents()
         pr = Project.Project(self._user)
         nombremodelo=self.lineEdit_nombremodelo.text()
+        progreso.setValue(1)
+        QtGui.QGuiApplication.processEvents()
         if nombremodelo == "":
             QMessageBox.critical(
                 self, "Error", "Hay que especificar un nombre para el modelo")
             return
         model_id = pr.insert_model(self._project_id, nombremodelo, self._algoritmo, "spanish")
+        progreso.setValue(2)
+        QtGui.QGuiApplication.processEvents()
         exporter = Model_Exporter.Model_Exporter()
+        progreso.setValue(3)
+        QtGui.QGuiApplication.processEvents()
         exporter.export_model(self._model,self._project_id,model_id)
+        progreso.setValue(5)
+        QtGui.QGuiApplication.processEvents()
+        QMessageBox.information(self, "Modelo guardado", "El modelo se ha guardado con éxito")
         self.close()
 
     def descartar_modelo(self):
         self._model=None
+        os.remove("matriz_confusion.png")
+        os.remove("cross_validation.png")
         self.close()
 
+    def barra_progreso(self, maximo):
+        progress_dialog = QtWidgets.QProgressDialog("Guardando modelo", "Cancelar", 0, maximo)
+        progress_bar = QtWidgets.QProgressBar(progress_dialog)
+        progress_dialog.setBar(progress_bar)
+        progress_dialog.setWindowModality(QtCore.Qt.WindowModal)
+        progress_dialog.setWindowTitle("Guardando modelo")
+        progress_bar.setValue(0)
+        progress_bar.setMaximum(maximo)
+        progress_dialog.show()
 
+        return progress_dialog
 
 

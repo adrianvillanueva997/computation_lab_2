@@ -2,7 +2,6 @@ from sqlalchemy.sql import text
 
 
 from Database import config as cfg
-from Database.Utilities import Utilities
 
 from Database import config as cfg, Utilities
 
@@ -31,7 +30,7 @@ class File_Uploader:
             for review in reviews:
                 # file_name | text_review
                 try:
-                    ut = Utilities()
+                    ut = Utilities.Utilities()
                     review = ut.scrape_text_for_sql(review)
                     file_name = ut.scrape_text_for_sql(file_names[index])
                     query = text('INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) '

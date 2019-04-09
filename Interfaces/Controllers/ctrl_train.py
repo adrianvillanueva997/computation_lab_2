@@ -23,6 +23,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Entrenar.clicked.connect(self.train_with_reviews)
         self.pushButton_addall.clicked.connect(self.add_all_reviews)
         self.pushButton_removeall.clicked.connect(self.remove_all_from_training_table)
+        self.pushButton_cleanfilter.clicked.connect(self.clean_filter)
         self._project_id = None
         self._user = None
 
@@ -82,19 +83,57 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def filter_table(self):
         _filter = self.lineEdit_filtro.text()
-        items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
-        print(items)
-        for i in range(0, self.tableWidget_reviews.rowCount()):
-            self.tableWidget_reviews.setRowHidden(i, True)
-        for item in items:
-            rowPosition = item.row()
-            self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        filtroseleccionado = self.comboBox_filtro.currentText()
+        if filtroseleccionado == "contiene":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "no contiene":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, True)
+        if filtroseleccionado == "acaba en":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchEndsWith)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "no acaba en":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchEndsWith)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, True)
+        if filtroseleccionado == "coinciden minMAYUS":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchCaseSensitive)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "coincide exacto":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchExactly)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "empieza por":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchStartsWith)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
 
-        """ items=self.tableWidget_reviews.findItems(_filter,QtCore.Qt.MatchContains)
-        print(items)
-        for item in items:
-            rowPosition = item.row()
-            self.tableWidget_reviews.setRowHidden(rowPosition,True) """
+    def clean_filter(self):
+        rowCount = self.tableWidget_reviews.rowCount()
+        for i in range(rowCount):
+            self.tableWidget_reviews.setRowHidden(i, False)
 
     def remove_from_training_table(self):
         rows = self.tableWidget_reviews_to_train.selectionModel().selectedRows()
@@ -123,20 +162,28 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def train_with_reviews(self):
         reviews_dictionary = {"labels": [], "reviews": []}
         rowCount = self.tableWidget_reviews_to_train.rowCount()
+        progreso =self.barra_progreso(rowCount+20)
+        progreso.setValue(0)
         if rowCount < 10:
             QMessageBox.critical(
                 self, "Error", "Es necesario un mínimo de 10 reviews para entrenar")
             return
-        for i in range(0, rowCount):
-            reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
-            reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))
         algoritmo = self.comboBox_algoritmo.currentText()
         if algoritmo == "Selecciona algoritmo":
             QMessageBox.critical(
                 self, "Error", "Hay que especificar un algoritmo para el entrenamiento")
             return
+        for i in range(0, rowCount):
+            progreso.setValue(i)
+            QtGui.QGuiApplication.processEvents()
+            reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
+            reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))
         train = Train.Train()
+        progreso.setValue(rowCount+10)
+        QtGui.QGuiApplication.processEvents()
         modelo = train.trainer(reviews_dictionary, transformer='count_vect', algorithm=str(algoritmo))
+        progreso.setValue(rowCount+20)
+        QtGui.QGuiApplication.processEvents()
         QMessageBox.information(self, "Entrenamiento completado", "El entrenamiento se ha completado con éxito")
         self._window = v_resultados.MainWindow()
         self._window.set_project_id(self._project_id)
@@ -150,3 +197,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def go_back(self):
         self.close()
         self.parent.show()
+
+    def barra_progreso(self,maximo):
+        progress_dialog = QtWidgets.QProgressDialog("Entrenando con reviews", "Cancelar", 0, maximo)
+        progress_bar = QtWidgets.QProgressBar(progress_dialog)
+        progress_dialog.setBar(progress_bar)
+        progress_dialog.setWindowModality(QtCore.Qt.WindowModal)
+        progress_dialog.setWindowTitle("Entrenando con reviews")
+        progress_bar.setValue(0)
+        progress_bar.setMaximum(maximo)
+        progress_dialog.show()
+
+        return progress_dialog

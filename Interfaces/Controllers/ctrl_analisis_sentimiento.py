@@ -20,6 +20,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_removeall.clicked.connect(self.remove_all_from_analize_table)
         self.pushButton_Analizar.clicked.connect(self.analyze_sentiments)
         self.pushButton_guardar_resultados.clicked.connect(self.guardar_resultados)
+        self.pushButton_cleanfilter.clicked.connect(self.clean_filter)
         self._project_id = None
         self._user = None
 
@@ -81,19 +82,57 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def filter_table(self):
         _filter = self.lineEdit_filtro.text()
-        items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
-        print(items)
-        for i in range(0, self.tableWidget_reviews.rowCount()):
-            self.tableWidget_reviews.setRowHidden(i, True)
-        for item in items:
-            rowPosition = item.row()
-            self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        filtroseleccionado = self.comboBox_filtro.currentText()
+        if filtroseleccionado == "contiene":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "no contiene":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, True)
+        if filtroseleccionado == "acaba en":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchEndsWith)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "no acaba en":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchEndsWith)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, True)
+        if filtroseleccionado == "coinciden minMAYUS":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchCaseSensitive)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "coincide exacto":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchExactly)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
+        if filtroseleccionado == "empieza por":
+            items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchStartsWith)
+            for i in range(0, self.tableWidget_reviews.rowCount()):
+                self.tableWidget_reviews.setRowHidden(i, True)
+            for item in items:
+                rowPosition = item.row()
+                self.tableWidget_reviews.setRowHidden(rowPosition, False)
 
-        """ items=self.tableWidget_reviews.findItems(_filter,QtCore.Qt.MatchContains)
-        print(items)
-        for item in items:
-            rowPosition = item.row()
-            self.tableWidget_reviews.setRowHidden(rowPosition,True) """
+    def clean_filter(self):
+        rowCount = self.tableWidget_reviews.rowCount()
+        for i in range(rowCount):
+            self.tableWidget_reviews.setRowHidden(i, False)
 
     def remove_from_analize_table(self):
         rows = self.tableWidget_reviews_to_analize.selectionModel().selectedRows()
@@ -124,8 +163,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def analyze_sentiments(self):
         analyzer = Sentiment.Sentiment()
         rowCount = self.tableWidget_reviews_to_analize.rowCount()
-
+        progreso = self.barra_progreso(rowCount)
+        progreso.setValue(0)
         for i in range(rowCount):
+            progreso.setValue(i)
+            QtGui.QGuiApplication.processEvents()
             text_to_analyze= self.tableWidget_reviews_to_analize.item(i,7).text()
             print("TEXTO PARA ANALISIS: {}".format(text_to_analyze))
             sentiments=analyzer.analyse_sentence(str(text_to_analyze))
@@ -151,14 +193,28 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def guardar_resultados(self):
         rowCount = self.tableWidget_reviews_to_analize.rowCount()
         pr= Project.Project(self._user)
-
+        progreso = self.barra_progreso(rowCount)
+        progreso.setValue(0)
         for i in range(rowCount):
+            progreso.setValue(i)
+            QtGui.QGuiApplication.processEvents()
             id_review=self.tableWidget_reviews_to_analize.item(i,0).text()
             polaridad=self.tableWidget_reviews_to_analize.item(i,4).text()
             subjetividad=self.tableWidget_reviews_to_analize.item(i,5).text()
             compound=self.tableWidget_reviews_to_analize.item(i,6).text()
             pr.update_sentiments_database(id_review,polaridad,subjetividad,compound)
         QMessageBox.information(self, "Guardado completado", "Los datos se han guardado con éxito")
+
+    def barra_progreso(self, maximo):
+        progress_dialog = QtWidgets.QProgressDialog("Realizando análisis de sentimiento", "Cancelar", 0, maximo)
+        progress_bar = QtWidgets.QProgressBar(progress_dialog)
+        progress_dialog.setBar(progress_bar)
+        progress_dialog.setWindowModality(QtCore.Qt.WindowModal)
+        progress_dialog.setWindowTitle("Realizando análisis de sentimiento")
+        progress_bar.setValue(0)
+        progress_bar.setMaximum(maximo)
+        progress_dialog.show()
+        return progress_dialog
 
 
 

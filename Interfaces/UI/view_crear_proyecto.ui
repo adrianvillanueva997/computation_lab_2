@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Crear proyecto</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QFormLayout" name="formLayout">
@@ -135,7 +135,7 @@
      <x>0</x>
      <y>0</y>
      <width>342</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

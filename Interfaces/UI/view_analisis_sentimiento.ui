@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Entrenamiento</string>
+   <string>Análisis de sentimiento</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -29,6 +29,9 @@
        <font>
         <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
@@ -101,6 +104,31 @@
           <string>no contiene</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>no acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coinciden minMAYUS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coincide exacto</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>empieza por</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -115,6 +143,13 @@
         </property>
         <property name="text">
          <string>Aplicar filtro</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_cleanfilter">
+        <property name="text">
+         <string>Limpiar filtro</string>
         </property>
        </widget>
       </item>
@@ -220,6 +255,9 @@
        <font>
         <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>

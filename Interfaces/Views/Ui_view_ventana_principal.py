@@ -28,6 +28,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.table_proyectos.setFont(font)
+        self.table_proyectos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table_proyectos.setAlternatingRowColors(True)
         self.table_proyectos.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table_proyectos.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)

@@ -16,19 +16,19 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Entrenamiento</string>
+   <string>Clasificacion</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="7">
-     <widget class="QWidget" name="widget_resultados" native="true"/>
-    </item>
-    <item row="1" column="6">
      <widget class="QTableWidget" name="tableWidget_reviews_to_classify">
       <property name="font">
        <font>
         <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
@@ -60,6 +60,18 @@
       </column>
      </widget>
     </item>
+    <item row="0" column="7">
+     <widget class="QComboBox" name="comboBox_algoritmo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>Selecciona modelo</string>
+       </property>
+      </item>
+     </widget>
+    </item>
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -86,6 +98,31 @@
           <string>no contiene</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>no acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coinciden minMAYUS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coincide exacto</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>empieza por</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -103,9 +140,16 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_cleanfilter">
+        <property name="text">
+         <string>Limpiar filtro</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
-    <item row="2" column="6">
+    <item row="2" column="7">
      <widget class="QPushButton" name="pushButton_Clasificar">
       <property name="enabled">
        <bool>false</bool>
@@ -120,16 +164,19 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="6">
-     <widget class="QComboBox" name="comboBox_algoritmo">
-      <property name="enabled">
-       <bool>true</bool>
+    <item row="1" column="8">
+     <widget class="QWidget" name="widget_resultados" native="true"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton_back">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
       </property>
-      <item>
-       <property name="text">
-        <string>Selecciona modelo</string>
-       </property>
-      </item>
+      <property name="text">
+       <string>Atrás</string>
+      </property>
      </widget>
     </item>
     <item row="1" column="1">
@@ -184,39 +231,15 @@
       </item>
      </layout>
     </item>
-    <item row="3" column="6">
-     <widget class="QPushButton" name="pushButton_guardar_resultados">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Guardar resultados</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_back">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Atrás</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0" rowspan="2">
      <widget class="QTableWidget" name="tableWidget_reviews">
       <property name="font">
        <font>
         <pointsize>14</pointsize>
        </font>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
@@ -242,6 +265,35 @@
        </property>
       </column>
      </widget>
+    </item>
+    <item row="3" column="7">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="pushButton_toCSV">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Exportar a CSV</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_guardar_resultados">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Guardar resultados</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
