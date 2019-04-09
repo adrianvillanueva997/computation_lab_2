@@ -15,18 +15,20 @@ class Sentiment:
         self.__sentiments = {}
 
     @staticmethod
-    def __text_to_english(text):
+    def __text_to_english_backup(text):
         """
         Function that detects a language and returns it translation in english using Google translate api
         :param text:
         :return:
         """
+        time.sleep(1)
         eng_text = Translator().translate(text)
         print(eng_text)
         return eng_text
 
     @staticmethod
-    def __text_to_english_backup(text):
+    def __text_to_english(text):
+        time.sleep(1)
         blob = TextBlob(text)
         language_code = blob.detect_language()
         print(language_code)
@@ -89,11 +91,12 @@ class Sentiment:
         }
         translated_text = None
         try:
-            translated_text = self.__text_to_english(sentence)
+            translated_text = str(self.__text_to_english(sentence))
         except Exception as e:
             translated_text = self.__text_to_english_backup(sentence)
         if translated_text is not None:
-            english_text = translated_text.text
+            print(translated_text)
+            english_text = translated_text
             polarity, subjectivity = self.__blob_sentiment_analysis(english_text)
             sentiments['polarity'].append(polarity)
             sentiments['subjectivity'].append(subjectivity)
