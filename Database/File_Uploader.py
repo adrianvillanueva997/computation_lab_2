@@ -59,11 +59,3 @@ class File_Uploader:
                 print(query)
             except Exception as e:
                 print(e)
-
-
-if __name__ == '__main__':
-    fm = File_Manager.File_Manager()
-    good_reviews, g_file_names = fm.extract_data_from_files(
-        '/home/xiao/Downloads/dataset_entrenamiento/buenas')
-    fp = File_Uploader(19)
-    fp.upload_single_review_to_db(name='a', label='b', review='test')

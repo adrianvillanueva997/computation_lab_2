@@ -36,7 +36,3 @@ class Model_Exporter:
         print(response)
 
 
-if __name__ == '__main__':
-    model = Models()
-    ml = Model_Exporter()
-    ml.export_model(model, 3, 7)
