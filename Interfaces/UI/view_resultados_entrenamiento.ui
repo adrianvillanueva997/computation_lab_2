@@ -22,6 +22,11 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="4" column="1">
      <widget class="QPushButton" name="pushButton_descartar">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Descartar</string>
       </property>
@@ -29,6 +34,11 @@
     </item>
     <item row="4" column="0">
      <widget class="QPushButton" name="pushButton_guardarModelo">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Guardar Modelo</string>
       </property>
@@ -36,6 +46,11 @@
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="label_matriz_place">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Matriz_place</string>
       </property>
@@ -43,6 +58,11 @@
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_cross_place">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Cross_place</string>
       </property>
@@ -50,6 +70,11 @@
     </item>
     <item row="3" column="0">
      <widget class="QLabel" name="label_nombremodelo">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Nombre del modelo</string>
       </property>
@@ -57,6 +82,11 @@
     </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_matrizconfusion">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Matriz de confusión</string>
       </property>
@@ -64,6 +94,11 @@
     </item>
     <item row="0" column="1">
      <widget class="QLabel" name="label_crossvalidation">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Cross Validation</string>
       </property>
@@ -80,11 +115,17 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>31</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

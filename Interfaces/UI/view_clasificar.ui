@@ -64,6 +64,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label_filtro">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Filtro</string>
         </property>
@@ -88,6 +93,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_applyfilter">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Aplicar filtro</string>
         </property>
@@ -99,6 +109,11 @@
      <widget class="QPushButton" name="pushButton_Clasificar">
       <property name="enabled">
        <bool>false</bool>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Clasificar</string>
@@ -121,6 +136,11 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="pushButton_add">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Añadir</string>
         </property>
@@ -128,6 +148,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_addall">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Añadir todas</string>
         </property>
@@ -135,6 +160,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_remove">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eliminar</string>
         </property>
@@ -142,6 +172,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_removeall">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eliminar todas</string>
         </property>
@@ -154,6 +189,11 @@
       <property name="enabled">
        <bool>false</bool>
       </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Guardar resultados</string>
       </property>
@@ -161,6 +201,11 @@
     </item>
     <item row="3" column="0">
      <widget class="QPushButton" name="pushButton_back">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Atrás</string>
       </property>
