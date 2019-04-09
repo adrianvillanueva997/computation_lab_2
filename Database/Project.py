@@ -63,6 +63,30 @@ class Project:
                 print(e)
         return code
 
+
+    def add_project_from_invitation(self,invitation_code):
+        with cfg.engine.connect() as con:
+            try:
+                query = text('SELECT * FROM proyecto_computacion.project where ID_invitation = :_invitation_code')
+                results=con.execute(query,_invitation_code=invitation_code)
+
+                id_project = None
+                for result in results:
+                    id_project = result['ID_project']
+                print("hola")
+                print(id_project)
+                if id_project is not None:
+                    print("entra")
+                    insert_user_relation_query = text('insert into proyecto_computacion.project_rel '
+                                                      '(id_project, id_user) VALUES (:_id_project,:_id_user)')
+                    con.execute(insert_user_relation_query, _id_project=id_project, _id_user=self.__id_user)
+                    return results
+
+                return results
+            except Exception as e:
+                print(e)
+
+
     def load_user_projects(self):
         """
         Loads all projects related to the user
@@ -126,6 +150,17 @@ class Project:
                              'sentiment_sub=:_sentiment_sub,sentiment_comp=:_sentiment_comp WHERE ID_review=:_review_id')
                 con.execute(query, _sentiment_pol=float(polarity), _sentiment_sub=float(subjectivity),
                             _sentiment_comp=float(compound), _review_id=float(review_id))
+
+        except Exception as e:
+            print(e)
+
+
+    def update_review_label(self,label,id):
+
+        try:
+            with cfg.engine.connect() as con:
+                query = text('UPDATE proyecto_computacion.review SET label=:_label WHERE ID_review=:_review_id')
+                con.execute(query, _label=str(label),_review_id=int(id))
 
         except Exception as e:
             print(e)
@@ -231,6 +266,16 @@ class Project:
                 for result in results:
                     labels.append(result['label_text'])
             return labels
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def remove_labels(project_id):
+        try:
+            with cfg.engine.connect() as con:
+                query = text('DELETE FROM proyecto_computacion.Label where ID_Project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
+            return results
         except Exception as e:
             print(e)
 
@@ -514,20 +559,3 @@ class Project:
             print(e)
 
 
-if __name__ == '__main__':
-    user = User.User(10)
-    prj = Project(user)
-    labels = ['a', 'b', 'c', 'd']
-    urls = ['https://www.amazon.es/New-Super-Mario-Bros-Deluxe/dp/B07HD1312V/',
-            'https://www.amazon.es/Donkey-Kong-Country-Tropical-Freeze/dp/B078YJ7TLT/',
-            'https://www.metacritic.com/game/pc/dota-2/', 'https://pornhub.com']
-
-    valid_urls, not_valid_urls = prj.check_urls(urls)
-    print(valid_urls)
-    print(not_valid_urls)
-    data = prj.get_reviews_by_label('A', 19)
-    print(data)
-    urls = prj.get_urls_not_processed(18)
-    print(urls)
-    a = prj.get_project_models(5)
-    print(a)

@@ -1,13 +1,13 @@
 import os
 import re
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
 from Database import File_Uploader, Project
 from ETL.Modules import File_Manager
 from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
-from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper
+from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper, Filmaffinity_Scrapper, Metacritic_Scrapper
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -66,13 +66,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         project_id = self._project_ID
         fm = File_Manager.File_Manager()
         numRows = self.file_tableWidget.rowCount()
+        progreso = self.barra_progreso(numRows)
+        progreso.setValue(0)
         for row in range(0, numRows):
+            progreso.setValue(row)
             path = str(self.file_tableWidget.item(row, 2).text())
             label = str(self.file_tableWidget.item(row, 1).text())
-            print(path)
             file_data, file_names = fm.extract_data_from_files(path)
             fuploader = File_Uploader.File_Uploader(project_id)
+            QtGui.QGuiApplication.processEvents()
             fuploader.upload_reviews_to_db(file_data, file_names, label)
+            QtGui.QGuiApplication.processEvents()
+        QMessageBox.information(self, "Subida de ficheros completada", "La subida de ficheros se ha completado con éxito")
+
 
     def file_clear_table(self):
         self.file_tableWidget.setRowCount(0)
@@ -94,6 +100,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if not re.findall(r"https:\/\/www.amazon.es\/.*\/", urlPath):
                 QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
                 return
+        elif urlPath.__contains__("metacritic"):
+            if not re.findall(r"https:\/\/www.metacritic.com\/", urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return
+        elif urlPath.__contains__("filmaffinity"):
+            if not re.findall(r"https:\/\/www.filmaffinity.com\/", urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return
         else:
             QMessageBox.critical(
                 self, "Error", "URL no soportada")
@@ -112,11 +126,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self, "Error", "Hay que especificar una etiqueta antes de añadir un elemento")
             return
         numRows = self.URL_tableWidget.rowCount()
+        progreso = self.barra_progreso(numRows)
+        progreso.setValue(0)
         for row in range(0, numRows):
             url_path = str(self.URL_tableWidget.item(row, 0).text())
             if url_path.__contains__('amazon'):
                 scrapper = Amazon_Scrapper.Amazon()
                 reviews = scrapper.scrape_amazon(url_path)
+                progreso.setValue(row)
+                QtGui.QGuiApplication.processEvents()
                 print(reviews)
                 for item in reviews:
                     rowPosition_reviews = self.URL_review_tableWidget.rowCount()
@@ -128,6 +146,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
+                progreso.setValue(row)
+                QtGui.QGuiApplication.processEvents()
 
                 for item in reviews:
                     rowPosition_reviews = self.URL_review_tableWidget.rowCount()
@@ -136,6 +156,33 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
                     self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
                 self.URL_review_tableWidget.resizeColumnsToContents()
+            if url_path.__contains__('metacritic'):
+                scrapper = Metacritic_Scrapper.Metacritic_Scrapper()
+                reviews = scrapper.metacritic(url_path)
+                progreso.setValue(row)
+                QtGui.QGuiApplication.processEvents()
+
+                for item in reviews:
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
+
+            if url_path.__contains__('filmaffinity'):
+                scrapper = Filmaffinity_Scrapper.Filmaffinity()
+                reviews = scrapper.scrape(url_path)
+                progreso.setValue(row)
+                QtGui.QGuiApplication.processEvents()
+                for item in reviews:
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
+        QMessageBox.information(self, "Reviews procesadas", "Las reviews han sido extraidas de las URLs")
 
         self.URL_tableWidget.setRowCount(0)
         self.URL_pushButton_load.setEnabled(True)
@@ -161,11 +208,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         project_id = self._project_ID
         numRows = self.URL_review_tableWidget.rowCount()
         fuploader = File_Uploader.File_Uploader(project_id)
+        progreso = self.barra_progreso(numRows)
+        progreso.setValue(0)
         for row in range(0, numRows):
+            progreso.setValue(row)
+            QtGui.QGuiApplication.processEvents()
             name = str(self.URL_review_tableWidget.item(row, 0).text())
             label = str(self.URL_review_tableWidget.item(row, 1).text())
             text = self.URL_review_tableWidget.item(row, 2).text()
             fuploader.upload_single_review_to_db(name, label, text)
+        QMessageBox.information(self, "Reviews subidas", "Las reviews han sido almacenadas en la base de datos")
+
 
     def set_project_id(self, project_id):
         self._project_ID = project_id
@@ -173,3 +226,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def go_back(self):
         self.close()
         self.parent.show()
+
+    def barra_progreso(self,maximo):
+        progress_dialog = QtWidgets.QProgressDialog("Subiendo reviews", "Cancelar", 0, maximo)
+        progress_bar = QtWidgets.QProgressBar(progress_dialog)
+        progress_dialog.setBar(progress_bar)
+        progress_dialog.setWindowModality(QtCore.Qt.WindowModal)
+        progress_dialog.setWindowTitle("Subiendo reviews")
+        progress_bar.setValue(0)
+        progress_bar.setMaximum(maximo)
+        progress_dialog.show()
+
+        return progress_dialog

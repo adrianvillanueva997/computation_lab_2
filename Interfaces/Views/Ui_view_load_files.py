@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_load_files.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_load_files.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -8,11 +8,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1051, 704)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        MainWindow.setFont(font)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.centralWidget)
@@ -31,6 +33,9 @@ class Ui_MainWindow(object):
         self.gridLayout.setSpacing(6)
         self.gridLayout.setObjectName("gridLayout")
         self.file_tableWidget = QtWidgets.QTableWidget(self.file_tab)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.file_tableWidget.setFont(font)
         self.file_tableWidget.setObjectName("file_tableWidget")
         self.file_tableWidget.setColumnCount(3)
         self.file_tableWidget.setRowCount(0)
@@ -80,6 +85,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setSpacing(6)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.URL_review_tableWidget = QtWidgets.QTableWidget(self.URL_tab)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.URL_review_tableWidget.setFont(font)
         self.URL_review_tableWidget.setObjectName("URL_review_tableWidget")
         self.URL_review_tableWidget.setColumnCount(3)
         self.URL_review_tableWidget.setRowCount(0)
@@ -114,6 +122,9 @@ class Ui_MainWindow(object):
         self.label_URL.setObjectName("label_URL")
         self.gridLayout_2.addWidget(self.label_URL, 2, 0, 1, 1)
         self.URL_tableWidget = QtWidgets.QTableWidget(self.URL_tab)
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.URL_tableWidget.setFont(font)
         self.URL_tableWidget.setObjectName("URL_tableWidget")
         self.URL_tableWidget.setColumnCount(1)
         self.URL_tableWidget.setRowCount(0)
@@ -133,7 +144,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1051, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1051, 31))
         self.menuBar.setObjectName("menuBar")
         MainWindow.setMenuBar(self.menuBar)
         self.mainToolBar = QtWidgets.QToolBar(MainWindow)
@@ -185,3 +196,4 @@ class Ui_MainWindow(object):
         self.URL_comboBox_labels.setItemText(0, _translate("MainWindow", "Seleccionar etiqueta"))
         self.URL_comboBox_labels.setItemText(1, _translate("MainWindow", "Unlabeled"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.URL_tab), _translate("MainWindow", "URL"))
+

@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 
 import Interfaces.Controllers.ctrl_project_menu as v_project_menu
 from Database import Project
@@ -14,19 +15,25 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Seleccionar_Proyecto.clicked.connect(self.show_project_window)
         self.pushButton_back.clicked.connect(self.go_back)
         self.pushButton_Crear_proyecto.clicked.connect(self.crear_proyecto)
+        self.pushButton_invitation_project.clicked.connect(self.add_project_with_invitation)
         self._window = None
         self._user = None
 
     def show_project_window(self):
-        self._window = v_project_menu.MainWindow()
-        self._window.set_parent(self)
-        self._window.set_user(self._user)
         indexes = self.table_proyectos.selectedIndexes()
-        for index in sorted(indexes):
-            p_id = self.table_proyectos.item(index.row(), 0).text()
-            self._window.set_project_id(p_id)
-        self._window.show()
-        self.close()
+        if indexes:
+            self._window = v_project_menu.MainWindow()
+            self._window.set_parent(self)
+            self._window.set_user(self._user)
+            for index in sorted(indexes):
+                p_id = self.table_proyectos.item(index.row(), 0).text()
+                self._window.set_project_id(p_id)
+            self._window.show()
+            self.close()
+        else:
+            QMessageBox.critical(
+                self, "Error", "Hay que seleccionar un proyecto para continuar")
+            return
 
     def set_parent(self, MainWindow):
         self.parent = MainWindow
@@ -40,6 +47,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def crear_proyecto(self):
         self._window=v_crear_proyecto.MainWindow()
+        self._window.set_parent(self)
         self._window.set_user(self._user)
         self._window.show()
 
@@ -55,3 +63,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.table_proyectos.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(str(projects['timestamp'][i])))
             self.table_proyectos.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(projects['invitation_key'][i]))
         self.table_proyectos.resizeColumnsToContents()
+
+    def add_project_with_invitation(self):
+        codigoinvitacion,ok=QtWidgets.QInputDialog.getText(self, 'Añadir proyecto con código', 'Introduce el código de invitación')
+        pr = Project.Project(self._user)
+        results=pr.add_project_from_invitation(codigoinvitacion)
+        if results.rowcount == 0:
+            QMessageBox.critical(
+                self, "Error", "El código de invitación no pertenece a ningún proyecto")
+            return
+        self.table_proyectos.setRowCount(0)
+        self.load_projects()

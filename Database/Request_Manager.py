@@ -12,8 +12,9 @@ class RequestManager:
         :param user_data:
         :return:
         """
-        #response = requests.post(f'http://localhost:8000/{mode}.php', user_data)
         response = requests.post(f'https://apiproyecto2.cf/{mode}.php', user_data)
+        print("Dentro de make request")
+        print(response)
         response_content = response.content
         return response_content
 
@@ -51,9 +52,3 @@ class RequestManager:
         response = self.__make_request(download_user_data, "download")
         return response
 
-
-if __name__ == '__main__':
-    rm = RequestManager()
-    model = (rm.download_file(1, 1, 1))
-    print(model)
-    # rm.upload_file(1, 2, 5, model)

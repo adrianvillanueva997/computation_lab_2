@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\view_ventana_principal.ui'
+# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_ventana_principal.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -29,6 +28,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.table_proyectos.setFont(font)
+        self.table_proyectos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.table_proyectos.setAlternatingRowColors(True)
         self.table_proyectos.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
         self.table_proyectos.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -53,6 +53,9 @@ class Ui_MainWindow(object):
         self.pushButton_Crear_proyecto.setObjectName("pushButton_Crear_proyecto")
         self.verticalLayout_3.addWidget(self.pushButton_Crear_proyecto)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
+        self.pushButton_invitation_project = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_invitation_project.setObjectName("pushButton_invitation_project")
+        self.horizontalLayout.addWidget(self.pushButton_invitation_project)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.pushButton_back = QtWidgets.QPushButton(self.centralwidget)
@@ -86,5 +89,7 @@ class Ui_MainWindow(object):
         item = self.table_proyectos.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Código Invitación"))
         self.pushButton_Crear_proyecto.setText(_translate("MainWindow", "Crear Proyecto"))
+        self.pushButton_invitation_project.setText(_translate("MainWindow", "Añadir proyecto con invitación"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
         self.pushButton_Seleccionar_Proyecto.setText(_translate("MainWindow", "Seleccionar Proyecto"))
+

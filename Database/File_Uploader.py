@@ -1,7 +1,10 @@
 from sqlalchemy.sql import text
 
+
 from Database import config as cfg
-from Database.Utilities import Utilities
+
+from Database import config as cfg, Utilities
+
 from ETL.Modules import File_Manager
 
 
@@ -27,7 +30,7 @@ class File_Uploader:
             for review in reviews:
                 # file_name | text_review
                 try:
-                    ut = Utilities()
+                    ut = Utilities.Utilities()
                     review = ut.scrape_text_for_sql(review)
                     file_name = ut.scrape_text_for_sql(file_names[index])
                     query = text('INSERT INTO proyecto_computacion.review (ID_project,text_review,file_name,label) '
@@ -56,11 +59,3 @@ class File_Uploader:
                 print(query)
             except Exception as e:
                 print(e)
-
-
-if __name__ == '__main__':
-    fm = File_Manager.File_Manager()
-    good_reviews, g_file_names = fm.extract_data_from_files(
-        '/home/xiao/Downloads/dataset_entrenamiento/buenas')
-    fp = File_Uploader(19)
-    fp.upload_single_review_to_db(name='a', label='b', review='test')

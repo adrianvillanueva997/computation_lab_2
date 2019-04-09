@@ -27,6 +27,9 @@
         <pointsize>14</pointsize>
        </font>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
@@ -59,6 +62,9 @@
         <pointsize>14</pointsize>
        </font>
       </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
@@ -88,6 +94,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="label_filtro">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Filtro</string>
         </property>
@@ -105,15 +116,58 @@
           <string>no contiene</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>no acaba en</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coinciden minMAYUS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>coincide exacto</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>empieza por</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit_filtro"/>
+       <widget class="QLineEdit" name="lineEdit_filtro">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_applyfilter">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Aplicar filtro</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_cleanfilter">
+        <property name="text">
+         <string>Limpiar filtro</string>
         </property>
        </widget>
       </item>
@@ -123,6 +177,11 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="pushButton_add">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Añadir</string>
         </property>
@@ -130,6 +189,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_addall">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Añadir todas</string>
         </property>
@@ -137,6 +201,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_remove">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eliminar</string>
         </property>
@@ -144,6 +213,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_removeall">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Eliminar todas</string>
         </property>
@@ -153,6 +227,11 @@
     </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="pushButton_back">
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>Atrás</string>
       </property>
@@ -162,6 +241,11 @@
      <widget class="QPushButton" name="pushButton_Entrenar">
       <property name="enabled">
        <bool>false</bool>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Entrenar</string>

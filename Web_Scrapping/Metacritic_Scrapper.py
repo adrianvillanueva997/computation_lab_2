@@ -65,6 +65,7 @@ class Metacritic_Scrapper:
                 print(len(review_list))
                 num_page += 1
                 max_page += 1
+        print (review_list)
         return review_list
 
 

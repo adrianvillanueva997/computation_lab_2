@@ -16,41 +16,41 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Registrar usuario</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_nombre"/>
-      </item>
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Nombre Usuario</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="4" column="1">
        <widget class="QLineEdit" name="lineEdit_password"/>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_email"/>
-      </item>
-      <item row="2" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
          <string>Password</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
          <string>Email</string>
         </property>
        </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="lineEdit_email"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit_nombre"/>
       </item>
      </layout>
     </item>
@@ -88,6 +88,13 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_nombre</tabstop>
+  <tabstop>lineEdit_email</tabstop>
+  <tabstop>lineEdit_password</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_Cancelar</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

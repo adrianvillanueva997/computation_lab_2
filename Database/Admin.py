@@ -151,9 +151,26 @@ class Admin:
 
     def obtener_id(self, name):
         try:
-            query = query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
+            #query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
+            query = text('SELECT * FROM proyecto_computacion.user'
+                         ' WHERE user_name = :_nombre LIMIT 1')
+            data = {
+                'ID_user': [],
+                'username': [],
+                'email': [],
+                'role': []
+            }
             with cfg.engine.connect() as con:
-                results = con.execute(query)
-            return results
+                try:
+
+                    results=con.execute(query, _nombre=name)
+                    for result in results:
+                        data['ID_user'].append(str(result['ID_user']))
+                        data['username'].append(result['user_name'])
+                        data['email'].append(result['email'])
+                        data['role'].append(str(result['role']))
+                except Exception as e:
+                    data['ID_user'].append(0)
+            return data
         except Exception as e:
             print(e)

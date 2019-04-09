@@ -9,7 +9,7 @@ Linux (debian/ubuntu):
 ```sh
 sudo apt-get install python3.6
 sudo apt-get install pip3
-pip3 install numpy pandas matplotlib graphviz sklearn nltk seaborn vadersentiment textblob sqlalchemy
+pip3 install numpy pandas matplotlib graphviz sklearn nltk vadersentiment textblob sqlalchemy
 sudo apt-get install python3-mysqldb
 sudo apt-get install python3-pyqt5  
 sudo apt-get install pyqt5-dev-tools
@@ -19,7 +19,7 @@ sudo apt-get install qttools5-dev-tools
 Windows:
 Just get python 3.6 from [here](https://www.python.org/downloads/release/python-366/)
 ```sh
-pip3 install numpy pandas matplotlib graphviz sklearn nltk seaborn vadersentiment textblob
+python3 -m pip install numpy pandas matplotlib graphviz sklearn nltk bs4 sqlalchemy mysqlclient vadersentiment
 ```
 
 
