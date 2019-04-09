@@ -88,14 +88,15 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
 		self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(nombre))
 		self.tableWidget.setItem(row, 2, QtWidgets.QTableWidgetItem(email))
 		self.tableWidget.setItem(row, 3, QtWidgets.QTableWidgetItem(role))
-	def add_fila(self, id, nombre, email, role,actividad):
+	def add_fila(self, id, nombre, email):
 		rowPosition = self.tableWidget.rowCount()
+		print('entra en add_fila')
 		self.tableWidget.insertRow(rowPosition)
 		self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(id))
 		self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(nombre))
 		self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(email))
-		self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(role))
-		self.tableWidget.setItem((rowPosition,4,QtWidgets.QTableWidgetItem(actividad)))
+		self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
+		self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
 	def load_usuarios(self):
 		try:
 			print("HOLA")
