@@ -123,6 +123,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def train_with_reviews(self):
         reviews_dictionary = {"labels": [], "reviews": []}
         rowCount = self.tableWidget_reviews_to_train.rowCount()
+        if rowCount < 10:
+            QMessageBox.critical(
+                self, "Error", "Es necesario un mínimo de 10 reviews para entrenar")
+            return
         for i in range(0, rowCount):
             reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
             reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))

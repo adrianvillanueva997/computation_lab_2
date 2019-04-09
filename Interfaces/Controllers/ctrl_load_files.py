@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from Database import File_Uploader, Project
 from ETL.Modules import File_Manager
 from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
-from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper
+from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper, Filmaffinity_Scrapper, Metacritic_Scrapper
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -94,6 +94,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if not re.findall(r"https:\/\/www.amazon.es\/.*\/", urlPath):
                 QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
                 return
+        elif urlPath.__contains__("metacritic"):
+            if not re.findall(r"https:\/\/www.metacritic.com\/", urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return
+        elif urlPath.__contains__("filmaffinity"):
+            if not re.findall(r"https:\/\/www.filmaffinity.com\/", urlPath):
+                QMessageBox.critical(self, "Error", "La URL no tiene el formato correcto")
+                return
         else:
             QMessageBox.critical(
                 self, "Error", "URL no soportada")
@@ -128,6 +136,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if url_path.__contains__('yelp'):
                 scrapper = Yelp_Scrapper.Yelp_Scrapper()
                 reviews = scrapper.scrapper_yelp(url_path)
+
+                for item in reviews:
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
+            if url_path.__contains__('metacritic'):
+                scrapper = Metacritic_Scrapper.Metacritic_Scrapper()
+                reviews = scrapper.metacritic(url_path)
+
+                for item in reviews:
+                    rowPosition_reviews = self.URL_review_tableWidget.rowCount()
+                    self.URL_review_tableWidget.insertRow(rowPosition_reviews)
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 0, QtWidgets.QTableWidgetItem(url_path))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 1, QtWidgets.QTableWidgetItem(label))
+                    self.URL_review_tableWidget.setItem(rowPosition_reviews, 2, QtWidgets.QTableWidgetItem(item))
+                self.URL_review_tableWidget.resizeColumnsToContents()
+
+            if url_path.__contains__('filmaffinity'):
+                scrapper = Filmaffinity_Scrapper.Filmaffinity()
+                reviews = scrapper.scrape(url_path)
 
                 for item in reviews:
                     rowPosition_reviews = self.URL_review_tableWidget.rowCount()

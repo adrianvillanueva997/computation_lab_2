@@ -63,6 +63,30 @@ class Project:
                 print(e)
         return code
 
+
+    def add_project_from_invitation(self,invitation_code):
+        with cfg.engine.connect() as con:
+            try:
+                query = text('SELECT * FROM proyecto_computacion.project where ID_invitation = :_invitation_code')
+                results=con.execute(query,_invitation_code=invitation_code)
+
+                id_project = None
+                for result in results:
+                    id_project = result['ID_project']
+                print("hola")
+                print(id_project)
+                if id_project is not None:
+                    print("entra")
+                    insert_user_relation_query = text('insert into proyecto_computacion.project_rel '
+                                                      '(id_project, id_user) VALUES (:_id_project,:_id_user)')
+                    con.execute(insert_user_relation_query, _id_project=id_project, _id_user=self.__id_user)
+                    return results
+
+                return results
+            except Exception as e:
+                print(e)
+
+
     def load_user_projects(self):
         """
         Loads all projects related to the user
@@ -231,6 +255,16 @@ class Project:
                 for result in results:
                     labels.append(result['label_text'])
             return labels
+        except Exception as e:
+            print(e)
+
+    @staticmethod
+    def remove_labels(project_id):
+        try:
+            with cfg.engine.connect() as con:
+                query = text('DELETE FROM proyecto_computacion.Label where ID_Project like :_project_id')
+                results = con.execute(query, _project_id=project_id)
+            return results
         except Exception as e:
             print(e)
 

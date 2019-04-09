@@ -60,4 +60,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(rowCount):
             labels.append(self.tableWidget_etiquetas.item(i,0).text())
         pr.add_labels_to_project(labels,project_id)
+        self.parent.table_proyectos.setRowCount(0)
+        self.parent.load_projects()
         self.close()

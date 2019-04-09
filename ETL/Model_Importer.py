@@ -19,8 +19,10 @@ class Model_Importer:
     def __export_to_temp_file(self, binary_content):
         tempf = tempfile.NamedTemporaryFile()
         self.__temp_file = tempf
+        tempf.close()
         with open(tempf.name, 'wb') as file:
             file.write(binary_content)
+
 
     def __read_temp_file_content(self):
         with open(self.__temp_file.name, 'rb') as file:

@@ -63,6 +63,7 @@ class Ui_MainWindow(object):
         self.pushButton_Clasificar.setObjectName("pushButton_Clasificar")
         self.gridLayout.addWidget(self.pushButton_Clasificar, 2, 6, 1, 1)
         self.comboBox_algoritmo = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_algoritmo.setEnabled(True)
         self.comboBox_algoritmo.setObjectName("comboBox_algoritmo")
         self.comboBox_algoritmo.addItem("")
         self.gridLayout.addWidget(self.comboBox_algoritmo, 0, 6, 1, 1)

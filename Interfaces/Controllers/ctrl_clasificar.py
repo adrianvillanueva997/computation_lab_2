@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from Database import Project
 from ETL.Classify import Classify
 from Interfaces.Views.Ui_view_clasificar import Ui_MainWindow
+from PyQt5.QtWidgets import QMessageBox
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -25,6 +26,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._model_id = None
         self._models = None
         self._dataframe = None
+        self._search_models=False
 
     def set_user(self, user):
         self._user = user
@@ -56,23 +58,24 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.comboBox_algoritmo.addItem("Seleccione un modelo")
         self.comboBox_algoritmo.addItems(models['model_name'])
         self._models = models
+        self._search_models=True
+
 
     def search_model(self):
-        print("hola")
-        print(self._models)
-        model_name = self.comboBox_algoritmo.currentText()
-        found = False
-        index = 0
-        model_id = 0
-        print(model_name)
-        while index < len(self._models['model_name']) and found is False:
-            print(self._models['model_name'][index])
-            if self._models['model_name'][index] == model_name:
-                model_id = self._models['id_model'][index]
-                found = True
-            else:
-                index += 1
-        self._model_id = model_id
+        if self._search_models == True:
+            model_name = self.comboBox_algoritmo.currentText()
+            found = False
+            index = 0
+            model_id = 0
+            print(model_name)
+            while index < len(self._models['model_name']) and found is False:
+                print(self._models['model_name'][index])
+                if self._models['model_name'][index] == model_name:
+                    model_id = self._models['id_model'][index]
+                    found = True
+                else:
+                    index += 1
+            self._model_id = model_id
 
     def add_review_to_classify(self):
         rows = self.tableWidget_reviews.selectionModel().selectedRows()
@@ -88,7 +91,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.tableWidget_reviews_to_classify.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(
                 self.tableWidget_reviews.item(item.row(), 3).text()))
             self.tableWidget_reviews.setRowHidden(item.row(), True)
-        self.pushButton_Clasificar.setEnabled(True)
+        rowCount = self.tableWidget_reviews_to_classify.rowCount()
+        if rowCount > 0:
+            self.pushButton_Clasificar.setEnabled(True)
 
     def add_all_reviews(self):
         rowCount = self.tableWidget_reviews.rowCount()
@@ -105,6 +110,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.tableWidget_reviews.item(i, 3).text()))
             self.tableWidget_reviews.setRowHidden(i, True)
         self.pushButton_Clasificar.setEnabled(True)
+        rowCount = self.tableWidget_reviews_to_classify.rowCount()
+        if rowCount > 0:
+            self.pushButton_Clasificar.setEnabled(True)
 
     def filter_table(self):
         _filter = self.lineEdit_filtro.text()
@@ -141,6 +149,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Clasificar.setEnabled(False)
 
     def classify_button(self):
+        modeloseleccionado = self.comboBox_algoritmo.currentText()
+        if modeloseleccionado == "Seleccione un modelo":
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar un modelo para clasificar")
+            return
         rowCount = self.tableWidget_reviews_to_classify.rowCount()
         unlabeled_reviews = {
             'reviews': [],

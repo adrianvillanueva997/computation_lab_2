@@ -107,6 +107,9 @@
     </item>
     <item row="0" column="6">
      <widget class="QComboBox" name="comboBox_algoritmo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <item>
        <property name="text">
         <string>Selecciona modelo</string>

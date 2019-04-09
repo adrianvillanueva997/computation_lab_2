@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtWidgets import QMessageBox
 
 from Interfaces.Views.Ui_view_resultados_entrenamiento import Ui_MainWindow
 from Database import Project
@@ -50,6 +51,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def guardar_modelo(self):
         pr = Project.Project(self._user)
         nombremodelo=self.lineEdit_nombremodelo.text()
+        if nombremodelo == "":
+            QMessageBox.critical(
+                self, "Error", "Hay que especificar un nombre para el modelo")
+            return
         model_id = pr.insert_model(self._project_id, nombremodelo, self._algoritmo, "spanish")
         exporter = Model_Exporter.Model_Exporter()
         exporter.export_model(self._model,self._project_id,model_id)

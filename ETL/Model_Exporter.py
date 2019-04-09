@@ -19,6 +19,7 @@ class Model_Exporter:
     def __export_to_temp_file(self, model):
         tempf = tempfile.NamedTemporaryFile(mode="w+b", dir="")
         self.__temp_file = tempf
+        tempf.close()
         with open(tempf.name, 'wb+') as file:
             pickle.dump(model, file)
 

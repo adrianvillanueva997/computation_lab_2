@@ -14,6 +14,8 @@ class RequestManager:
         """
         #response = requests.post(f'http://localhost:8000/{mode}.php', user_data)
         response = requests.post(f'https://apiproyecto2.cf/{mode}.php', user_data)
+        print("Dentro de make request")
+        print(response)
         response_content = response.content
         return response_content
 
