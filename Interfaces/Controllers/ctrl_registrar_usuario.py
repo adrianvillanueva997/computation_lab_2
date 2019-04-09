@@ -18,16 +18,20 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         password = self.lineEdit_password.text()
         emilio=self.lineEdit_email.text()
         rg=Register.Register(username,password,emilio)
-        registrer=rg.upload_user()
+        registrer_test = rg.upload_user()
+        print(registrer_test )
         admin=Admin.Admin()
         if username is None or username == "" or password is None or password == "" or emilio is None or emilio == "":
             QMessageBox.question(self, 'Advertencia!', "ESCRIBA TODOS LOS CAMPOS NECESARIOS EN EL FORMULARIO",
                                  QMessageBox.Ok)
             return
-        if registrer == True:
+        if registrer_test == True or registrer_test  is True:
             ret=QMessageBox.question(self, '¡Advertencia!', "Usuario insertado", QMessageBox.Ok)
             id_us=admin.obtener_id(username)
-            self.padre.add_fila(str(id_us['ID_user']), username, emilio, 0,1)
+            print(id_us)
+            for i in range(0, len(id_us['ID_user'])):
+                id_tem=id_us['ID_user'][i]
+                self.padre.add_fila(str(id_tem), username, emilio)
             if ret == QMessageBox.Ok:
                 self.close()
         else:
