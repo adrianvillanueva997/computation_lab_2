@@ -138,15 +138,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                         self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
                         self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
+                    self.tableWidget.resizeColumnsToContents()
                 data2 = admin.get_users_with_projects()
                 print(data2['username'])
                 print(data2['name_project'])
                 try:
+                    row = 0
                     for i in range(0, len(data2)):
-                        rowPosition2 = self.tableWidget.rowCount()
+                        rowPosition2 = self.tableWidget_Poryectos.rowCount()
                         self.tableWidget_Poryectos.insertRow(rowPosition2)
                         self.tableWidget_Poryectos.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data2['username'][i]))
                         self.tableWidget_Poryectos.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data2['name_project'][i]))
+                        self.tableWidget_Poryectos.resizeColumnsToContents()
                 except Exception as np:
                     print(np)
             except Exception as n:
