@@ -47,6 +47,9 @@
               <pointsize>14</pointsize>
              </font>
             </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
             <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
@@ -108,7 +111,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
-           <widget class="QPushButton" name="pushButton_Registrar_usuario_2">
+           <widget class="QPushButton" name="pushButton_Registrar_usuario">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -163,6 +166,9 @@
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
            <widget class="QTableWidget" name="tableWidget_Poryectos">
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
             <column>
              <property name="text">
               <string>Usuario</string>
