@@ -17,7 +17,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Modificar_usuario.clicked.connect(self.modificar_usuario)
         self.pushButton_Registrar_usuario.clicked.connect(self.registrar_usuario)
         self.pushButton_Eliminar_usuario.clicked.connect(self.btn_Eliminar_clicked)
-        self.pushButton_Relacion_Proyectos.clicked.connect(self.relacion_proyectos)
         self.pushButton_Atras.clicked.connect(self.go_back)
         self._main_window = None
         self.parent = None
@@ -125,26 +124,27 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             try:
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
-                    self.tableWidget_Usuarios.insertRow(rowPosition)
-                    self.tableWidget_Usuarios.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
-                    self.tableWidget_Usuarios.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
-                    self.tableWidget_Usuarios.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
+                    self.tableWidget.insertRow(rowPosition)
+                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
+                    self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
-                        self.tableWidget_Usuarios.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
                     else:
-                        self.tableWidget_Usuarios.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
                     # self.tableWidget.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(results['role'][i]))
                     if results['Actividad'][i] == str(0):
-                        self.tableWidget_Usuarios.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
+                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
-                        self.tableWidget_Usuarios.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
-                data = admin.get_users_with_projects()
+                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
+                data2 = admin.get_users_with_projects()
+                print(data2)
                 try:
-                    for i in range(0, len(data)):
+                    for i in range(0, len(data2)):
                         rowPosition2 = self.tableWidget.rowCount()
-                        self.tableWidget_Relacion.insertRow(rowPosition2)
-                        self.tableWidget_Relacion.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data['username'][i]))
-                        self.tableWidget_Relacion.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data['name_project'][i]))
+                        self.tableWidget_Poryectos.insertRow(rowPosition2)
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data2['username'][i]))
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data2['name_project'][i]))
                 except Exception as np :
                     print(np)
             except Exception as n:

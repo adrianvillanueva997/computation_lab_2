@@ -41,7 +41,7 @@
            </spacer>
           </item>
           <item row="2" column="1">
-           <widget class="QTableWidget" name="tableWidget_Usuarios">
+           <widget class="QTableWidget" name="tableWidget">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -117,7 +117,7 @@
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_Eliminar_usuario_2">
+           <widget class="QPushButton" name="pushButton_Eliminar_usuario">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -129,7 +129,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_Modificar_usuario_2">
+           <widget class="QPushButton" name="pushButton_Modificar_usuario">
             <property name="font">
              <font>
               <pointsize>14</pointsize>
@@ -159,7 +159,7 @@
         <item>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
-           <widget class="QTableWidget" name="tableWidget_Relacion">
+           <widget class="QTableWidget" name="tableWidget_Poryectos">
             <column>
              <property name="text">
               <string>Usuario</string>
