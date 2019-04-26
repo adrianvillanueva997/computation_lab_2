@@ -9,6 +9,10 @@ class Admin:
 
     @staticmethod
     def get_users_with_projects():
+        """
+        Funcion que te permite obtener los usuarios con sus proyectos asociados de la base de datos
+        :return:
+        """
         try:
             with cfg.engine.connect() as con:
                 data = {
@@ -99,6 +103,11 @@ class Admin:
                              _password=user['pass'], _id=user['id'])
 
     def eliminar_user(self, id):
+        """
+        Funcion que te permite volver a un usuario activo a inactivo
+        :param id:
+        :return:
+        """
         if id is None:
             raise NotImplementedError()
         try:
@@ -113,6 +122,11 @@ class Admin:
             print(e)
 
     def activar_user(self, id):
+        """
+        Funcion que permite al administrador activar un usuario
+        :param id:
+        :return:
+        """
         if id is None:
             raise NotImplementedError()
         try:
@@ -127,6 +141,11 @@ class Admin:
             print(e)
 
     def obtener_user(self, id):
+        """
+        Funcion que te permite todos los datos de un usuario segun su id
+        :param id:
+        :return:
+        """
         try:
             id_user = str(id)
             # TODO
@@ -150,6 +169,11 @@ class Admin:
             print(e)
 
     def obtener_id(self, name):
+        """
+        Funcion que te permite obtener todos los datos de un usuario a partir de su nombre de usuario
+        :param name:
+        :return:
+        """
         try:
             #query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
             query = text('SELECT * FROM proyecto_computacion.user'

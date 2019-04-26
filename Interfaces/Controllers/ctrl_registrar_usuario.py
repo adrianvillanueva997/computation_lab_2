@@ -14,6 +14,10 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.pushButton_Cancelar.clicked.connect(self.cancelar)
         self._main_window = None
     def registrar(self):
+        """
+        Funcion asociada al boton de registrar. Se encarga de añadir un usuario nuevo a la base de datos, con un rol predefinido de usuario normal
+        :return:
+        """
         username = self.lineEdit_nombre.text()
         password = self.lineEdit_password.text()
         emilio=self.lineEdit_email.text()
@@ -39,6 +43,10 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
             if ret == QMessageBox.Ok:
                 self.close()
     def cancelar(self):
+        """
+        Funcion asociada al boton de cancelar. cierra la ventana automaticamente
+        :return:
+        """
         self.close()
     def set_parent(self,MainWindow):
         self.padre = MainWindow

@@ -23,15 +23,27 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.parent = None
 
     def relacion_proyectos(self):
+        """
+        Funcion en desuso para abrir una nueva ventana de relacion entre usuarios y sus proyectos
+        :return:
+        """
         self._main_window = ctr_usuario_proyecto.MainWindow()
         self._main_window.load_relacion()
         self._main_window.show()
 
     def go_back(self):
+        """
+        Funcion que permite a la ventana volver al loggin
+        :return:
+        """
         self.close()
         self.parent.show()
 
     def modificar_usuario(self):
+        """
+        Funcion para la modificacion de un usuario seleccionado
+        :return:
+        """
         try:
             if self.tableWidget.selectedItems()[0].text() is None:
                 ret = QMessageBox.question(self, 'Advertencia!',
@@ -49,11 +61,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             print(e)
 
     def registrar_usuario(self):
+        """
+        Funcion para registrar un usuario. Abre la ventana destinado para ello
+        :return:
+        """
         self._main_window = ctrl_registrar_usuario.MainWindow()
         self._main_window.set_parent(self)
         self._main_window.show()
 
     def btn_Eliminar_clicked(self):
+        """
+        Funcion para volver a un usuario inactivo o activo
+        :return:
+        """
         ret = QMessageBox.question(self, 'Advertencia!', "¿Estas seguro de que desea eliminar este usuario?",
                                    QMessageBox.Yes | QMessageBox.No)
         if ret == QMessageBox.Yes:
@@ -97,6 +117,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tableWidget.clearContents()
 
     def modificar_fila(self, id, nombre, email, role):
+        """
+        Funcionque te permite modificar la fila de un usuario determinado
+        :param id:
+        :param nombre:
+        :param email:
+        :param role:
+        :return:
+        """
         row = self.tableWidget.currentRow()
         self.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(id))
         self.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(nombre))
@@ -117,6 +145,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
 
     def load_usuarios(self):
+        """
+        Funcion para cargar todos los datos a la tabla de usuarios y a la de relacion entre usuarios y proyectos
+        :return:
+        """
         try:
             print("HOLA")
             admin = Admin.Admin()
