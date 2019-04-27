@@ -2,9 +2,9 @@ from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Database import Project
+from Modules.Database import Project
 from Interfaces.Views.Ui_view_analisis_sentimiento import Ui_MainWindow
-from ETL.Modules import Sentiment
+from Modules.ETL.Modules import Sentiment
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):

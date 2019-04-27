@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
 
-from Database import Project
-from ETL.Classify import Classify
+from Modules.Database import Project
+from Modules.ETL.Classify import Classify
 from Interfaces.Views.Ui_view_clasificar import Ui_MainWindow
 from PyQt5.QtWidgets import QMessageBox, QFileDialog
 

@@ -1,4 +1,4 @@
-from Database import Project
+from Modules.Database import Project
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 

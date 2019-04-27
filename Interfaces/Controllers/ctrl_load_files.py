@@ -4,10 +4,11 @@ import re
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from Database import File_Uploader, Project
-from ETL.Modules import File_Manager
+from Modules.Database import File_Uploader, Project
+from Modules.ETL.Modules import File_Manager
 from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
-from Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper, Filmaffinity_Scrapper, Metacritic_Scrapper
+from Modules.Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper, Filmaffinity_Scrapper
+from Modules.Web_Scrapping import Metacritic_Scrapper
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

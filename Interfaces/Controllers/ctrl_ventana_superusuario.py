@@ -3,7 +3,7 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Database import Admin
+from Modules.Database import Admin
 from Interfaces.Controllers import ctr_usuario_proyecto
 from Interfaces.Controllers import ctrl_modificar_usuario
 from Interfaces.Controllers import ctrl_registrar_usuario

@@ -1,10 +1,8 @@
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 
-from Database import Project
-from ETL.Classify import Classify
+from Modules.Database import Project
 from Interfaces.Views.Ui_view_visualizacion_datos import Ui_MainWindow
-from PyQt5.QtWidgets import QMessageBox
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

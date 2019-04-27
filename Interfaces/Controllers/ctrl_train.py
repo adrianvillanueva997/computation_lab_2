@@ -2,11 +2,9 @@ from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Database import Project
-from ETL import Train
+from Modules.Database import Project
+from Modules.ETL import Train
 from Interfaces.Views.Ui_view_entrenar import Ui_MainWindow
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 from Interfaces.Controllers import ctrl_resultados_entrenamiento as v_resultados
 
 

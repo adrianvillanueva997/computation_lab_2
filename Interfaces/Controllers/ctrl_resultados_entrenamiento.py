@@ -2,8 +2,8 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QMessageBox
 
 from Interfaces.Views.Ui_view_resultados_entrenamiento import Ui_MainWindow
-from Database import Project
-from ETL import Model_Exporter
+from Modules.Database import Project
+from Modules.ETL import Model_Exporter
 import os
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 
-from Database import Admin
+from Modules.Database import Admin
 from Interfaces.Views.Ui_view_usuario_proyecto import Ui_MainWindow
 
 
@@ -10,7 +10,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         self._main_window = None
     def load_relacion(self):
-        admin=Admin.Admin()
+        admin= Admin.Admin()
         data=admin.get_users_with_projects()
         try:
             for i in range(0,len(data)):

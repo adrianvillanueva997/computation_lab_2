@@ -1,3 +1,3 @@
 #!/bin/bash
-cd PHP
+cd Modules/PHP
 php -S localhost:8000

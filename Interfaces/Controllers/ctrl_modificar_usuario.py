@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Database import Admin
+from Modules.Database import Admin
 from Interfaces.Views.Ui_view_modificar_usuario import Ui_MainWindow
 
 
@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.padre=None
         self._main_window = None
     def aceptar(self):
-        admin=Admin.Admin()
+        admin= Admin.Admin()
         nombre=self.lineEdit_nombre.text()
         passw=self.lineEdit_password.text()
         role=self.lineEdit_Rol.text()
@@ -36,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
     def modificar_lineas(self , id):
         id_usuatio=str(id)
         self.id_us=id_usuatio
-        admin=Admin.Admin()
+        admin= Admin.Admin()
         user=admin.obtener_user(id_usuatio)
         self.lineEdit_nombre.setText(user['username'][0])
         self.role=self.lineEdit_Rol.setText(user['role'][0])

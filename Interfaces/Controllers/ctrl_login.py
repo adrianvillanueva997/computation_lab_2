@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 import Interfaces.Controllers.ctrl_mainwindow as v_main_user
 import Interfaces.Controllers.ctrl_ventana_superusuario as v_main_admin
-from Database import Login
-from Database import User
+from Modules.Database import User, Login
 from Interfaces.Views.Ui_view_login import Ui_MainWindow
 
 

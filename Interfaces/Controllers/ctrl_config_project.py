@@ -3,8 +3,7 @@ from PyQt5.QtWidgets import QMessageBox
 
 from Interfaces.Views.Ui_view_config_project import Ui_MainWindow
 import Interfaces.Controllers.ctrl_gestionar_etiquetas as v_etiquetas
-from Database import Project
-
+from Modules.Database import Project
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

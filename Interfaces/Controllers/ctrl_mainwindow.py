@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
 import Interfaces.Controllers.ctrl_project_menu as v_project_menu
-from Database import Project
+from Modules.Database import Project
 from Interfaces.Views.Ui_view_ventana_principal import Ui_MainWindow
 import Interfaces.Controllers.ctrl_crear_proyecto as v_crear_proyecto
 
