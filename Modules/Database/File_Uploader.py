@@ -2,7 +2,7 @@ from sqlalchemy.sql import text
 
 from Modules.Database import config as cfg, Utilities
 
-from Database import config as cfg
+from Modules.Database import config as cfg
 
 
 class File_Uploader:

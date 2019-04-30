@@ -15,15 +15,11 @@ class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
         self.padre=None
         self._main_window = None
     def aceptar(self):
-<<<<<<< HEAD
-        admin= Admin.Admin()
-=======
         """
         Esta funcion es la relacionada al boton de aceptar. Inserta los datos en la base de datos y le pasa los datos insertado
         :return:
         """
         admin=Admin.Admin()
->>>>>>> master
         nombre=self.lineEdit_nombre.text()
         passw=self.lineEdit_password.text()
         role=self.lineEdit_Rol.text()
