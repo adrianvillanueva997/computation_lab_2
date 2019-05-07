@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -63,4 +64,3 @@ class Ui_MainWindow(object):
         self.label_password.setText(_translate("MainWindow", "Password"))
         self.boton_aceptar.setText(_translate("MainWindow", "Aceptar"))
         self.label_username.setText(_translate("MainWindow", "Usuario"))
-

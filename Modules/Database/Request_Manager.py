@@ -51,4 +51,3 @@ class RequestManager:
                               }
         response = self.__make_request(download_user_data, "download")
         return response
-

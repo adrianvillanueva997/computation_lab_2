@@ -2,10 +2,10 @@ from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
+from Interfaces.Controllers import ctrl_resultados_entrenamiento as v_resultados
+from Interfaces.Views.Ui_view_entrenar import Ui_MainWindow
 from Modules.Database import Project
 from Modules.ETL import Train
-from Interfaces.Views.Ui_view_entrenar import Ui_MainWindow
-from Interfaces.Controllers import ctrl_resultados_entrenamiento as v_resultados
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -160,7 +160,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def train_with_reviews(self):
         reviews_dictionary = {"labels": [], "reviews": []}
         rowCount = self.tableWidget_reviews_to_train.rowCount()
-        progreso =self.barra_progreso(rowCount+20)
+        progreso = self.barra_progreso(rowCount + 20)
         progreso.setValue(0)
         if rowCount < 10:
             QMessageBox.critical(
@@ -177,10 +177,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             reviews_dictionary["labels"].append(str(self.tableWidget_reviews_to_train.item(i, 1).text()))
             reviews_dictionary["reviews"].append(str(self.tableWidget_reviews_to_train.item(i, 3).text()))
         train = Train.Train()
-        progreso.setValue(rowCount+10)
+        progreso.setValue(rowCount + 10)
         QtGui.QGuiApplication.processEvents()
         modelo = train.trainer(reviews_dictionary, transformer='count_vect', algorithm=str(algoritmo))
-        progreso.setValue(rowCount+20)
+        progreso.setValue(rowCount + 20)
         QtGui.QGuiApplication.processEvents()
         QMessageBox.information(self, "Entrenamiento completado", "El entrenamiento se ha completado con éxito")
         self._window = v_resultados.MainWindow()
@@ -196,7 +196,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.close()
         self.parent.show()
 
-    def barra_progreso(self,maximo):
+    def barra_progreso(self, maximo):
         progress_dialog = QtWidgets.QProgressDialog("Entrenando con reviews", "Cancelar", 0, maximo)
         progress_bar = QtWidgets.QProgressBar(progress_dialog)
         progress_dialog.setBar(progress_bar)

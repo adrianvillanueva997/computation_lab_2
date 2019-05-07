@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -89,4 +90,3 @@ class Ui_MainWindow(object):
         self.label_nombremodelo.setText(_translate("MainWindow", "Nombre del modelo"))
         self.label_matrizconfusion.setText(_translate("MainWindow", "Matriz de confusión"))
         self.label_crossvalidation.setText(_translate("MainWindow", "Cross Validation"))
-

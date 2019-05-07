@@ -1,10 +1,10 @@
 from PyQt5 import QtCore, QtGui
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox, QFileDialog
 
+from Interfaces.Views.Ui_view_clasificar import Ui_MainWindow
 from Modules.Database import Project
 from Modules.ETL.Classify import Classify
-from Interfaces.Views.Ui_view_clasificar import Ui_MainWindow
-from PyQt5.QtWidgets import QMessageBox, QFileDialog
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -29,7 +29,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._model_id = None
         self._models = None
         self._dataframe = None
-        self._search_models=False
+        self._search_models = False
 
     def set_user(self, user):
         self._user = user
@@ -61,8 +61,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.comboBox_algoritmo.addItem("Seleccione un modelo")
         self.comboBox_algoritmo.addItems(models['model_name'])
         self._models = models
-        self._search_models=True
-
+        self._search_models = True
 
     def search_model(self):
         if self._search_models == True:
@@ -202,7 +201,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self, "Error", "Hay que especificar un modelo para clasificar")
             return
         rowCount = self.tableWidget_reviews_to_classify.rowCount()
-        progreso = self.barra_progreso(rowCount+20)
+        progreso = self.barra_progreso(rowCount + 20)
         progreso.setValue(0)
         unlabeled_reviews = {
             'reviews': [],
@@ -211,15 +210,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(rowCount):
             progreso.setValue(i)
             unlabeled_reviews['reviews'].append(self.tableWidget_reviews_to_classify.item(i, 4).text())
-            unlabeled_reviews['labels'].append(self.tableWidget_reviews_to_classify.item(i,1).text())
+            unlabeled_reviews['labels'].append(self.tableWidget_reviews_to_classify.item(i, 1).text())
             QtGui.QGuiApplication.processEvents()
         clf = Classify()
         dataframe = clf.classify(unlabeled_reviews, self._project_id, self._model_id)
-        progreso.setValue(rowCount+15)
+        progreso.setValue(rowCount + 15)
         QtGui.QGuiApplication.processEvents()
         for i in range(rowCount):
             self.tableWidget_reviews_to_classify.setItem(i, 2, QtWidgets.QTableWidgetItem(dataframe['labels'][i]))
-        progreso.setValue(rowCount+20)
+        progreso.setValue(rowCount + 20)
         QtGui.QGuiApplication.processEvents()
         self._dataframe = dataframe
         self.pushButton_guardar_resultados.setEnabled(True)
@@ -233,31 +232,28 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         progreso.setValue(0)
         for i in range(rowCount):
             progreso.setValue(i)
-            label = self.tableWidget_reviews_to_classify.item(i,2).text()
-            review_id = self.tableWidget_reviews_to_classify.item(i,0).text()
-            pr.update_review_label(label,review_id)
+            label = self.tableWidget_reviews_to_classify.item(i, 2).text()
+            review_id = self.tableWidget_reviews_to_classify.item(i, 0).text()
+            pr.update_review_label(label, review_id)
         self.tableWidget_reviews.setRowCount(0)
         self.load_reviews()
         QMessageBox.information(self, "Cambios guardados", "Los cambios se han guardado con éxito")
-
-
-
 
     def export_dataframe_to_csv(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getSaveFileName(self, "Selecciona ruta para guardar los resultados", "",
                                                   "Archivo CSV (*.csv);;All Files (*)", options=options)
-        fileName=fileName+".csv"
-        self._dataframe.to_csv(fileName,encoding="utf-8")
-        QMessageBox.information(self, "Resultados exportados", "Los resultados se han exportado a un fichero en:\n{}".format(fileName))
-
+        fileName = fileName + ".csv"
+        self._dataframe.to_csv(fileName, encoding="utf-8")
+        QMessageBox.information(self, "Resultados exportados",
+                                "Los resultados se han exportado a un fichero en:\n{}".format(fileName))
 
     def go_back(self):
         self.close()
         self.parent.show()
 
-    def barra_progreso(self,maximo):
+    def barra_progreso(self, maximo):
         progress_dialog = QtWidgets.QProgressDialog("Clasificando reviews", "Cancelar", 0, maximo)
         progress_bar = QtWidgets.QProgressBar(progress_dialog)
         progress_dialog.setBar(progress_bar)

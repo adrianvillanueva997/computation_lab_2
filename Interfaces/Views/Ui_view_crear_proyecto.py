@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -102,4 +103,3 @@ class Ui_MainWindow(object):
         self.label_nombreproyecto.setText(_translate("MainWindow", "Nombre del Proyecto"))
         self.pushButton_aceptar.setText(_translate("MainWindow", "Aceptar"))
         self.pushButton_cancelar.setText(_translate("MainWindow", "Cancelar"))
-

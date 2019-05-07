@@ -3,11 +3,11 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Modules.Database import Admin
 from Interfaces.Controllers import ctr_usuario_proyecto
 from Interfaces.Controllers import ctrl_modificar_usuario
 from Interfaces.Controllers import ctrl_registrar_usuario
 from Interfaces.Views.Ui_view_ventana_superusuario import Ui_MainWindow
+from Modules.Database import Admin
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -179,8 +179,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     for i in range(0, len(data2)):
                         rowPosition2 = self.tableWidget_Poryectos.rowCount()
                         self.tableWidget_Poryectos.insertRow(rowPosition2)
-                        self.tableWidget_Poryectos.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data2['username'][i]))
-                        self.tableWidget_Poryectos.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data2['name_project'][i]))
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 0,
+                                                           QtWidgets.QTableWidgetItem(data2['username'][i]))
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 1,
+                                                           QtWidgets.QTableWidgetItem(data2['name_project'][i]))
                         self.tableWidget_Poryectos.resizeColumnsToContents()
                 except Exception as np:
                     print(np)

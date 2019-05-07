@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -133,4 +134,3 @@ class Ui_MainWindow(object):
         item = self.tableWidget_Poryectos.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Proyecto"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Proyectos"))
-

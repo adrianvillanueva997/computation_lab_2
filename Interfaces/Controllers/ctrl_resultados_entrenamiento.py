@@ -1,10 +1,12 @@
+import os
+
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QMessageBox
 
 from Interfaces.Views.Ui_view_resultados_entrenamiento import Ui_MainWindow
 from Modules.Database import Project
 from Modules.ETL import Model_Exporter
-import os
+
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
@@ -19,7 +21,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_descartar.clicked.connect(self.descartar_modelo)
         self.pushButton_guardarModelo.clicked.connect(self.guardar_modelo)
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def set_project_id(self, project_id):
@@ -28,11 +30,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def set_parent(self, MainWindow):
         self.parent = MainWindow
 
-    def set_model(self,model):
-        self._model=model
+    def set_model(self, model):
+        self._model = model
 
-    def set_algoritmo(self,algoritmo):
-        self._algoritmo=algoritmo
+    def set_algoritmo(self, algoritmo):
+        self._algoritmo = algoritmo
 
     def cargar_graficos(self):
         self._model.generate_classification_model_statistics()
@@ -42,19 +44,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         pixmap_cfm = QtGui.QPixmap("matriz_confusion.png")
         self.label_matriz_place.setPixmap(pixmap_cfm)
         plt_cv = self._model.plot_sklearn_learning_curve(title="Curva de aprendizaje", X=self._model.get_x_train(),
-                                                    y=self._model.get_y_train())
+                                                         y=self._model.get_y_train())
         cross_validation = plt_cv.savefig("cross_validation.png")
         pixmap_cv = QtGui.QPixmap("cross_validation.png")
         self.label_cross_place.setPixmap(pixmap_cv)
-
-
 
     def guardar_modelo(self):
         progreso = self.barra_progreso(5)
         progreso.setValue(0)
         QtGui.QGuiApplication.processEvents()
         pr = Project.Project(self._user)
-        nombremodelo=self.lineEdit_nombremodelo.text()
+        nombremodelo = self.lineEdit_nombremodelo.text()
         progreso.setValue(1)
         QtGui.QGuiApplication.processEvents()
         if nombremodelo == "":
@@ -67,14 +67,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         exporter = Model_Exporter.Model_Exporter()
         progreso.setValue(3)
         QtGui.QGuiApplication.processEvents()
-        exporter.export_model(self._model,self._project_id,model_id)
+        exporter.export_model(self._model, self._project_id, model_id)
         progreso.setValue(5)
         QtGui.QGuiApplication.processEvents()
         QMessageBox.information(self, "Modelo guardado", "El modelo se ha guardado con éxito")
         self.close()
 
     def descartar_modelo(self):
-        self._model=None
+        self._model = None
         os.remove("matriz_confusion.png")
         os.remove("cross_validation.png")
         self.close()
@@ -90,5 +90,3 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         progress_dialog.show()
 
         return progress_dialog
-
-

@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Interfaces.Views.Ui_view_config_project import Ui_MainWindow
 import Interfaces.Controllers.ctrl_gestionar_etiquetas as v_etiquetas
+from Interfaces.Views.Ui_view_config_project import Ui_MainWindow
 from Modules.Database import Project
 
 
@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_GestionarEtiquetas.clicked.connect(self.show_labels_window)
         self.pushButton_generarInvitacion.clicked.connect(self.generate_invitation_code)
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def set_parent(self, MainWindow):

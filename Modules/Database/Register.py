@@ -73,5 +73,3 @@ class Register:
             return True
         else:
             return False
-
-

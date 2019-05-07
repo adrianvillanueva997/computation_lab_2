@@ -1,7 +1,7 @@
 import pandas as pd
 
-from Modules.ETL.Modules import Vectorizer
 from Modules.ETL.Modules import Models
+from Modules.ETL.Modules import Vectorizer
 
 
 class Train:

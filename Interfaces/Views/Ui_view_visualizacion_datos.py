@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -111,4 +112,3 @@ class Ui_MainWindow(object):
         self.pushButton_applyfilter.setText(_translate("MainWindow", "Aplicar filtro"))
         self.pushButton_cleanfilter.setText(_translate("MainWindow", "Limpiar filtro"))
         self.pushButton_back.setText(_translate("MainWindow", "Atrás"))
-

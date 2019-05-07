@@ -4,9 +4,9 @@ import re
 from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
+from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
 from Modules.Database import File_Uploader, Project
 from Modules.ETL.Modules import File_Manager
-from Interfaces.Views.Ui_view_load_files import Ui_MainWindow
 from Modules.Web_Scrapping import Amazon_Scrapper, Yelp_Scrapper, Filmaffinity_Scrapper
 from Modules.Web_Scrapping import Metacritic_Scrapper
 
@@ -78,8 +78,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QtGui.QGuiApplication.processEvents()
             fuploader.upload_reviews_to_db(file_data, file_names, label)
             QtGui.QGuiApplication.processEvents()
-        QMessageBox.information(self, "Subida de ficheros completada", "La subida de ficheros se ha completado con éxito")
-
+        QMessageBox.information(self, "Subida de ficheros completada",
+                                "La subida de ficheros se ha completado con éxito")
 
     def file_clear_table(self):
         self.file_tableWidget.setRowCount(0)
@@ -220,7 +220,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             fuploader.upload_single_review_to_db(name, label, text)
         QMessageBox.information(self, "Reviews subidas", "Las reviews han sido almacenadas en la base de datos")
 
-
     def set_project_id(self, project_id):
         self._project_ID = project_id
 
@@ -228,7 +227,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.close()
         self.parent.show()
 
-    def barra_progreso(self,maximo):
+    def barra_progreso(self, maximo):
         progress_dialog = QtWidgets.QProgressDialog("Subiendo reviews", "Cancelar", 0, maximo)
         progress_bar = QtWidgets.QProgressBar(progress_dialog)
         progress_dialog.setBar(progress_bar)

@@ -1,303 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>1193</width>
-    <height>714</height>
-   </rect>
-  </property>
-  <property name="font">
-   <font>
-    <pointsize>14</pointsize>
-   </font>
-  </property>
-  <property name="windowTitle">
-   <string>Clasificacion</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="7">
-     <widget class="QTableWidget" name="tableWidget_reviews_to_classify">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Etiqueta</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Etiqueta pred</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nombre Fichero</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Texto</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-    <item row="0" column="7">
-     <widget class="QComboBox" name="comboBox_algoritmo">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <item>
-       <property name="text">
-        <string>Selecciona modelo</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label_filtro">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Filtro</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_filtro">
-        <item>
-         <property name="text">
-          <string>contiene</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>no contiene</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>acaba en</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>no acaba en</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>coinciden minMAYUS</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>coincide exacto</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>empieza por</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_filtro"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_applyfilter">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Aplicar filtro</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_cleanfilter">
-        <property name="text">
-         <string>Limpiar filtro</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="7">
-     <widget class="QPushButton" name="pushButton_Clasificar">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Clasificar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="8">
-     <widget class="QWidget" name="widget_resultados" native="true"/>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="pushButton_back">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Atrás</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QPushButton" name="pushButton_add">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Añadir</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_addall">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Añadir todas</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_remove">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Eliminar</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_removeall">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Eliminar todas</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="1" column="0" rowspan="2">
-     <widget class="QTableWidget" name="tableWidget_reviews">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Etiqueta</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nombre Fichero</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Texto</string>
-       </property>
-      </column>
-     </widget>
-    </item>
-    <item row="3" column="7">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QPushButton" name="pushButton_toCSV">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Exportar a CSV</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_guardar_resultados">
-        <property name="enabled">
-         <bool>false</bool>
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>1193</width>
+                <height>714</height>
+            </rect>
         </property>
         <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-         </font>
+            <font>
+                <pointsize>14</pointsize>
+            </font>
         </property>
-        <property name="text">
-         <string>Guardar resultados</string>
+        <property name="windowTitle">
+            <string>Clasificacion</string>
         </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+        <widget class="QWidget" name="centralwidget">
+            <layout class="QGridLayout" name="gridLayout">
+                <item row="1" column="7">
+                    <widget class="QTableWidget" name="tableWidget_reviews_to_classify">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="editTriggers">
+                            <set>QAbstractItemView::NoEditTriggers</set>
+                        </property>
+                        <property name="selectionBehavior">
+                            <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                        <column>
+                            <property name="text">
+                                <string>ID</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Etiqueta</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Etiqueta pred</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Nombre Fichero</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Texto</string>
+                            </property>
+                        </column>
+                    </widget>
+                </item>
+                <item row="0" column="7">
+                    <widget class="QComboBox" name="comboBox_algoritmo">
+                        <property name="enabled">
+                            <bool>true</bool>
+                        </property>
+                        <item>
+                            <property name="text">
+                                <string>Selecciona modelo</string>
+                            </property>
+                        </item>
+                    </widget>
+                </item>
+                <item row="0" column="0">
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                        <item>
+                            <widget class="QLabel" name="label_filtro">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Filtro</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QComboBox" name="comboBox_filtro">
+                                <item>
+                                    <property name="text">
+                                        <string>contiene</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>no contiene</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>acaba en</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>no acaba en</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>coinciden minMAYUS</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>coincide exacto</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>empieza por</string>
+                                    </property>
+                                </item>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QLineEdit" name="lineEdit_filtro"/>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_applyfilter">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Aplicar filtro</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_cleanfilter">
+                                <property name="text">
+                                    <string>Limpiar filtro</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+                <item row="2" column="7">
+                    <widget class="QPushButton" name="pushButton_Clasificar">
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Clasificar</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="1" column="8">
+                    <widget class="QWidget" name="widget_resultados" native="true"/>
+                </item>
+                <item row="3" column="0">
+                    <widget class="QPushButton" name="pushButton_back">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Atrás</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="1" column="1">
+                    <layout class="QVBoxLayout" name="verticalLayout">
+                        <item>
+                            <widget class="QPushButton" name="pushButton_add">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Añadir</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_addall">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Añadir todas</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_remove">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Eliminar</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_removeall">
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Eliminar todas</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+                <item row="1" column="0" rowspan="2">
+                    <widget class="QTableWidget" name="tableWidget_reviews">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="editTriggers">
+                            <set>QAbstractItemView::NoEditTriggers</set>
+                        </property>
+                        <property name="selectionBehavior">
+                            <enum>QAbstractItemView::SelectRows</enum>
+                        </property>
+                        <column>
+                            <property name="text">
+                                <string>ID</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Etiqueta</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Nombre Fichero</string>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>Texto</string>
+                            </property>
+                        </column>
+                    </widget>
+                </item>
+                <item row="3" column="7">
+                    <layout class="QHBoxLayout" name="horizontalLayout_2">
+                        <item>
+                            <widget class="QPushButton" name="pushButton_toCSV">
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="text">
+                                    <string>Exportar a CSV</string>
+                                </property>
+                            </widget>
+                        </item>
+                        <item>
+                            <widget class="QPushButton" name="pushButton_guardar_resultados">
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="font">
+                                    <font>
+                                        <pointsize>14</pointsize>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Guardar resultados</string>
+                                </property>
+                            </widget>
+                        </item>
+                    </layout>
+                </item>
+            </layout>
+        </widget>
+    </widget>
+    <resources/>
+    <connections/>
 </ui>
