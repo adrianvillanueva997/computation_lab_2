@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'd:\Proyecto Computacion 2\computation-lab-2\Interfaces\UI\view_ventana_superusuario.ui'
+# Form implementation generated from reading ui file 'view_ventana_superusuario.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -37,7 +36,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tableWidget.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(4)
         self.tableWidget.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -47,8 +46,6 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
-        item = QtWidgets.QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, item)
         self.gridLayout_5.addWidget(self.tableWidget, 2, 1, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_5.addItem(spacerItem1, 2, 0, 1, 1)
@@ -115,14 +112,12 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Panel de administracion de usuarios"))
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "ID"))
-        item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Nombre"))
-        item = self.tableWidget.horizontalHeaderItem(2)
+        item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Email"))
-        item = self.tableWidget.horizontalHeaderItem(3)
+        item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Role"))
-        item = self.tableWidget.horizontalHeaderItem(4)
+        item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "Actividad"))
         self.pushButton_Registrar_usuario.setText(_translate("MainWindow", "Registrar usuario"))
         self.pushButton_Eliminar_usuario.setText(_translate("MainWindow", "Eliminar/Activar usuario"))
@@ -134,3 +129,14 @@ class Ui_MainWindow(object):
         item = self.tableWidget_Poryectos.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Proyecto"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Proyectos"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+

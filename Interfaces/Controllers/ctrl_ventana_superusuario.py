@@ -158,18 +158,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
                     self.tableWidget.insertRow(rowPosition)
-                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
-                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
-                    self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
+                    #self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['username'][i]))
+                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
+                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('user'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
+                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('admin'))
                     # self.tableWidget.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(results['role'][i]))
                     if results['Actividad'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Activo'))
                     self.tableWidget.resizeColumnsToContents()
                 data2 = admin.get_users_with_projects()
                 print(data2['username'])
