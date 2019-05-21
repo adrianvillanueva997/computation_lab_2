@@ -51,7 +51,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                                            QMessageBox.Ok)
             else:
                 self._main_window = ctrl_modificar_usuario.MainWindow()
-                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[4].text())
                 self._main_window.set_parent(self)
                 self._main_window.show()
         except IndexError:
@@ -158,7 +158,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
                     self.tableWidget.insertRow(rowPosition)
-                    #self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(results['id'][i]))
                     self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['username'][i]))
                     self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
