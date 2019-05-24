@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Modules.Database import config as cfg, Encryption, Utilities
-
+import re
 
 class Register:
     def __init__(self, username, password, email):
@@ -21,6 +21,14 @@ class Register:
         self.__username = ut.scrape_text_for_sql(self.__username)
         self.__email = ut.scrape_text_for_sql(self.__email)
         self.__password = ut.scrape_text_for_sql(self.__password)
+
+    def __check_password(self,password):
+        if re.match(r'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})', password):
+            return True
+        else:
+            return False
+
+
 
     def __check_email(self):
         """
