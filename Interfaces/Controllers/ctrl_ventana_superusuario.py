@@ -18,7 +18,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_Registrar_usuario.clicked.connect(self.registrar_usuario)
         self.pushButton_Eliminar_usuario.clicked.connect(self.btn_Eliminar_clicked)
         self.pushButton_Atras.clicked.connect(self.go_back)
-
         self._main_window = None
         self.parent = None
 
@@ -45,16 +44,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
         try:
-            if self.tableWidget.selectedItems()[0].text() is None:
+            print("INTENTANDO MODIFICAR USUARIO")
+            self.tableWidget.setColumnHidden(0, False)
+            id_user=self.tableWidget.selectedItems()[0].text()
+            self.tableWidget.setColumnHidden(0, True)
+            if id_user is None:
                 ret = QMessageBox.question(self, 'Advertencia!',
                                            "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR",
                                            QMessageBox.Ok)
             else:
                 self._main_window = ctrl_modificar_usuario.MainWindow()
-                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[4].text())
+                self.tableWidget.setColumnHidden(0, False)
+                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+                self.tableWidget.setColumnHidden(0, True)
                 self._main_window.set_parent(self)
                 self._main_window.show()
         except IndexError:
+            self.tableWidget.setColumnHidden(0, True)
             ret = QMessageBox.question(self, 'Advertencia!',
                                        "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR", QMessageBox.Ok)
         except Exception as e:
@@ -84,7 +90,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 if self.tableWidget.selectedItems()[4].text() == 'Inactivo':
                     try:
                         admin.activar_user(self.tableWidget.selectedItems()[0].text())
-                        self.tableWidget.selectedItems()[4].setText('Actvo')
+                        self.tableWidget.selectedItems()[4].setText('Activo')
                     except IndexError:
                         ret = QMessageBox.question(self, 'Advertencia!',
                                                    "TIENE QUE SELECCIONAR EL ID DEL USUARIO QUE DESEA MODIFICAR",
@@ -150,26 +156,26 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
         try:
-            print("HOLA")
             admin = Admin.Admin()
             results = admin.get_users()
             print(results)
+            self.tableWidget.setColumnHidden(0,True);
             try:
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
                     self.tableWidget.insertRow(rowPosition)
-                    self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(results['id'][i]))
-                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['username'][i]))
-                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['email'][i]))
+                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
+                    self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('user'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('admin'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
                     # self.tableWidget.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(results['role'][i]))
                     if results['Actividad'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Inactivo'))
+                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Activo'))
+                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
                     self.tableWidget.resizeColumnsToContents()
                 data2 = admin.get_users_with_projects()
                 print(data2['username'])
