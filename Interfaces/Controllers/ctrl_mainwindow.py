@@ -1,10 +1,10 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-import Interfaces.Controllers.ctrl_project_menu as v_project_menu
-from Modules.Database import Project
-from Interfaces.Views.Ui_view_ventana_principal import Ui_MainWindow
 import Interfaces.Controllers.ctrl_crear_proyecto as v_crear_proyecto
+import Interfaces.Controllers.ctrl_project_menu as v_project_menu
+from Interfaces.Views.Ui_view_ventana_principal import Ui_MainWindow
+from Modules.Database import Project
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -38,7 +38,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def set_parent(self, MainWindow):
         self.parent = MainWindow
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def go_back(self):
@@ -46,11 +46,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.parent.show()
 
     def crear_proyecto(self):
-        self._window=v_crear_proyecto.MainWindow()
+        self._window = v_crear_proyecto.MainWindow()
         self._window.set_parent(self)
         self._window.set_user(self._user)
         self._window.show()
-
 
     def load_projects(self):
         pj = Project.Project(self._user)
@@ -65,9 +64,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.table_proyectos.resizeColumnsToContents()
 
     def add_project_with_invitation(self):
-        codigoinvitacion,ok=QtWidgets.QInputDialog.getText(self, 'Añadir proyecto con código', 'Introduce el código de invitación')
+        codigoinvitacion, ok = QtWidgets.QInputDialog.getText(self, 'Añadir proyecto con código',
+                                                              'Introduce el código de invitación')
         pr = Project.Project(self._user)
-        results=pr.add_project_from_invitation(codigoinvitacion)
+        results = pr.add_project_from_invitation(codigoinvitacion)
         if results.rowcount == 0:
             QMessageBox.critical(
                 self, "Error", "El código de invitación no pertenece a ningún proyecto")

@@ -1,13 +1,12 @@
 from PyQt5 import QtWidgets
 
+import Interfaces.Controllers.ctrl_analisis_sentimiento as v_analize
 import Interfaces.Controllers.ctrl_clasificar as v_classify
 import Interfaces.Controllers.ctrl_config_project as v_config_project
 import Interfaces.Controllers.ctrl_load_files as v_load_files
 import Interfaces.Controllers.ctrl_train as v_train
-import Interfaces.Controllers.ctrl_clasificar as v_classify
-import Interfaces.Controllers.ctrl_analisis_sentimiento as v_analize
-from Interfaces.Views.Ui_view_menu_seleccion import Ui_MainWindow
 import Interfaces.Controllers.ctrl_visualizacion_datos as v_visualizacion
+from Interfaces.Views.Ui_view_menu_seleccion import Ui_MainWindow
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):

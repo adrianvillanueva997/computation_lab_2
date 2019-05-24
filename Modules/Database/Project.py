@@ -62,12 +62,11 @@ class Project:
                 print(e)
         return code
 
-
-    def add_project_from_invitation(self,invitation_code):
+    def add_project_from_invitation(self, invitation_code):
         with cfg.engine.connect() as con:
             try:
                 query = text('SELECT * FROM proyecto_computacion.project where ID_invitation = :_invitation_code')
-                results=con.execute(query,_invitation_code=invitation_code)
+                results = con.execute(query, _invitation_code=invitation_code)
 
                 id_project = None
                 for result in results:
@@ -84,7 +83,6 @@ class Project:
                 return results
             except Exception as e:
                 print(e)
-
 
     def load_user_projects(self):
         """
@@ -141,7 +139,7 @@ class Project:
         except Exception as e:
             print(e)
 
-    def update_sentiments_database(self,review_id,polarity,subjectivity,compound):
+    def update_sentiments_database(self, review_id, polarity, subjectivity, compound):
 
         try:
             with cfg.engine.connect() as con:
@@ -153,17 +151,15 @@ class Project:
         except Exception as e:
             print(e)
 
-
-    def update_review_label(self,label,id):
+    def update_review_label(self, label, id):
 
         try:
             with cfg.engine.connect() as con:
                 query = text('UPDATE proyecto_computacion.review SET label=:_label WHERE ID_review=:_review_id')
-                con.execute(query, _label=str(label),_review_id=int(id))
+                con.execute(query, _label=str(label), _review_id=int(id))
 
         except Exception as e:
             print(e)
-
 
     def update_sentiments(self, project_id):
         """
@@ -556,5 +552,3 @@ class Project:
                 return results.lastrowid
         except Exception as e:
             print(e)
-
-

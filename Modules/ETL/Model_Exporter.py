@@ -33,5 +33,3 @@ class Model_Exporter:
         request_manager = RequestManager()
         response = request_manager.upload_file(project_id, model_id, file_content)
         print(response)
-
-

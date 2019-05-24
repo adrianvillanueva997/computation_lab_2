@@ -1,132 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>600</height>
-   </rect>
-  </property>
-  <property name="font">
-   <font>
-    <pointsize>14</pointsize>
-   </font>
-  </property>
-  <property name="windowTitle">
-   <string>Resultados entrenamiento</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="4" column="1">
-     <widget class="QPushButton" name="pushButton_descartar">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Descartar</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="pushButton_guardarModelo">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Guardar Modelo</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_matriz_place">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Matriz_place</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="label_cross_place">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Cross_place</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_nombremodelo">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Nombre del modelo</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="label_matrizconfusion">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Matriz de confusión</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label_crossvalidation">
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Cross Validation</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="lineEdit_nombremodelo"/>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar">
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-  </widget>
- </widget>
- <resources/>
- <connections/>
+    <class>MainWindow</class>
+    <widget class="QMainWindow" name="MainWindow">
+        <property name="geometry">
+            <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>800</width>
+                <height>600</height>
+            </rect>
+        </property>
+        <property name="font">
+            <font>
+                <pointsize>14</pointsize>
+            </font>
+        </property>
+        <property name="windowTitle">
+            <string>Resultados entrenamiento</string>
+        </property>
+        <widget class="QWidget" name="centralwidget">
+            <layout class="QGridLayout" name="gridLayout">
+                <item row="4" column="1">
+                    <widget class="QPushButton" name="pushButton_descartar">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Descartar</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="4" column="0">
+                    <widget class="QPushButton" name="pushButton_guardarModelo">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Guardar Modelo</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="1" column="0">
+                    <widget class="QLabel" name="label_matriz_place">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Matriz_place</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="1" column="1">
+                    <widget class="QLabel" name="label_cross_place">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Cross_place</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="3" column="0">
+                    <widget class="QLabel" name="label_nombremodelo">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Nombre del modelo</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="0" column="0">
+                    <widget class="QLabel" name="label_matrizconfusion">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Matriz de confusión</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="0" column="1">
+                    <widget class="QLabel" name="label_crossvalidation">
+                        <property name="font">
+                            <font>
+                                <pointsize>14</pointsize>
+                            </font>
+                        </property>
+                        <property name="text">
+                            <string>Cross Validation</string>
+                        </property>
+                    </widget>
+                </item>
+                <item row="3" column="1">
+                    <widget class="QLineEdit" name="lineEdit_nombremodelo"/>
+                </item>
+            </layout>
+        </widget>
+        <widget class="QMenuBar" name="menubar">
+            <property name="geometry">
+                <rect>
+                    <x>0</x>
+                    <y>0</y>
+                    <width>800</width>
+                    <height>21</height>
+                </rect>
+            </property>
+        </widget>
+        <widget class="QStatusBar" name="statusbar">
+            <property name="font">
+                <font>
+                    <pointsize>14</pointsize>
+                </font>
+            </property>
+        </widget>
+    </widget>
+    <resources/>
+    <connections/>
 </ui>

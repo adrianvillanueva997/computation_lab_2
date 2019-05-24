@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Modules.Database import Project
 from Interfaces.Views.Ui_view_gestionar_etiquetas import Ui_MainWindow
+from Modules.Database import Project
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.pushButton_cerrar.clicked.connect(self.go_back)
         self.pushButton_eliminar_etiqueta.clicked.connect(self.remove_label_from_table)
 
-    def set_user(self,user):
+    def set_user(self, user):
         self._user = user
 
     def set_project_id(self, project_id):
@@ -33,18 +33,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for label in labels:
             rowCount = self.tableWidget.rowCount()
             self.tableWidget.insertRow(rowCount)
-            self.tableWidget.setItem(rowCount,0,QtWidgets.QTableWidgetItem(label))
+            self.tableWidget.setItem(rowCount, 0, QtWidgets.QTableWidgetItem(label))
 
     def add_label_to_table(self):
-        label=self.lineEdit_nuevaetiqueta.text()
+        label = self.lineEdit_nuevaetiqueta.text()
         if label == "":
             QMessageBox.critical(
                 self, "Error", "El nombre de la etiqueta no puede estar vacío")
             return
 
-        rowCount=self.tableWidget.rowCount()
+        rowCount = self.tableWidget.rowCount()
         self.tableWidget.insertRow(rowCount)
-        self.tableWidget.setItem(rowCount,0,QtWidgets.QTableWidgetItem(label))
+        self.tableWidget.setItem(rowCount, 0, QtWidgets.QTableWidgetItem(label))
         self.tableWidget.resizeColumnsToContents()
         self.lineEdit_nuevaetiqueta.setText("")
         self.pushButton_guardar_cambios.setEnabled(True)
@@ -65,7 +65,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in range(rowCount):
             labels.append(self.tableWidget.item(i, 0).text())
         pr.add_labels_to_project(labels, self._project_id)
-
 
     def go_back(self):
         self.close()

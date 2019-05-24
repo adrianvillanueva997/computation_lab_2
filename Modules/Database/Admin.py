@@ -175,7 +175,7 @@ class Admin:
         :return:
         """
         try:
-            #query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
+            # query = f'SELECT * FROM proyecto_computacion.user where user_name = \"{name}\" LIMIT 1'
             query = text('SELECT * FROM proyecto_computacion.user'
                          ' WHERE user_name = :_nombre LIMIT 1')
             data = {
@@ -187,7 +187,7 @@ class Admin:
             with cfg.engine.connect() as con:
                 try:
 
-                    results=con.execute(query, _nombre=name)
+                    results = con.execute(query, _nombre=name)
                     for result in results:
                         data['ID_user'].append(str(result['ID_user']))
                         data['username'].append(result['user_name'])

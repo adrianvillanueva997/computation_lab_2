@@ -1,6 +1,10 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
-ip = '51.15.59.15/proyecto_computacion?charset=utf8mb4'
-username = 'proy_comp'
-password = 'teoguapo'
+load_dotenv(verbose=True)
+ip = os.getenv('IP')
+username = os.getenv('USERNAME')
+password = os.getenv('PASSWORD')
 engine = create_engine(f"mysql+mysqldb://{username}:{password}@{ip}", encoding='utf-8')

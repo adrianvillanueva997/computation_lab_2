@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -195,4 +196,3 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Texto"))
         self.pushButton_toCSV.setText(_translate("MainWindow", "Exportar a CSV"))
         self.pushButton_guardar_resultados.setText(_translate("MainWindow", "Guardar resultados"))
-

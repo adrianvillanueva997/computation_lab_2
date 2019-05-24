@@ -3,11 +3,11 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 
-from Modules.Database import Admin
 from Interfaces.Controllers import ctr_usuario_proyecto
 from Interfaces.Controllers import ctrl_modificar_usuario
 from Interfaces.Controllers import ctrl_registrar_usuario
 from Interfaces.Views.Ui_view_ventana_superusuario import Ui_MainWindow
+from Modules.Database import Admin
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -51,7 +51,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                                            QMessageBox.Ok)
             else:
                 self._main_window = ctrl_modificar_usuario.MainWindow()
-                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[0].text())
+                self._main_window.modificar_lineas(self.tableWidget.selectedItems()[4].text())
                 self._main_window.set_parent(self)
                 self._main_window.show()
         except IndexError:
@@ -158,18 +158,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 for i in range(0, len(results['username'])):
                     rowPosition = self.tableWidget.rowCount()
                     self.tableWidget.insertRow(rowPosition)
-                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['id'][i]))
-                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['username'][i]))
-                    self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(results['email'][i]))
+                    self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem(results['id'][i]))
+                    self.tableWidget.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(results['username'][i]))
+                    self.tableWidget.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(results['email'][i]))
                     if results['role'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('user'))
+                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('user'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('admin'))
+                        self.tableWidget.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem('admin'))
                     # self.tableWidget.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(results['role'][i]))
                     if results['Actividad'][i] == str(0):
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Inactivo'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Inactivo'))
                     else:
-                        self.tableWidget.setItem(rowPosition, 4, QtWidgets.QTableWidgetItem('Activo'))
+                        self.tableWidget.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem('Activo'))
                     self.tableWidget.resizeColumnsToContents()
                 data2 = admin.get_users_with_projects()
                 print(data2['username'])
@@ -179,8 +179,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     for i in range(0, len(data2)):
                         rowPosition2 = self.tableWidget_Poryectos.rowCount()
                         self.tableWidget_Poryectos.insertRow(rowPosition2)
-                        self.tableWidget_Poryectos.setItem(rowPosition2, 0, QtWidgets.QTableWidgetItem(data2['username'][i]))
-                        self.tableWidget_Poryectos.setItem(rowPosition2, 1, QtWidgets.QTableWidgetItem(data2['name_project'][i]))
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 0,
+                                                           QtWidgets.QTableWidgetItem(data2['username'][i]))
+                        self.tableWidget_Poryectos.setItem(rowPosition2, 1,
+                                                           QtWidgets.QTableWidgetItem(data2['name_project'][i]))
                         self.tableWidget_Poryectos.resizeColumnsToContents()
                 except Exception as np:
                     print(np)

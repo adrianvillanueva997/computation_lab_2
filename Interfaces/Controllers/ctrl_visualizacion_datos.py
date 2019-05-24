@@ -1,8 +1,8 @@
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 
-from Modules.Database import Project
 from Interfaces.Views.Ui_view_visualizacion_datos import Ui_MainWindow
+from Modules.Database import Project
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -19,7 +19,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self._model_id = None
         self._models = None
         self._dataframe = None
-        self._search_models=False
+        self._search_models = False
 
     def set_user(self, user):
         self._user = user
@@ -41,17 +41,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.tableWidget_reviews.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(reviews['label'][i]))
             self.tableWidget_reviews.setItem(rowPosition, 2, QtWidgets.QTableWidgetItem(reviews['file_name'][i]))
             sentimiento = self.pred_sentiment(reviews['sentiment_pol'][i])
-            self.tableWidget_reviews.setItem(rowPosition,3,QtWidgets.QTableWidgetItem(sentimiento))
-            self.tableWidget_reviews.setItem(rowPosition,4,QtWidgets.QTableWidgetItem(str(reviews['sentiment_pol'][i])))
-            self.tableWidget_reviews.setItem(rowPosition,5,QtWidgets.QTableWidgetItem(str(reviews['sentiment_sub'][i])))
-            self.tableWidget_reviews.setItem(rowPosition,6,QtWidgets.QTableWidgetItem(str(reviews['sentiment_comp'][i])))
+            self.tableWidget_reviews.setItem(rowPosition, 3, QtWidgets.QTableWidgetItem(sentimiento))
+            self.tableWidget_reviews.setItem(rowPosition, 4,
+                                             QtWidgets.QTableWidgetItem(str(reviews['sentiment_pol'][i])))
+            self.tableWidget_reviews.setItem(rowPosition, 5,
+                                             QtWidgets.QTableWidgetItem(str(reviews['sentiment_sub'][i])))
+            self.tableWidget_reviews.setItem(rowPosition, 6,
+                                             QtWidgets.QTableWidgetItem(str(reviews['sentiment_comp'][i])))
             self.tableWidget_reviews.setItem(rowPosition, 7, QtWidgets.QTableWidgetItem(reviews['text'][i]))
         self.tableWidget_reviews.resizeColumnsToContents()
 
-
     def filter_table(self):
         _filter = self.lineEdit_filtro.text()
-        filtroseleccionado=self.comboBox_filtro.currentText()
+        filtroseleccionado = self.comboBox_filtro.currentText()
         if filtroseleccionado == "contiene":
             items = self.tableWidget_reviews.findItems(_filter, QtCore.Qt.MatchContains)
             for i in range(0, self.tableWidget_reviews.rowCount()):
@@ -101,20 +103,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def clean_filter(self):
         rowCount = self.tableWidget_reviews.rowCount()
         for i in range(rowCount):
-            self.tableWidget_reviews.setRowHidden(i,False)
-
+            self.tableWidget_reviews.setRowHidden(i, False)
 
     def go_back(self):
         self.close()
         self.parent.show()
 
-    def pred_sentiment(self,sentimiento):
+    def pred_sentiment(self, sentimiento):
         if sentimiento:
             print(sentimiento)
             polaridad = float(sentimiento)
             if polaridad > 0.05:
                 return "Positivo"
-            elif polaridad <-0.05:
+            elif polaridad < -0.05:
                 return "Negativo"
             else:
                 return "Neutral"

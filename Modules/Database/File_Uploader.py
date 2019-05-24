@@ -1,7 +1,6 @@
 from sqlalchemy.sql import text
 
-from Modules.Database import config as cfg, Utilities
-
+from Modules.Database import Utilities
 from Modules.Database import config as cfg
 
 
