@@ -2,9 +2,11 @@ import re
 
 import requests
 from bs4 import BeautifulSoup
+import abc
+from Modules.Web_Scrapping.Scrapper import Scrapper
 
 
-class Metacritic_Scrapper:
+class Metacritic_Scrapper(Scrapper):
     def __init__(self):
         pass
 

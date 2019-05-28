@@ -2,9 +2,10 @@ import re
 
 import requests
 from bs4 import BeautifulSoup
+from Modules.Web_Scrapping.Scrapper import Scrapper
 
 
-class Filmaffinity:
+class Filmaffinity(Scrapper):
     def __init__(self):
         pass
 
